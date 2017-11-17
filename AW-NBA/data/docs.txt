@@ -6,3 +6,9 @@ https://www.asociacionaepi.es/como-usar-maven-en-una-aplicacion-web/
 
 Documentacion Mixta
 http://chuwiki.chuidiang.org/index.php?title=Proyecto_maven_con_hibernate
+
+Java Server Faces (helloworld example)
+http://www.mkyong.com/jsf2/jsf-2-0-hello-world-example/
+
+Vaadin 
+https://demo.vaadin.com/sampler/#addons/vaadin-charts/threed/three-d-scatter
