@@ -1,0 +1,8 @@
+Documentación Hibernate
+http://cursohibernate.es/doku.php?id=unidades:02_hibernate:02_entidad#anotaciones
+
+Documentación Maven
+https://www.asociacionaepi.es/como-usar-maven-en-una-aplicacion-web/
+
+Documentacion Mixta
+http://chuwiki.chuidiang.org/index.php?title=Proyecto_maven_con_hibernate
