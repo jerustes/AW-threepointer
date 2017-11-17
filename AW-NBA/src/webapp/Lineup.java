@@ -1,12 +1,21 @@
 package webapp;
 import java.util.List;
+import java.io.Serializable;
+import javax.persistence.*;
 
+@Entity
+@Table(name="Plantilla")
 public class Lineup {
-
+	@Id
+	@Column(name = "id")
 	private int id;
+	@Column(name = "liga")
 	private int league;
+	@Column(name = "usuario")
 	private int user;
+	@Column(name = "saldo")
 	private long salary;	//125000 max
+	
 	private List<Player> teamLineup;
 	private int points;
 	public int getId() {
