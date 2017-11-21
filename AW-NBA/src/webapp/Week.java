@@ -13,7 +13,7 @@ public class Week {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Date getNewDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
 	public void setStartDate(Date startDate) {
