@@ -27,13 +27,13 @@ public class Login extends HttpServlet {
       		}                    
         if(checkuser)
         {
-            out.println("AutenticaciÃ³n correcta.");
+            out.println("Autenticación correcta.");
             RequestDispatcher rd = request.getRequestDispatcher("/** VISTA PRINCIPAL **/");
             rd.forward(request, response);
         }
         else
         {
-           out.println("Usuario o contraseÃ±a incorrectas.");
+           out.println("Usuario o contraseña incorrectas.");
            RequestDispatcher rd = request.getRequestDispatcher("index.html");
            rd.forward(request, response);
         }
