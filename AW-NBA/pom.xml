@@ -38,6 +38,12 @@
     <artifactId>tomcat-servlet-api</artifactId>
     <version>9.0.1</version>
 </dependency>
+<!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-catalina -->
+<dependency>
+    <groupId>org.apache.tomcat</groupId>
+    <artifactId>tomcat-catalina</artifactId>
+    <version>9.0.1</version>
+</dependency>
 <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
   <dependency>
    <groupId> org.hibernate</groupId>
