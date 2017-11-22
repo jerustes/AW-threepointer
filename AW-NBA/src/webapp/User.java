@@ -1,15 +1,35 @@
 package webapp;
-public class User {
-	private char role;
-	private String email;
-	private String password; //String rly?
-	private int id;
 
-	public char getRole() {
+import javax.persistence.*;
+
+@Entity
+@Table(name="Usuario")
+public class User {
+	private enum Role { admin, jugador }
+	@Id
+	@Column(name = "id")
+	private int id;
+	@Column(name = "name")
+	private String name;
+	@Column(name = "rol")
+	private Role role;
+	@Column(name = "mail")
+	private String email;
+	@Column(name = "contrasena")
+	private String password; //String rly?
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Role getRole() {
 		return role;
 	}
 
-	public void setRole(char role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
 
@@ -38,6 +58,6 @@ public class User {
 	}
 
 	public String toString() {
-		return "[" + role + "]" + " " + email + " (" + id + ")";
+		return "[" + role + "]" + " " + name + ", " + email + " (" + id + ")";
 	}
 }

@@ -1,10 +1,17 @@
 package webapp;
 import java.util.Date;
 
-public class Week {
+import javax.persistence.*;
 
+@Entity
+@Table(name="Liga")
+public class Week {
+	@Id
+	@Column(name = "id")
 	private int id;
+	@Column(name = "fecha_inicio")
 	private Date startDate;
+	@Column(name = "fecha_fin")
 	private Date endDate;
 	
 	public int getId() {
