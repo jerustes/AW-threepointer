@@ -1,31 +1,23 @@
 package webapp;
 
-import java.sql.*;
+import java.util.List;
 
+import javax.servlet.http.HttpSession;
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+@SuppressWarnings("deprecation")
 public class Validate {
-     public static boolean checkUser(String email,String pass) {
+	@SuppressWarnings("unused")
+	public static boolean checkUser(String email,String pass, HttpSession session) {
       boolean st =false;
       try{
-    	  SessionFactory sessionFactory=HibernateUtil.getSessionFactory();
-    	  try{
-    	  Session session=sessionFactory.openSession();
-    	  Connection conn=session.connection();
-    	  String sql="SELECT * FROM student WHERE roll_no=?";
-    	  PreparedStatement statement=conn.prepareStatement(sql);
-    	  statement.setInt(1, 3);
-    	  ResultSet rs=statement.executeQuery();
-    	  System.out.println("RollNo.\t Name\tCourse");
-    	  while(rs.next()){
-    	  System.out.print(rs.getString(1));
-    	  System.out.print("\t"+rs.getString(2));
-    	  System.out.print("\t"+rs.getString(3)); 
-    	 Query ps = ((Session) session).createSQLQuery("SELECT * FROM User WHERE mail = ? AND contrasena = ?");
-         ps.setString(1, email);
-         ps.setString(2, pass);
-         ps.list();
-        
-      }catch(Exception e)
-      {
+    	 Query<?> ps = ((Session) session).createQuery("SELECT mail, contrasena FROM User WHERE mail =:mail AND contrasena =:pwd");
+         ps.setString("mail", email);
+         ps.setString("pwd", pass);
+         List<?> list = ps.list();
+         st = true;
+      }  catch(Exception e)  {
           e.printStackTrace();
       }
          return st;                 

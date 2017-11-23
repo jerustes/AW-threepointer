@@ -1,11 +1,13 @@
 package webapp;
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.*;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name="Liga")
-public class Week {
+public class Week implements Serializable {
 	@Id
 	@Column(name = "id")
 	private int id;

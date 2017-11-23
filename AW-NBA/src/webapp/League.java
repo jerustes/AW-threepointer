@@ -3,6 +3,7 @@ package webapp;
 import java.io.Serializable;
 import javax.persistence.*;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name="Liga")
 public class League implements Serializable {

@@ -1,16 +1,16 @@
 package webapp;
 
-import java.io.*;
-import javax.persistence.EntityTransaction;
-import javax.servlet.*;
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
-import java.sql.*;
-import java.util.List;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import webapp.*;
-import org.hibernate.*;
-
+@SuppressWarnings("serial")
 @WebServlet("/login")
 public class Login extends HttpServlet {
  
@@ -22,7 +22,7 @@ public class Login extends HttpServlet {
         String email = (String) session.getAttribute("email");
         String pass = (String) session.getAttribute("contrasena");
                            
-        if(Validate.checkUser(email,pass))   {
+        if(Validate.checkUser(email,pass,session))   {
             out.println("Autenticación correcta.");
             RequestDispatcher rd = request.getRequestDispatcher("/** VISTA PRINCIPAL **/");
             rd.forward(request, response);

@@ -1,10 +1,12 @@
 package webapp;
 
+import java.io.Serializable;
 import javax.persistence.*;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name="Usuario")
-public class User {
+public class User implements Serializable {
 	private enum Role { admin, jugador }
 	@Id
 	@Column(name = "id")
@@ -25,6 +27,7 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
+	@Enumerated(EnumType.STRING)
 	public Role getRole() {
 		return role;
 	}

@@ -1,11 +1,16 @@
 package webapp;
-import java.util.List;
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@SuppressWarnings("serial")
 @Entity
 @Table(name="Plantilla")
-public class Lineup {
+public class Lineup implements Serializable {
 	@Id
 	@Column(name = "id")
 	private int id;
