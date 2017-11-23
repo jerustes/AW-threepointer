@@ -18,7 +18,7 @@ import org.hibernate.query.Query;
 public class Login extends HttpServlet {
  
 	@SuppressWarnings({ "rawtypes", "deprecation" })
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
@@ -36,12 +36,10 @@ public class Login extends HttpServlet {
         if (pass==clave && email==correo) {
         	if(rol=="jugador") {
         		out.println("Usuario con rol de jugador entrando en la vista principal.");
-        		RequestDispatcher rd = request.getRequestDispatcher("jugador.jsp");
-        		rd.forward(request, response);
+        		response.sendRedirect("jugador.jsp");
         	} else if(rol=="admin") {
         		out.println("Usuario con rol de admin entrando en la vista de administrador.");
-        		RequestDispatcher rd = request.getRequestDispatcher("admin.jsp");
-        		rd.forward(request, response);
+        		response.sendRedirect("admin.jsp");
         	} else {
         		out.println("Error de la Base de Datos");
         		response.sendError(100);
