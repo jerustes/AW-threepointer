@@ -25,14 +25,14 @@ public class Login extends HttpServlet {
         PrintWriter out = response.getWriter();
         String email = (String) request.getAttribute("email");
         String pass = (String) request.getAttribute("contraseña");
-        Query query = ((Session) session).createQuery("SELECT mail, contrasena, rol FROM Usuario "
-        		+ "WHERE mail=:correo AND contrasena=:pwd");
+        Query query = ((Session) session).createQuery("SELECT * FROM Usuario WHERE mail=:correo AND contrasena=:pwd");
         query.setString("correo",email);
         query.setString("pwd",pass);
         List<?> list = query.list();
-        String correo = (String) list.get(0);
-        String clave = (String) list.get(1);
-        String rol = (String) list.get(2);
+        //El argumento del método get() es la posición de la columna en la tabla MySQL.
+        String correo = (String) list.get(1);
+        String clave = (String) list.get(2);
+        String rol = (String) list.get(4);
         if (pass==clave && email==correo) {
         	if(rol=="jugador") {
         		out.println("Usuario con rol de jugador entrando en la vista principal.");
