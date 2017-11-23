@@ -20,6 +20,10 @@
 		<servlet-name>ForwardedServlet</servlet-name>
 		<servlet-class>tests.Filter.ForwardedServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>Login</servlet-name>
+		<servlet-class>Login</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>welcome</servlet-name>
 		<url-pattern>/hello.welcome</url-pattern>
@@ -36,8 +40,12 @@
 		<servlet-name>ForwardedServlet</servlet-name>
 		<url-pattern>/ForwardedServlet</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Login</servlet-name>
+		<url-pattern>/LoginServlet</url-pattern>
+	</servlet-mapping>
 	<welcome-file-list>
-		<welcome-file>hello.welcome</welcome-file>
+		<welcome-file>LoginServlet</welcome-file>
 	</welcome-file-list>
   	<error-page>
 	  <error-code>404</error-code>
