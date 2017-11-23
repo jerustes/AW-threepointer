@@ -15,6 +15,7 @@ public class RegisterUser extends HttpServlet {
 		response.setContentType("text/html; charset = UTF-8");
 		PrintWriter out = response.getWriter();
 		
+		//CHANGE TO SESSION
 		String name = request.getParameter("email");
 		String email = request.getParameter("password");
 		
