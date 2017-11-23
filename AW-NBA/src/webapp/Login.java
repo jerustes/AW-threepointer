@@ -17,6 +17,7 @@ import org.hibernate.query.Query;
 @SuppressWarnings("serial")
 public class Login extends HttpServlet {
  
+	@SuppressWarnings({ "rawtypes", "deprecation" })
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -34,14 +35,20 @@ public class Login extends HttpServlet {
         String rol = (String) list.get(2);
         if (pass==clave && email==correo) {
         	if(rol=="jugador") {
-        		/*VISTA JUGADOR*/
+        		out.println("Usuario con rol de jugador entrando en la vista principal.");
+        		RequestDispatcher rd = request.getRequestDispatcher("jugador.jsp");
+        		rd.forward(request, response);
         	} else if(rol=="admin") {
-        		/*VISTA ADMIN*/
+        		out.println("Usuario con rol de admin entrando en la vista de administrador.");
+        		RequestDispatcher rd = request.getRequestDispatcher("admin.jsp");
+        		rd.forward(request, response);
         	} else {
-        		/*ERROR*/
+        		out.println("Error de la Base de Datos");
+        		response.sendError(100);
         	}
         } else {
-        	/*NO HAY REGISTRO CORRECTO*/
+        	out.println("Usuario o contraseña incorrectas");
+        	response.sendRedirect("/LoginServlet");
         }
         
     }
