@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="Usuario")
 public class User implements Serializable {
-	private enum Role { admin, jugador }
+	public enum Role { admin, jugador }
 	@Id
 	@Column(name = "id")
 	private int id;
