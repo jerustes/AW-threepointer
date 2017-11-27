@@ -11,23 +11,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.Session;
 import org.hibernate.query.Query;
-
 import webapp.User.Role;
 
-@SuppressWarnings("serial")
 @WebServlet("/LoginServlet")
 public class Login extends HttpServlet {
  
-	@SuppressWarnings({ "rawtypes", "deprecation" })
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7653006066357612724L;
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
+        
         PrintWriter out = response.getWriter();
         String email = (String) request.getAttribute("email");
         String pass = (String) request.getAttribute("contraseña");
-        Query query = ((org.hibernate.Session) session).createQuery("from Usuario");
+        Query query = ((Session) session).createQuery("from Usuario");
         List<User> books = query.list();
         int i;
         for (i=0; i<books.size(); i++) {
