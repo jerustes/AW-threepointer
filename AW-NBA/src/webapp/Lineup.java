@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @SuppressWarnings("serial")
-@Entity
-@Table(name="Plantilla")
+@Entity(name="plantilla")
+@Table
 public class Lineup implements Serializable {
 	@Id
 	@Column(name = "id")

@@ -4,8 +4,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @SuppressWarnings("serial")
-@Entity
-@Table(name="Liga")
+@Entity(name="liga")
+@Table
 public class League implements Serializable {
 	private enum State { INSCRIPCION, ACTIVA, PREPARADA, FINALIZADA }
 	@Id

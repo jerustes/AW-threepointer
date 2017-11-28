@@ -4,8 +4,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @SuppressWarnings("serial")
-@Entity
-@Table(name="Usuario")
+@Entity(name = "usuario")
+@Table
 public class User implements Serializable {
 	public enum Role { admin, jugador }
 	@Id
