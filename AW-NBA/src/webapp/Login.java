@@ -17,6 +17,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
 import webapp.Entities.User;
+import webapp.Entities.User.Role;
 
 @WebServlet("/LoginServlet")
 public class Login extends HttpServlet {
@@ -39,28 +40,25 @@ public class Login extends HttpServlet {
         String email = (String) request.getParameter("email");
         String pass = (String) request.getParameter("password");
         try {
-        	Query query = ses.createQuery("from usuario where usuario.email=? and usuario.password=?")
-        	.setParameter(0, email).setParameter(1, pass);
-        	System.out.println(query.toString());
-        	//List<User> users = ses.createCriteria("usuario")
-        	//		.add(Restrictions.eq("email", email))
-        	//		.add(Restrictions.eq("password", pass))
-        	//		.list();
-        	List<User> users = query.list();
-            User user = users.get(0);
-        	Role rol = user.getRole();
-        	if(rol == Role.jugador) {
-    			session.setAttribute("user",user);
-    			out.println("Usuario con rol de jugador entrando en la vista principal.");
-    			response.sendRedirect("jugador.jsp");
-    		} else if(rol == Role.admin) {
-    			session.setAttribute("user",user);
-    			out.println("Usuario con rol de admin entrando en la vista de administrador.");
-    			response.sendRedirect("admin.jsp");
-    		} else {
-    			out.println("Error de la Base de Datos");
-    			response.sendError(100);
-    		}
+        	String hql = "from usuario u where u.email = :mail and u.password = :pwd ";
+	        Query query = ses.createQuery(hql);
+	        query.setParameter("mail",email);
+	        query.setParameter("pwd",pass);
+	        List<User> users = query.list();
+	        User user = users.get(0);
+	        Role rol = user.getRole();
+	        if(rol == Role.jugador) {
+	    		session.setAttribute("user",user);
+	    		out.println("Usuario con rol de jugador entrando en la vista principal.");
+	    		response.sendRedirect("jugador.jsp");
+	    	} else if(rol == Role.admin) {
+	    		session.setAttribute("user",user);
+	    		out.println("Usuario con rol de admin entrando en la vista de administrador.");
+	    		response.sendRedirect("admin.jsp");
+	    	} else {
+	    		out.println("Error de la Base de Datos");
+	    		response.sendError(100);
+	    	}
         } catch (NullPointerException e) {
         	e.printStackTrace();
         }

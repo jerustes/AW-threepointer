@@ -4,16 +4,17 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @SuppressWarnings("serial")
-@Entity
-@Table(name="Usuario")
+@Entity(name="usuario")
+@Table
 public class User implements Serializable {
 	public enum Role { admin, jugador }
 	@Id
 	@Column(name = "id")
 	private int id;
-	@Column(name = "name")
+	@Column(name = "nombre")
 	private String name;
 	@Column(name = "rol")
+	@Enumerated(EnumType.STRING)
 	private Role role;
 	@Column(name = "mail")
 	private String email;
@@ -27,7 +28,7 @@ public class User implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	@Enumerated(EnumType.STRING)
+	
 	public Role getRole() {
 		return role;
 	}

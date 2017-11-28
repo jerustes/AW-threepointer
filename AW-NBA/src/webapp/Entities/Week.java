@@ -5,8 +5,8 @@ import java.util.Date;
 import javax.persistence.*;
 
 @SuppressWarnings("serial")
-@Entity
-@Table(name="Liga")
+@Entity(name="jornada")
+@Table
 public class Week implements Serializable {
 	@Id
 	@Column(name = "id")

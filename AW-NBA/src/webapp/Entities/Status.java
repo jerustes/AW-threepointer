@@ -4,8 +4,8 @@ import java.io.*;
 import javax.persistence.*;
 
 @SuppressWarnings("serial")
-@Entity
-@Table(name="Estado")
+@Entity(name="estado")
+@Table
 public class Status implements Serializable {
 	// Preguntar cual es la primary key de esta tabla!!
 	@Column(name = "jornada")

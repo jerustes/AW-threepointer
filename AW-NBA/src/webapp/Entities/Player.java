@@ -4,8 +4,8 @@ import java.io.*;
 import javax.persistence.*;
 
 @SuppressWarnings("serial")
-@Entity
-@Table(name="Deportista")
+@Entity(name="deportista")
+@Table
 public class Player implements Serializable {
 	private enum Position { B, E, A, AP, P }
 	@Id
