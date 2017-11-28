@@ -15,7 +15,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import webapp.User.Role;
 
-@WebServlet("/HomeServlet")
+@WebServlet("/UserHomeServlet")
 public class UserHome extends HttpServlet {
  
 	/**
