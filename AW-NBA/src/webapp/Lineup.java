@@ -19,8 +19,8 @@ public class Lineup implements Serializable {
 	@Column(name = "usuario")
 	private int user;
 	@Column(name = "saldo")
-	private long salary;	//125000 max
-	
+	private long salary;	//125000 max; Salario de la plantilla de una liga determinada
+						//no del usuario en general
 	private List<Player> teamLineup;
 	private int points;
 	public int getId() {
