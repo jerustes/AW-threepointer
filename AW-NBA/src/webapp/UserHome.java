@@ -27,7 +27,12 @@ public class UserHome extends HttpServlet {
         HttpSession session = request.getSession();
         
         PrintWriter out = response.getWriter();
-        List<League> LeaguesUser = (List<League>) session.getAttribute(/*ligas en las que está inscrita el user*/);
+        List<League> leaguesUser = (List<League>) session.getAttribute("leagues_user"/*ligas en las que está inscrita el user*/);
+		if(leaguesUser == null){
+			//create and add Leagues (in which the user is signed up) to session
+			leaguesUser = new ArrayList<League>();
+			response.setAttribute("leagues_user", leaguesUser);
+		}
         //...
         }
     }
