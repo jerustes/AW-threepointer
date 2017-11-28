@@ -1,11 +1,11 @@
-package webapp;
+package webapp.Entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
 
 @SuppressWarnings("serial")
-@Entity(name = "usuario")
-@Table
+@Entity
+@Table(name="Usuario")
 public class User implements Serializable {
 	public enum Role { admin, jugador }
 	@Id

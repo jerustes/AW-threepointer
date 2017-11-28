@@ -1,4 +1,4 @@
-package webapp;
+package webapp.Entities;
 import java.io.Serializable;
 import java.util.List;
 
@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @SuppressWarnings("serial")
-@Entity(name="plantilla")
-@Table
+@Entity
+@Table(name="Plantilla")
 public class Lineup implements Serializable {
 	@Id
 	@Column(name = "id")

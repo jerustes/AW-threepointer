@@ -1,11 +1,11 @@
-package webapp;
+package webapp.Entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
 
 @SuppressWarnings("serial")
-@Entity(name="liga")
-@Table
+@Entity
+@Table(name="Liga")
 public class League implements Serializable {
 	private enum State { INSCRIPCION, ACTIVA, PREPARADA, FINALIZADA }
 	@Id

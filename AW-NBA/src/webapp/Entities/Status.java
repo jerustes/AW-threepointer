@@ -1,11 +1,11 @@
-package webapp;
+package webapp.Entities;
 
 import java.io.*;
 import javax.persistence.*;
 
 @SuppressWarnings("serial")
-@Entity(name="estado")
-@Table
+@Entity
+@Table(name="Estado")
 public class Status implements Serializable {
 	// Preguntar cual es la primary key de esta tabla!!
 	@Column(name = "jornada")

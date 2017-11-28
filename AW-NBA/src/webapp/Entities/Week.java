@@ -1,12 +1,12 @@
-package webapp;
+package webapp.Entities;
 import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.*;
 
 @SuppressWarnings("serial")
-@Entity(name="jornada")
-@Table
+@Entity
+@Table(name="Liga")
 public class Week implements Serializable {
 	@Id
 	@Column(name = "id")

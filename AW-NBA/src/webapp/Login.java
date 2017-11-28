@@ -11,14 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 
-import webapp.User.Role;
+import webapp.Entities.User.Role;
 
 @WebServlet("/LoginServlet")
 public class Login extends HttpServlet {
@@ -69,6 +67,7 @@ public class Login extends HttpServlet {
         if (session.getAttribute("user")==null) {
     		out.println("Usuario o contraseña incorrectas");
     		response.sendRedirect("login.jsp");
+
         }
     }
 }

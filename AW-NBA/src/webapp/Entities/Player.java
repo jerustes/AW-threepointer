@@ -1,11 +1,11 @@
-package webapp;
+package webapp.Entities;
 
 import java.io.*;
 import javax.persistence.*;
 
 @SuppressWarnings("serial")
-@Entity(name="deportista")
-@Table
+@Entity
+@Table(name="Deportista")
 public class Player implements Serializable {
 	private enum Position { B, E, A, AP, P }
 	@Id
