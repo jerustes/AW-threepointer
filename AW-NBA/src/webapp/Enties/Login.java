@@ -30,7 +30,7 @@ public class Login extends HttpServlet {
         
         PrintWriter out = response.getWriter();
         String email = (String) request.getAttribute("email");
-        String pass = (String) request.getAttribute("contraseña");
+        String pass = (String) request.getAttribute("contraseÃ±a");
         Query query = ((Session) session).createQuery("from Usuario");
         List<User> books = query.list();
         int i;
@@ -50,7 +50,7 @@ public class Login extends HttpServlet {
         			response.sendError(100);
         		}
         	} else {
-        		out.println("Usuario o contraseña incorrectas");
+        		out.println("Usuario o contraseÃ±a incorrectas");
         		response.sendRedirect("/LoginServlet");
         	}
         }
