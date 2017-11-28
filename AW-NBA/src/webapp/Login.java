@@ -16,7 +16,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
-import webapp.Entities.User.Role;
+import webapp.Entities.User;
 
 @WebServlet("/LoginServlet")
 public class Login extends HttpServlet {
