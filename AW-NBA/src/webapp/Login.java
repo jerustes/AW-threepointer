@@ -34,11 +34,6 @@ public class Login extends HttpServlet {
         Configuration configuration = new Configuration();
         configuration.configure(this.getClass().getResource("/hibernate.cfg.xml"));
         configuration.addAnnotatedClass(User.class);
-        configuration.addAnnotatedClass(League.class);
-        configuration.addAnnotatedClass(Player.class);
-        configuration.addAnnotatedClass(Lineup.class);
-        configuration.addAnnotatedClass(Week.class);
-        configuration.addAnnotatedClass(Status.class);
         SessionFactory sessionFactory = configuration.buildSessionFactory();
         Session ses = sessionFactory.openSession();
         PrintWriter out = response.getWriter();
@@ -55,11 +50,11 @@ public class Login extends HttpServlet {
 	        if(rol == Role.jugador) {
 	    		session.setAttribute("user",user);
 	    		out.println("Usuario con rol de jugador entrando en la vista principal.");
-	    		response.sendRedirect("jugador.jsp");
+	    		response.sendRedirect("PlayerHome.jsp");
 	    	} else if(rol == Role.admin) {
 	    		session.setAttribute("user",user);
 	    		out.println("Usuario con rol de admin entrando en la vista de administrador.");
-	    		response.sendRedirect("admin.jsp");
+	    		response.sendRedirect("AdminHome");
 	    	} else {
 	    		out.println("Error de la Base de Datos");
 	    		response.sendError(100);

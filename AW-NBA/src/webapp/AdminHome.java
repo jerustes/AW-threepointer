@@ -39,10 +39,6 @@ public class AdminHome extends HttpServlet {
         PrintWriter out = response.getWriter();
         Configuration configuration = new Configuration();
         configuration.configure(this.getClass().getResource("/hibernate.cfg.xml"));
-        configuration.addAnnotatedClass(User.class);
-        configuration.addAnnotatedClass(League.class);
-        configuration.addAnnotatedClass(Player.class);
-        configuration.addAnnotatedClass(Lineup.class);
         configuration.addAnnotatedClass(Week.class);
         configuration.addAnnotatedClass(Status.class);
         SessionFactory sessionFactory = configuration.buildSessionFactory();
@@ -54,10 +50,13 @@ public class AdminHome extends HttpServlet {
         }
         
         try {
+        	String q = "from jornada";
+	        Query querie = ses.createQuery(q);
+	        List<Week> lista = querie.list();
         	String hql = "from estado";
 	        Query query = ses.createQuery(hql);
-	        List<Status> list = query.list();
-	        Status status = list.get(0);
+	        List<Status> listb = query.list();
+	        Status status = listb.get(0);
 	        int phase = status.getPhase();
 	        int week = status.getRound();
 	        if (phase == 1) phase=2;

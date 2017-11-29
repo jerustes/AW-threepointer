@@ -10,8 +10,8 @@
 	<%@ page import ="webapp.Entities.*" %>
 	<%@ page import ="java.util.List" %>
 	<h2>Vista del Administrador</h2>
-	<% List<Week> weeks = (List<Week>) request.getAttribute("week"); %>
-	<h3>Lista de jornadas</h3>
+	<% List<Week> weeks = (List<Week>) session.getAttribute("week"); %>
+	<h3>Lista de jornadas (<%= weeks.size() %>)</h3>
       <table>
       	<tr><td>Id</td><td>Fecha Inicio</td><td>Fecha Final</td></tr>
           <% for(int i=0;i<weeks.size();i++) { %>
