@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity(name="estado")
 @Table
 public class Status implements Serializable {
-	// Preguntar cual es la primary key de esta tabla!!
+	@Id
 	@Column(name = "jornada")
 	private int round;		//Jornada
 	@Column(name = "fase")

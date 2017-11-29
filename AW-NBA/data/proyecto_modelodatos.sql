@@ -1,5 +1,5 @@
 USE 17_appweb_10d;
-CREATE TABLE Usuario (
+CREATE TABLE usuario (
 	id INT NOT NULL auto_increment,
     mail VARCHAR(100) NOT NULL,
     contrasena VARCHAR(50) NOT NULL,
@@ -7,7 +7,7 @@ CREATE TABLE Usuario (
     rol ENUM('admin','jugador') NOT NULL,
     PRIMARY KEY(id)
 );
-CREATE TABLE Deportista (
+CREATE TABLE deportista (
 	id INT NOT NULL auto_increment,
     nombre VARCHAR(50) NOT NULL,
     valor LONG NOT NULL,
@@ -17,19 +17,19 @@ CREATE TABLE Deportista (
     puntos_semanal INT,
     PRIMARY KEY(id)
 );
-CREATE TABLE Jornada (
+CREATE TABLE jornada (
 	id INT NOT NULL auto_increment,
     fecha_inicio DATE NOT NULL,
     fecha_fin DATE NOT NULL,
     PRIMARY KEY(id)
 );
-CREATE TABLE Estado (
+CREATE TABLE estado (
 	jornada INT NOT NULL,
     fase INT NOT NULL,
     CONSTRAINT FOREIGN KEY (jornada)
 		REFERENCES Jornada(id)
 );
-CREATE TABLE Liga (
+CREATE TABLE liga (
 	id INT NOT NULL auto_increment,
     creador INT NOT NULL,
     nombre VARCHAR(50) NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE Liga (
 		REFERENCES Usuario(id),
 	PRIMARY KEY(id)
 );
-CREATE TABLE Plantilla (
+CREATE TABLE plantilla (
 	id INT NOT NULL auto_increment,
     liga INT NOT NULL,
     usuario INT NOT NULL,

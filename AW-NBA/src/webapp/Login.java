@@ -27,6 +27,7 @@ public class Login extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 7653006066357612724L;
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -50,7 +51,7 @@ public class Login extends HttpServlet {
 	        if(rol == Role.jugador) {
 	    		session.setAttribute("user",user);
 	    		out.println("Usuario con rol de jugador entrando en la vista principal.");
-	    		response.sendRedirect("PlayerHome.jsp");
+	    		response.sendRedirect("PlayerHome");
 	    	} else if(rol == Role.admin) {
 	    		session.setAttribute("user",user);
 	    		out.println("Usuario con rol de admin entrando en la vista de administrador.");

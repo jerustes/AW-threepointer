@@ -2,7 +2,6 @@ package webapp;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,23 +13,20 @@ import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
 
 import webapp.Entities.Status;
-import webapp.Entities.User;
-import webapp.Entities.User.Role;
 import webapp.Entities.Week;
 
-@WebServlet("/AdminHome")
-public class AdminHome extends HttpServlet {
+@WebServlet("/AdvanceStatus")
+public class AdvanceStatus extends HttpServlet {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -8417478344457698175L;
+	private static final long serialVersionUID = -2642528257958171662L;
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
@@ -41,26 +37,32 @@ public class AdminHome extends HttpServlet {
         configuration.addAnnotatedClass(Status.class);
         SessionFactory sessionFactory = configuration.buildSessionFactory();
         Session ses = sessionFactory.openSession();
-        User user = (User) session.getAttribute("user");
-        if (user==null) {
+        
+        if (session.getAttribute("user")==null) {
     		out.println("Usuario o contraseña incorrectas");
     		response.sendRedirect("login.jsp");
-        } else if (user.getRole() == Role.jugador) {
-        	out.println("Rol de jugador, redireccionando.");
-    		response.sendRedirect("UserHome");
         }
-       	String q = "from jornada";
-        Query consulta = ses.createQuery(q);
-        List<Week> lista = consulta.list();
-        session.setAttribute("listaJornadas", lista);
-        
-       	String hql = "from estado";
-        Query query = ses.createQuery(hql);
-	    List<Status> list = (List<Status>) query.list();
-	    Status status = list.get(0);
-	    session.setAttribute("status",status);
-	    
-	    RequestDispatcher rd = request.getRequestDispatcher("AdminHome.jsp");
+        Status status = (Status) session.getAttribute("status");
+        Transaction tx = ses.beginTransaction();
+        int phase = status.getPhase();
+        int week = status.getRound();
+        if (phase == 1) { 
+        	status.setPhase(2);
+        } else if (phase == 2) {
+        	status.setPhase(3);
+		} else if (phase == 3 && week<26) {
+			status.setRound(week+1);
+			status.setPhase(1);
+		} else if (phase == 3 && week == 26) {
+			out.println("La liga ha concluido.");
+			status.setRound(0);
+			status.setPhase(0);
+		}
+        ses.save(status);
+        tx.commit();
+        RequestDispatcher rd = request.getRequestDispatcher("AdminHome.jsp");
         rd.forward(request, response);
+
 	}
 }
+

@@ -10,8 +10,8 @@
 	<%@ page import ="webapp.Entities.*" %>
 	<%@ page import ="java.util.List" %>
 	<h2>Vista del Administrador</h2>
-	<% List<Week> weeks = (List<Week>) session.getAttribute("week"); %>
-	<h3>Lista de jornadas (<%= weeks.size() %>)</h3>
+	<% List<Week> weeks = (List<Week>) session.getAttribute("listaJornadas"); %>
+	<h3>Lista de jornadas (tamaño del calendario: <%= weeks.size() %>)</h3>
       <table>
       	<tr><td>Id</td><td>Fecha Inicio</td><td>Fecha Final</td></tr>
           <% for(int i=0;i<weeks.size();i++) { %>
@@ -21,9 +21,9 @@
            <td><%= week.getEndDate() %></td></tr>
          <%  } %>
      </table>
-    <% Status status = (Status) request.getAttribute("status"); %>
+    <% Status status = (Status) session.getAttribute("status"); %>
     <h3>Muestra jornada y fase actual.</h3>
-    	<p>Jornada actual: <%= status.getRound() %>. Fase actual: <%= status.getPhase() %>.
+    	<p>Jornada actual: <%= status.getRound() %>. Fase actual: <%= status.getPhase() %>.</p>
 	<h3><form action="AdvanceStatus" method="POST"><input type = "submit" value="Avanzar de fase"></form></h3>
 </body>
 </html>
