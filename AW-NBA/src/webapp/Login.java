@@ -16,7 +16,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
-import webapp.Entities.User;
+import webapp.Entities.*;
 import webapp.Entities.User.Role;
 
 @WebServlet("/LoginServlet")
@@ -34,6 +34,11 @@ public class Login extends HttpServlet {
         Configuration configuration = new Configuration();
         configuration.configure(this.getClass().getResource("/hibernate.cfg.xml"));
         configuration.addAnnotatedClass(User.class);
+        configuration.addAnnotatedClass(League.class);
+        configuration.addAnnotatedClass(Player.class);
+        configuration.addAnnotatedClass(Lineup.class);
+        configuration.addAnnotatedClass(Week.class);
+        configuration.addAnnotatedClass(Status.class);
         SessionFactory sessionFactory = configuration.buildSessionFactory();
         Session ses = sessionFactory.openSession();
         PrintWriter out = response.getWriter();
@@ -65,7 +70,6 @@ public class Login extends HttpServlet {
         if (session.getAttribute("user")==null) {
     		out.println("Usuario o contraseña incorrectas");
     		response.sendRedirect("login.jsp");
-
         }
     }
 }
