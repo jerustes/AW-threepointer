@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity(name="liga")
 @Table
 public class League implements Serializable {
-	private enum State { Inscripcion, Activa, Preparada, Finalizada }
+	public enum State { Inscripcion, Activa, Preparada, Finalizada }
 	@Id
 	@Column(name = "id")
 	private int id;
@@ -51,7 +51,11 @@ public class League implements Serializable {
 	public void setNMax(int nMax) {
 		this.nMax = nMax;
 	}
-
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -62,10 +66,6 @@ public class League implements Serializable {
 	
 	public int getSaldo() {
 		return saldo_inicial;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String toString() {

@@ -26,6 +26,7 @@ public class Lineup implements Serializable {
 	private List<Player> teamLineup;
 	@Column(name = "puntos")
 	private int points;
+	
 	public int getId() {
 		return id;
 	}

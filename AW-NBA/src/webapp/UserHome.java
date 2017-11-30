@@ -48,9 +48,10 @@ public class UserHome extends HttpServlet {
 			out.println("Rol de administrador, redireccionando.");
 			response.sendRedirect("AdminHomeServlet");
 		}
+		int id = Integer.parseInt(request.getParameter("id"));
 		String q = "from plantilla where usuario = :id";
 		Query query = ses.createQuery(q);
-		query.setParameter("id",user.getId());
+		query.setParameter("id",id);
 		List<Lineup> lineups = query.list();
 		List<League> leagues = null;
 		for (Lineup lineup: lineups) {
@@ -68,7 +69,7 @@ public class UserHome extends HttpServlet {
 		
 		String c = "from plantilla where usuario = :id";
 		Query consulta = ses.createQuery(c);
-		consulta.setParameter("id",user.getId());
+		consulta.setParameter("id",id);
 		List<Lineup> plantillas = consulta.list();
 		String hql = "from liga where ";
 		for (Lineup plantilla : plantillas) {

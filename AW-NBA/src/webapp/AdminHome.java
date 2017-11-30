@@ -43,11 +43,11 @@ public class AdminHome extends HttpServlet {
 		Session ses = sessionFactory.openSession();
 		User user = (User) session.getAttribute("user");
 		if (user == null) {
-			out.println("Usuario o contraseï¿½a incorrectas");
+			out.println("Usuario o contraseña incorrectas");
 			response.sendRedirect("login.jsp");
 		} else if (user.getRole() == Role.jugador) {
 			out.println("Rol de jugador, redireccionando.");
-			response.sendRedirect("UserHomeServlet");
+			response.sendRedirect("UserHomeServlet?id"+user.getId());
 		}
 		String q = "from jornada";
 		Query consulta = ses.createQuery(q);

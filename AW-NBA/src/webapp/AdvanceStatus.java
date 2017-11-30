@@ -39,7 +39,7 @@ public class AdvanceStatus extends HttpServlet {
 		Session ses = sessionFactory.openSession();
 
 		if (session.getAttribute("user") == null) {
-			out.println("Usuario o contraseï¿½a incorrectas");
+			out.println("Usuario o contraseña incorrectas");
 			response.sendRedirect("login.jsp");
 		}
 		Status status = (Status) session.getAttribute("status");
@@ -62,6 +62,5 @@ public class AdvanceStatus extends HttpServlet {
 		tx.commit();
 		RequestDispatcher rd = request.getRequestDispatcher("AdminHome.jsp");
 		rd.forward(request, response);
-
 	}
 }

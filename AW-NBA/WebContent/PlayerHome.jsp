@@ -13,13 +13,14 @@
 </head>
 <body>
 	<div>
-		<h1>Ligas Inscritas</h1>
+		<h2>Ligas Inscritas</h2>
 		<% List<League> leagues = (List<League>) session.getAttribute("ligas_usuario"); %>
 		<table>
 			<thead>
 				<tr>
 					<th>Leagues</th>
 					<th>Status</th>
+					<th>Ver Liga</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -27,6 +28,7 @@
 				<tr>
 					<td><%=league.getName()%></td>
 					<td><%=league.getState()%></td>
+					<td><a href="LeagueHomeServlet?id=<%= league.getId() %>">Ver liga <%= league.getId() %>
 				</tr>
 				<% } %>
 			</tbody>
@@ -40,21 +42,27 @@
 				<tr>
 					<th>Leagues</th>
 					<th>Status</th>
+					<th>Inscribirse</th>
 				</tr>
 			</thead>
 			<tbody>
-				<%
-					for (League league : leaguesAvail) {
-				%>
+				<% for (League league : leaguesAvail) { %>
 				<tr>
-					<td><%=league.getName()%></td>
-					<td><%=league.getState()%></td>
+					<td> <%= league.getName() %> </td>
+					<td> <%= league.getState() %> </td>
+					<td> <a href="JoinLeague?id=<%= league.getId() %>">Unirse a liga <%= league.getId() %></a> </form> </td>
 				</tr>
-				<%
-					}
-				%>
+				<% } %>
 			</tbody>
 		</table>
+	</div>
+	<div>
+		<h2>Crear nueva liga</h2>
+		<form action="CreateLeague" method="POST">
+			<div><label>Nombre: <input type="text" name="name"></label></div>
+			<div><label>Número máximo de usuarios: <input type="text" name="max_usuarios"></label></div>
+			<div><label>Saldo inicial: <input type="text" name="saldo_inicial"> </label></div>
+			<input type="submit" value="Crear liga"></form>
 	</div>
 </body>
 </html>
