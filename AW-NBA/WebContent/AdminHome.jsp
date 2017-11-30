@@ -39,14 +39,14 @@
 			%>
 		</tbody>
 	</table>
+	
+	<h3>Muestra jornada y fase actual.</h3>
+	<p>
 	<%
 		Status status = (Status) session.getAttribute("status");
 	%>
-	<h3>Muestra jornada y fase actual.</h3>
-	<p>
-		Jornada actual:
-		<%=status.getRound()%>. Fase actual:
-		<%=status.getPhase()%>.
+		Jornada actual: <%=status.getRound()%>. 
+		Fase actual: <%=status.getPhase()%>.
 	</p>
 	<h3>
 		<form action="AdvanceStatus" method="POST">
