@@ -8,11 +8,19 @@ import javax.persistence.*;
 @Table
 public class Status implements Serializable {
 	@Id
+	@Column (name = "id")
+	private int id;
 	@Column(name = "jornada")
 	private int round;		//Jornada
 	@Column(name = "fase")
 	private int phase;
-
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public int getRound() {
 		return round;
 	}

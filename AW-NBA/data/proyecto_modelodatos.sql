@@ -51,7 +51,7 @@ CREATE TABLE plantilla (
 		REFERENCES Usuario(id),
     PRIMARY KEY(id)
 );
-CREATE TABLE PlantillaDeportista (
+CREATE TABLE plantillaDeportista (
 	plantilla INT NOT NULL,
     deportista INT NOT NULL,
     CONSTRAINT FOREIGN KEY (plantilla)
@@ -59,7 +59,7 @@ CREATE TABLE PlantillaDeportista (
 	CONSTRAINT FOREIGN KEY (deportista)
 		REFERENCES Deportista(id)
 );
-CREATE TABLE PlantillaLiga (
+CREATE TABLE plantillaLiga (
 	plantilla INT NOT NULL,
     liga INT NOT NULL,
     CONSTRAINT FOREIGN KEY (liga)
