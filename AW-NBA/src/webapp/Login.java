@@ -51,7 +51,7 @@ public class Login extends HttpServlet {
 			if (rol == Role.jugador) {
 				session.setAttribute("user", user);
 				out.println("Usuario con rol de jugador entrando en la vista principal.");
-				response.sendRedirect("UserHomeServlet");
+				response.sendRedirect("UserHomeServlet?id="+user.getId());
 			} else if (rol == Role.admin) {
 				session.setAttribute("user", user);
 				out.println("Usuario con rol de admin entrando en la vista de administrador.");

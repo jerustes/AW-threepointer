@@ -56,7 +56,7 @@ public class CreateLeague extends HttpServlet {
 		int saldo = Integer.parseInt(request.getParameter("saldo_inicial"));
 		if (saldo > 200000 || saldo < 50000 || name == null || nmax > 20 || nmax < 2) {
 			out.println("Parámetros incorrectos, inténtelo de nuevo.");
-			response.sendRedirect("UserHomeServlet");
+			response.sendRedirect("UserHomeServlet?id="+user.getId());
 		} else {
 			League league = new League();
 			league.setId(leagues.size()+1);

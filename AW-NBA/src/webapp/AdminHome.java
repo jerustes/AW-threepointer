@@ -47,7 +47,7 @@ public class AdminHome extends HttpServlet {
 			response.sendRedirect("login.jsp");
 		} else if (user.getRole() == Role.jugador) {
 			out.println("Rol de jugador, redireccionando.");
-			response.sendRedirect("UserHomeServlet?id"+user.getId());
+			response.sendRedirect("UserHomeServlet?id="+user.getId());
 		}
 		String q = "from jornada";
 		Query consulta = ses.createQuery(q);
