@@ -45,6 +45,7 @@ CREATE TABLE plantilla (
     liga INT NOT NULL,
     usuario INT NOT NULL,
     saldo LONG NOT NULL,
+    puntos INT NOT NULL,
     CONSTRAINT FOREIGN KEY (liga)
 		REFERENCES Liga(id),
 	CONSTRAINT FOREIGN KEY (usuario)

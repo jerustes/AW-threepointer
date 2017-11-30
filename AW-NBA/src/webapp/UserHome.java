@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,16 +48,19 @@ public class UserHome extends HttpServlet {
 			out.println("Rol de administrador, redireccionando.");
 			response.sendRedirect("AdminHomeServlet");
 		}
-		String q = "select p.liga from plantilla p where p.usuario = :id";
+		String q = "from plantilla where usuario = :id";
 		Query query = ses.createQuery(q);
 		query.setParameter("id",user.getId());
-		List<League> list = query.list();
-		session.setAttribute("ligasUsuario", list);
+		List<Lineup> lineups = query.list();
+		session.setAttribute("plantilla", lineups);
 		
-		String hql = "select p.liga from plantilla p where p.usuario != :id";
+		String hql = "from plantilla where usuario != :id";
 		Query consulta = ses.createQuery(hql);
 		consulta.setParameter("id",user.getId());
-		List<League> lista = consulta.list();
-		session.setAttribute("ligasDisponibles", lista);
+		List<Lineup> plantilla = consulta.list();
+		session.setAttribute("plantillaB", plantilla);
+		
+		RequestDispatcher rd = request.getRequestDispatcher("PlayerHome.jsp");
+		rd.forward(request, response);
     }
 }
