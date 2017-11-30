@@ -21,7 +21,7 @@ import webapp.Entities.User.Role;
 
 @WebServlet("/LoginServlet")
 public class Login extends HttpServlet {
- 
+
 	/**
 	 * 
 	 */
@@ -29,43 +29,43 @@ public class Login extends HttpServlet {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        Configuration configuration = new Configuration();
-        configuration.configure(this.getClass().getResource("/hibernate.cfg.xml"));
-        configuration.addAnnotatedClass(User.class);
-        SessionFactory sessionFactory = configuration.buildSessionFactory();
-        Session ses = sessionFactory.openSession();
-        PrintWriter out = response.getWriter();
-        String email = (String) request.getParameter("email");
-        String pass = (String) request.getParameter("password");
-        try {
-        	String hql = "from usuario u where u.email = :mail and u.password = :pwd ";
-	        Query query = ses.createQuery(hql);
-	        query.setParameter("mail",email);
-	        query.setParameter("pwd",pass);
-	        List<User> users = query.list();
-	        User user = users.get(0);
-	        Role rol = user.getRole();
-	        if(rol == Role.jugador) {
-	    		session.setAttribute("user",user);
-	    		out.println("Usuario con rol de jugador entrando en la vista principal.");
-	    		response.sendRedirect("PlayerHome");
-	    	} else if(rol == Role.admin) {
-	    		session.setAttribute("user",user);
-	    		out.println("Usuario con rol de admin entrando en la vista de administrador.");
-	    		response.sendRedirect("AdminHome");
-	    	} else {
-	    		out.println("Error de la Base de Datos");
-	    		response.sendError(100);
-	    	}
-        } catch (NullPointerException e) {
-        	e.printStackTrace();
-        }
-        if (session.getAttribute("user")==null) {
-    		out.println("Usuario o contraseña incorrectas");
-    		response.sendRedirect("login.jsp");
-        }
-    }
+			throws ServletException, IOException {
+		response.setContentType("text/html;charset=UTF-8");
+		HttpSession session = request.getSession();
+		Configuration configuration = new Configuration();
+		configuration.configure(this.getClass().getResource("/hibernate.cfg.xml"));
+		configuration.addAnnotatedClass(User.class);
+		SessionFactory sessionFactory = configuration.buildSessionFactory();
+		Session ses = sessionFactory.openSession();
+		PrintWriter out = response.getWriter();
+		String email = (String) request.getParameter("email");
+		String pass = (String) request.getParameter("password");
+		try {
+			String hql = "from usuario u where u.email = :mail and u.password = :pwd ";
+			Query query = ses.createQuery(hql);
+			query.setParameter("mail", email);
+			query.setParameter("pwd", pass);
+			List<User> users = query.list();
+			User user = users.get(0);
+			Role rol = user.getRole();
+			if (rol == Role.jugador) {
+				session.setAttribute("user", user);
+				out.println("Usuario con rol de jugador entrando en la vista principal.");
+				response.sendRedirect("PlayerHome");
+			} else if (rol == Role.admin) {
+				session.setAttribute("user", user);
+				out.println("Usuario con rol de admin entrando en la vista de administrador.");
+				response.sendRedirect("AdminHome");
+			} else {
+				out.println("Error de la Base de Datos");
+				response.sendError(100);
+			}
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+		if (session.getAttribute("user") == null) {
+			out.println("Usuario o contraseï¿½a incorrectas");
+			response.sendRedirect("login.jsp");
+		}
+	}
 }

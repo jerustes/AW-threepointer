@@ -27,42 +27,41 @@ public class AdvanceStatus extends HttpServlet {
 	private static final long serialVersionUID = -2642528257958171662L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        PrintWriter out = response.getWriter();
-        Configuration configuration = new Configuration();
-        configuration.configure(this.getClass().getResource("/hibernate.cfg.xml"));
-        configuration.addAnnotatedClass(Week.class);
-        configuration.addAnnotatedClass(Status.class);
-        SessionFactory sessionFactory = configuration.buildSessionFactory();
-        Session ses = sessionFactory.openSession();
-        
-        if (session.getAttribute("user")==null) {
-    		out.println("Usuario o contraseña incorrectas");
-    		response.sendRedirect("login.jsp");
-        }
-        Status status = (Status) session.getAttribute("status");
-        Transaction tx = ses.beginTransaction();
-        int phase = status.getPhase();
-        int week = status.getRound();
-        if (phase == 1) { 
-        	status.setPhase(2);
-        } else if (phase == 2) {
-        	status.setPhase(3);
-		} else if (phase == 3 && week<26) {
-			status.setRound(week+1);
+			throws ServletException, IOException {
+		response.setContentType("text/html;charset=UTF-8");
+		HttpSession session = request.getSession();
+		PrintWriter out = response.getWriter();
+		Configuration configuration = new Configuration();
+		configuration.configure(this.getClass().getResource("/hibernate.cfg.xml"));
+		configuration.addAnnotatedClass(Week.class);
+		configuration.addAnnotatedClass(Status.class);
+		SessionFactory sessionFactory = configuration.buildSessionFactory();
+		Session ses = sessionFactory.openSession();
+
+		if (session.getAttribute("user") == null) {
+			out.println("Usuario o contraseï¿½a incorrectas");
+			response.sendRedirect("login.jsp");
+		}
+		Status status = (Status) session.getAttribute("status");
+		Transaction tx = ses.beginTransaction();
+		int phase = status.getPhase();
+		int week = status.getRound();
+		if (phase == 1) {
+			status.setPhase(2);
+		} else if (phase == 2) {
+			status.setPhase(3);
+		} else if (phase == 3 && week < 26) {
+			status.setRound(week + 1);
 			status.setPhase(1);
 		} else if (phase == 3 && week == 26) {
 			out.println("La liga ha concluido.");
 			status.setRound(0);
 			status.setPhase(0);
 		}
-        ses.save(status);
-        tx.commit();
-        RequestDispatcher rd = request.getRequestDispatcher("AdminHome.jsp");
-        rd.forward(request, response);
+		ses.saveOrUpdate(status);
+		tx.commit();
+		RequestDispatcher rd = request.getRequestDispatcher("AdminHome.jsp");
+		rd.forward(request, response);
 
 	}
 }
-

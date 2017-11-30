@@ -31,36 +31,36 @@ public class AdminHome extends HttpServlet {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        PrintWriter out = response.getWriter();
-        Configuration configuration = new Configuration();
-        configuration.configure(this.getClass().getResource("/hibernate.cfg.xml"));
-        configuration.addAnnotatedClass(Week.class);
-        configuration.addAnnotatedClass(Status.class);
-        SessionFactory sessionFactory = configuration.buildSessionFactory();
-        Session ses = sessionFactory.openSession();
-        User user = (User) session.getAttribute("user");
-        if (user==null) {
-    		out.println("Usuario o contraseña incorrectas");
-    		response.sendRedirect("login.jsp");
-        } else if (user.getRole() == Role.jugador) {
-        	out.println("Rol de jugador, redireccionando.");
-    		response.sendRedirect("UserHome");
-        }
-       	String q = "from jornada";
-        Query consulta = ses.createQuery(q);
-        List<Week> lista = consulta.list();
-        session.setAttribute("listaJornadas", lista);
-        
-       	String hql = "from estado";
-        Query query = ses.createQuery(hql);
-	    List<Status> list = (List<Status>) query.list();
-	    Status status = list.get(0);
-	    session.setAttribute("status",status);
-	    
-	    RequestDispatcher rd = request.getRequestDispatcher("AdminHome.jsp");
-        rd.forward(request, response);
+			throws ServletException, IOException {
+		response.setContentType("text/html;charset=UTF-8");
+		HttpSession session = request.getSession();
+		PrintWriter out = response.getWriter();
+		Configuration configuration = new Configuration();
+		configuration.configure(this.getClass().getResource("/hibernate.cfg.xml"));
+		configuration.addAnnotatedClass(Week.class);
+		configuration.addAnnotatedClass(Status.class);
+		SessionFactory sessionFactory = configuration.buildSessionFactory();
+		Session ses = sessionFactory.openSession();
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			out.println("Usuario o contraseï¿½a incorrectas");
+			response.sendRedirect("login.jsp");
+		} else if (user.getRole() == Role.jugador) {
+			out.println("Rol de jugador, redireccionando.");
+			response.sendRedirect("UserHome");
+		}
+		String q = "from jornada";
+		Query consulta = ses.createQuery(q);
+		List<Week> lista = consulta.list();
+		session.setAttribute("listaJornadas", lista);
+
+		String hql = "from estado";
+		Query query = ses.createQuery(hql);
+		List<Status> list = (List<Status>) query.list();
+		Status status = list.get(0);
+		session.setAttribute("status", status);
+
+		RequestDispatcher rd = request.getRequestDispatcher("AdminHome.jsp");
+		rd.forward(request, response);
 	}
 }
