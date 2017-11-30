@@ -51,11 +51,11 @@ public class Login extends HttpServlet {
 			if (rol == Role.jugador) {
 				session.setAttribute("user", user);
 				out.println("Usuario con rol de jugador entrando en la vista principal.");
-				response.sendRedirect("PlayerHome");
+				response.sendRedirect("UserHomeServlet");
 			} else if (rol == Role.admin) {
 				session.setAttribute("user", user);
 				out.println("Usuario con rol de admin entrando en la vista de administrador.");
-				response.sendRedirect("AdminHome");
+				response.sendRedirect("AdminHomeServlet");
 			} else {
 				out.println("Error de la Base de Datos");
 				response.sendError(100);
@@ -64,7 +64,7 @@ public class Login extends HttpServlet {
 			e.printStackTrace();
 		}
 		if (session.getAttribute("user") == null) {
-			out.println("Usuario o contraseï¿½a incorrectas");
+			out.println("Usuario o contraseña incorrectas");
 			response.sendRedirect("login.jsp");
 		}
 	}

@@ -3,6 +3,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -21,7 +22,9 @@ public class Lineup implements Serializable {
 	@Column(name = "saldo")
 	private long salary;	//125000 max; Salario de la plantilla de una liga determinada
 						//no del usuario en general
+	@ElementCollection
 	private List<Player> teamLineup;
+	@Column(name = "puntos")
 	private int points;
 	public int getId() {
 		return id;
