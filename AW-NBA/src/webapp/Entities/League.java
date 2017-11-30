@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity(name="liga")
 @Table
 public class League implements Serializable {
-	private enum State { INSCRIPCION, ACTIVA, PREPARADA, FINALIZADA }
+	private enum State { Inscripcion, Activa, Preparada, Finalizada }
 	@Id
 	@Column(name = "id")
 	private int id;
@@ -20,8 +20,8 @@ public class League implements Serializable {
 	@Column(name = "saldo")
 	private int saldo_inicial;
 	@Column(name = "estado")
-	private State state;
 	@Enumerated(EnumType.STRING)
+	private State state;
 	public State getState() { 
 	    return state;
 	}

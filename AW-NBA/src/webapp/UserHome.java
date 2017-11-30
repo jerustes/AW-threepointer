@@ -52,13 +52,32 @@ public class UserHome extends HttpServlet {
 		Query query = ses.createQuery(q);
 		query.setParameter("id",user.getId());
 		List<Lineup> lineups = query.list();
-		session.setAttribute("plantilla", lineups);
+		List<League> leagues = null;
+		for (Lineup lineup: lineups) {
+			String hql = "from liga where id = :id";
+			Query peticion = ses.createQuery(hql);
+			peticion.setParameter("id",lineup.getLeague());
+			if (leagues == null) {
+				leagues = peticion.list();
+			} else {
+				League league = (League) peticion.list().get(0);
+				leagues.add(league);
+			}
+		}
+		session.setAttribute("ligas_usuario", leagues);
 		
-		String hql = "from plantilla where usuario != :id";
-		Query consulta = ses.createQuery(hql);
+		String c = "from plantilla where usuario = :id";
+		Query consulta = ses.createQuery(c);
 		consulta.setParameter("id",user.getId());
-		List<Lineup> plantilla = consulta.list();
-		session.setAttribute("plantillaB", plantilla);
+		List<Lineup> plantillas = consulta.list();
+		String hql = "from liga where ";
+		for (Lineup plantilla : plantillas) {
+			hql += "id != "+plantilla.getLeague()+" and ";
+		}
+		hql += "1=1";
+		Query peticion = ses.createQuery(hql);
+		List<League> ligas = peticion.list();
+		session.setAttribute("ligas_disponibles", ligas);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("PlayerHome.jsp");
 		rd.forward(request, response);
