@@ -1,5 +1,6 @@
 package webapp.Entities;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -12,9 +13,9 @@ public class Week implements Serializable {
 	@Column(name = "id")
 	private int id;
 	@Column(name = "fecha_inicio")
-	private Date startDate;
+	private SimpleDateFormat startDate = new SimpleDateFormat("EEE, MMM d, ''yy");
 	@Column(name = "fecha_fin")
-	private Date endDate;
+	private SimpleDateFormat endDate = new SimpleDateFormat("EEE, MMM d, ''yy");
 	
 	public int getId() {
 		return id;
@@ -22,16 +23,16 @@ public class Week implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Date getStartDate() {
+	public SimpleDateFormat getStartDate() {
 		return startDate;
 	}
-	public void setStartDate(Date startDate) {
+	public void setStartDate(SimpleDateFormat startDate) {
 		this.startDate = startDate;
 	}
-	public Date getEndDate() {
+	public SimpleDateFormat getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(Date endDate) {
+	public void setEndDate(SimpleDateFormat endDate) {
 		this.endDate = endDate;
 	}
 	

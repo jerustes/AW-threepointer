@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Vista del Administrador</title>
+<title>Vista del Administrador</title>
 </head>
 <body>
 	<%@ page import="webapp.Entities.*"%>
@@ -18,25 +18,26 @@
 		<%=weeks.size()%>)
 	</h3>
 	<table>
-		<tr>
-			<td>Id</td>
-			<td>Fecha Inicio</td>
-			<td>Fecha Final</td>
-		</tr>
-		<%
-			for (int i = 0; i < weeks.size(); i++) {
-		%>
-		<%
-			Week week = weeks.get(i);
-		%>
-		<tr>
-			<td><%=week.getId()%></td>
-			<td><%=week.getStartDate()%></td>
-			<td><%=week.getEndDate()%></td>
-		</tr>
-		<%
-			}
-		%>
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Fecha Inicio</th>
+				<th>Fecha Final</th>
+			</tr>
+		</thead>
+		<tbody>
+			<%
+				for (Week week : weeks) {
+			%>
+			<tr>
+				<td><%=week.getId()%></td>
+				<td><%=week.getStartDate()%></td>
+				<td><%=week.getEndDate()%></td>
+			</tr>
+			<%
+				}
+			%>
+		</tbody>
 	</table>
 	<%
 		Status status = (Status) session.getAttribute("status");
