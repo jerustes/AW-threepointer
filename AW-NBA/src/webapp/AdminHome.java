@@ -22,7 +22,7 @@ import webapp.Entities.User;
 import webapp.Entities.User.Role;
 import webapp.Entities.Week;
 
-@WebServlet("/AdminHome")
+@WebServlet("/AdminHomeServlet")
 public class AdminHome extends HttpServlet {
 	/**
 	 * 
@@ -47,7 +47,7 @@ public class AdminHome extends HttpServlet {
 			response.sendRedirect("login.jsp");
 		} else if (user.getRole() == Role.jugador) {
 			out.println("Rol de jugador, redireccionando.");
-			response.sendRedirect("UserHome");
+			response.sendRedirect("UserHomeServlet");
 		}
 		String q = "from jornada";
 		Query consulta = ses.createQuery(q);
