@@ -42,7 +42,7 @@ public class JoinLeague extends HttpServlet {
 		Session ses = sessionFactory.openSession();
 		User user = (User) session.getAttribute("user");
 		if (user == null) {
-			out.println("Usuario o contraseña incorrectas");
+			out.println("Usuario o contraseÃ±a incorrectas");
 			response.sendRedirect("login.jsp");
 		}
 		int id = Integer.parseInt(request.getParameter("id"));
@@ -64,8 +64,8 @@ public class JoinLeague extends HttpServlet {
 		List<Lineup> todas_plantillas = (List<Lineup>) plant.list();
 		
 		if (plantillas.size() < usuarios) {
-			out.println("Se puede añadir dicho usuario a la liga");
-			// Añadir usuario a BD, transacción.
+			out.println("Se puede aÃ±adir dicho usuario a la liga");
+			// AÃ±adir usuario a BD, transacciÃ³n.
 			Transaction tx = ses.beginTransaction();
 			Lineup plantilla = new Lineup();
 			plantilla.setId(todas_plantillas.size()+1);
@@ -76,10 +76,11 @@ public class JoinLeague extends HttpServlet {
 			plantilla.setPoints(0);
 			ses.save(plantilla);
 			tx.commit();
+			session.setParameter("liga",league);
 			response.sendRedirect("LeagueHomeServlet?id="+league.getId());
 		} else {
-			out.println("Ya se ha alcanzado el número máximo de usuarios");
-			out.println("No se puede añadir dicho usuario");
+			out.println("Ya se ha alcanzado el nÃºmero mÃ¡ximo de usuarios");
+			out.println("No se puede aÃ±adir dicho usuario");
 			response.sendRedirect("UserHomeServlet?id="+user.getId());
 		}		
 	}
