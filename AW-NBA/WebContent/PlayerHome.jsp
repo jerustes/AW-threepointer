@@ -4,7 +4,7 @@
 <%@ page import='webapp.Entities.Lineup'%>
 <%@ page import='java.util.List'%>
 
-<!-- Vista jugador con sesión inciada -->
+<!-- Vista jugador con sesiÃ³n inciada -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +28,7 @@
 				<tr>
 					<td><%=league.getName()%></td>
 					<td><%=league.getState()%></td>
-					<td><a href="LeagueHomeServlet?id=<%= league.getId() %>">Ver liga <%= league.getId() %>
+					<td><a href="LeagueHomeServlet?id=<%= league.getId() %>">Ver liga <%= league.getId() %></td>
 				</tr>
 				<% } %>
 			</tbody>
@@ -60,7 +60,7 @@
 		<h2>Crear nueva liga</h2>
 		<form action="CreateLeague" method="POST">
 			<div><label>Nombre: <input type="text" name="name"></label></div>
-			<div><label>N�mero m�ximo de usuarios: <input type="text" name="max_usuarios"></label></div>
+			<div><label>Número máximo de usuarios: <input type="text" name="max_usuarios"></label></div>
 			<div><label>Saldo inicial: <input type="text" name="saldo_inicial"> </label></div>
 			<input type="submit" value="Crear liga"></form>
 	</div>
