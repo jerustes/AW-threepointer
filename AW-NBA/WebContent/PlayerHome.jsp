@@ -28,7 +28,7 @@
 				<tr>
 					<td><%=league.getName()%></td>
 					<td><%=league.getState()%></td>
-					<td><a href="LeagueHomeServlet?id=<%= league.getId() %>">Ver liga <%= league.getId() %></td>
+					<td><a href="ViewLeague?id=<%= league.getId() %>">Ver liga <%= league.getId() %></td>
 				</tr>
 				<% } %>
 			</tbody>
