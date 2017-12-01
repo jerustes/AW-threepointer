@@ -76,7 +76,7 @@ public class JoinLeague extends HttpServlet {
 			plantilla.setPoints(0);
 			ses.save(plantilla);
 			tx.commit();
-			session.setParameter("liga",league);
+			session.setAttribute("liga",league);
 			response.sendRedirect("LeagueHomeServlet?id="+league.getId());
 		} else {
 			out.println("Ya se ha alcanzado el número máximo de usuarios");
