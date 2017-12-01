@@ -44,7 +44,7 @@ public class CreateLeague extends HttpServlet {
 		Session ses = sessionFactory.openSession();
 		User user = (User) session.getAttribute("user");
 		if (user == null) {
-			out.println("Usuario o contraseña incorrectas");
+			out.println("Usuario o contraseÃ±a incorrectas");
 			response.sendRedirect("login.jsp");
 		}
 		Transaction tx = ses.beginTransaction();
@@ -55,7 +55,7 @@ public class CreateLeague extends HttpServlet {
 		int nmax = Integer.parseInt(request.getParameter("max_usuarios"));
 		int saldo = Integer.parseInt(request.getParameter("saldo_inicial"));
 		if (saldo > 200000 || saldo < 50000 || name == null || nmax > 20 || nmax < 2) {
-			out.println("Parámetros incorrectos, inténtelo de nuevo.");
+			out.println("ParÃ¡metros incorrectos, intÃ©ntelo de nuevo.");
 			response.sendRedirect("UserHomeServlet?id="+user.getId());
 		} else {
 			League league = new League();
@@ -68,6 +68,7 @@ public class CreateLeague extends HttpServlet {
 			leagues.add(league);
 			ses.saveOrUpdate(league);
 			tx.commit();
+			session.setParameter("liga",league);
 			response.sendRedirect("LeagueHomeServlet?id="+league.getId());
 		}
 	}
