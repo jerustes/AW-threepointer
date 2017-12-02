@@ -58,7 +58,7 @@ public class AdminHome extends HttpServlet {
 		Query query2 = ses.createQuery(q2);
 		List<Status> statusList = (List<Status>) query2.list();
 		Status status = statusList.get(0);
-		session.setAttribute("statusList", statusList);
+		session.setAttribute("status", status);
 
 		RequestDispatcher rd = request.getRequestDispatcher("AdminHome.jsp");
 		rd.forward(request, response);

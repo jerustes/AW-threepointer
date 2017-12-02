@@ -80,7 +80,7 @@ public class UserHome extends HttpServlet {
 		List<League> leagueList2 = query4.list();
 		session.setAttribute("leaguesAvail", leagueList2);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("PlayerHome.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("UserHome.jsp");
 		rd.forward(request, response);
     }
 }
