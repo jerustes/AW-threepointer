@@ -43,7 +43,7 @@ public class LeagueHome extends HttpServlet {
 		League league = (League) session.getAttribute("liga");
 		String q = "from plantilla where liga = :id";
 		Query consulta = ses.createQuery(q);
-		consulta.setParameter("id",id);
+		consulta.setParameter("id",league.getId());
 		List<Lineup> plantillas = (List<Lineup>) consulta.list();
 		session.setAttribute("plantillas_liga", plantillas);
 		
@@ -52,6 +52,12 @@ public class LeagueHome extends HttpServlet {
 		Status estado = (Status) query.list().get(0);
 		session.setAttribute("estado",estado);
 		
+		String c = "from plantilla where usuario = :user and liga = :liga";
+		Query peticion = ses.createQuery(q);
+		peticion.setParameter("user",user.getId());
+		peticion.setParameter("liga",league.getId());
+		Lineup plantilla = (Lineup) peticion.list().get(0);
+		session.setAttribute("plantilla_usuario", plantilla);
 		
 		if (user == null) {
 			out.println("Usuario o contraseña incorrectas");
