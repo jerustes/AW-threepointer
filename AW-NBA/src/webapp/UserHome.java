@@ -42,43 +42,43 @@ public class UserHome extends HttpServlet {
 		Session ses = sessionFactory.openSession();
 		User user = (User) session.getAttribute("user");
 		if (user == null) {
-			out.println("Usuario o contraseña incorrectas");
+			out.println("Usuario o contraseï¿½a incorrectas");
 			response.sendRedirect("login.jsp");
 		} else if (user.getRole() == Role.admin) {
 			out.println("Rol de administrador, redireccionando.");
 			response.sendRedirect("AdminHomeServlet");
 		}
 		int id = Integer.parseInt(request.getParameter("id"));
-		String q = "from plantilla where usuario = :id";
-		Query query = ses.createQuery(q);
-		query.setParameter("id",id);
-		List<Lineup> lineups = query.list();
-		List<League> leagues = null;
-		for (Lineup lineup: lineups) {
-			String hql = "from liga where id = :id";
-			Query peticion = ses.createQuery(hql);
-			peticion.setParameter("id",lineup.getLeague());
-			if (leagues == null) {
-				leagues = peticion.list();
+		String q1 = "from plantilla where usuario = :id";
+		Query query1 = ses.createQuery(q1);
+		query1.setParameter("id",id);
+		List<Lineup> lineupList = query1.list();
+		List<League> leagueList = null;
+		for (Lineup lineup: lineupList) {
+			String q2 = "from liga where id = :id";
+			Query query2 = ses.createQuery(q2);
+			query2.setParameter("id",lineup.getLeague());
+			if (leagueList == null) {
+				leagueList = query2.list();
 			} else {
-				League league = (League) peticion.list().get(0);
-				leagues.add(league);
+				League league = (League) query2.list().get(0);
+				leagueList.add(league);
 			}
 		}
-		session.setAttribute("ligas_usuario", leagues);
+		session.setAttribute("leaguesUser", leagueList);
 		
 		String c = "from plantilla where usuario = :id";
-		Query consulta = ses.createQuery(c);
-		consulta.setParameter("id",id);
-		List<Lineup> plantillas = consulta.list();
-		String hql = "from liga where ";
-		for (Lineup plantilla : plantillas) {
-			hql += "id != "+plantilla.getLeague()+" and ";
+		Query query3 = ses.createQuery(c);
+		query3.setParameter("id",id);
+		List<Lineup> lineupList2 = query3.list();
+		String q3 = "from liga where ";
+		for (Lineup lineup : lineupList2) {
+			q3 += "id != "+ lineup.getLeague()+" and ";
 		}
-		hql += "1=1";
-		Query peticion = ses.createQuery(hql);
-		List<League> ligas = peticion.list();
-		session.setAttribute("ligas_disponibles", ligas);
+		q3 += "1=1";
+		Query query4 = ses.createQuery(q3);
+		List<League> leagueList2 = query4.list();
+		session.setAttribute("leaguesAvail", leagueList2);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("PlayerHome.jsp");
 		rd.forward(request, response);

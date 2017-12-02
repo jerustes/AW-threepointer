@@ -43,22 +43,22 @@ public class AdminHome extends HttpServlet {
 		Session ses = sessionFactory.openSession();
 		User user = (User) session.getAttribute("user");
 		if (user == null) {
-			out.println("Usuario o contraseña incorrectas");
+			out.println("Usuario o contraseï¿½a incorrectas");
 			response.sendRedirect("login.jsp");
 		} else if (user.getRole() == Role.jugador) {
-			out.println("Rol de jugador, redireccionando.");
+			out.println("Rol de jugador, redireccionando...");
 			response.sendRedirect("UserHomeServlet?id="+user.getId());
 		}
-		String q = "from jornada";
-		Query consulta = ses.createQuery(q);
-		List<Week> lista = consulta.list();
-		session.setAttribute("listaJornadas", lista);
+		String q1 = "from jornada";
+		Query query1 = ses.createQuery(q1);
+		List<Week> weeksList = query1.list();
+		session.setAttribute("weeksList", weeksList);
 
-		String hql = "from estado";
-		Query query = ses.createQuery(hql);
-		List<Status> list = (List<Status>) query.list();
-		Status status = list.get(0);
-		session.setAttribute("status", status);
+		String q2 = "from estado";
+		Query query2 = ses.createQuery(q2);
+		List<Status> statusList = (List<Status>) query2.list();
+		Status status = statusList.get(0);
+		session.setAttribute("statusList", statusList);
 
 		RequestDispatcher rd = request.getRequestDispatcher("AdminHome.jsp");
 		rd.forward(request, response);

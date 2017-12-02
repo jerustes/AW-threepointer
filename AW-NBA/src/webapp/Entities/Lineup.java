@@ -20,7 +20,7 @@ public class Lineup implements Serializable {
 	@Column(name = "usuario")
 	private int user;
 	@Column(name = "saldo")
-	private long salary;	//125000 max; Salario de la plantilla de una liga determinada
+	private long balance;	//125000 max; Salario de la plantilla de una liga determinada
 						//no del usuario en general
 	@ElementCollection
 	private List<Player> teamLineup;
@@ -45,11 +45,11 @@ public class Lineup implements Serializable {
 	public void setUser(int user) {
 		this.user = user;
 	}
-	public long getSalary() {
-		return salary;
+	public long getBalance() {
+		return balance;
 	}
-	public void setSalary(long salary) {
-		this.salary = salary;
+	public void setBalance(long balance) {
+		this.balance = balance;
 	}
 	public List<Player> getTeamLineup() {
 		return teamLineup;
@@ -66,7 +66,7 @@ public class Lineup implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "Lineup [id=" + id + ", league=" + league + ", user=" + user + ", salary=" + salary + ", teamLineup="
+		return "Lineup [id=" + id + ", league=" + league + ", user=" + user + ", balance=" + balance + ", teamLineup="
 				+ teamLineup + ", points=" + points + "]";
 	}
 

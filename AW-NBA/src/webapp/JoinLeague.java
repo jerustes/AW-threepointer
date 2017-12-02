@@ -46,41 +46,41 @@ public class JoinLeague extends HttpServlet {
 			response.sendRedirect("login.jsp");
 		}
 		int id = Integer.parseInt(request.getParameter("id"));
-		String hql = "from liga where id = :id";
-		Query query = ses.createQuery(hql);
-		query.setParameter("id",id);
-		List<League> leagues = (List<League>) query.list();
-		League league = leagues.get(0);
-		int usuarios = league.getNMax();
+		String q1 = "from liga where id = :id";
+		Query query1 = ses.createQuery(q1);
+		query1.setParameter("id",id);
+		List<League> leaguesList = (List<League>) query1.list();
+		League league = leaguesList.get(0);
+		int users = league.getNMax();
 		
 		// NULL POINTER EXCEPTION AQUI
-		String q = "from plantilla where liga = :liga";
-		Query consulta = ses.createQuery(q);
-		consulta.setParameter("liga",id);
-		List<Lineup> plantillas = (List<Lineup>) consulta.list();
+		String q2 = "from plantilla where liga = :liga";
+		Query query2 = ses.createQuery(q2);
+		query2.setParameter("leagueId",id);
+		List<Lineup> lineupsList = (List<Lineup>) query2.list();
 		
-		String p = "from plantilla";
-		Query plant = ses.createQuery(p);
-		List<Lineup> todas_plantillas = (List<Lineup>) plant.list();
+		String q3 = "from plantilla";
+		Query query3 = ses.createQuery(q3);
+		List<Lineup> lineupsAll = (List<Lineup>) query3.list();
 		
-		if (plantillas.size() < usuarios) {
-			out.println("Se puede añadir dicho usuario a la liga");
+		if (lineupsList.size() < users) {
+			out.println("Se puede aï¿½adir dicho usuario a la liga");
 			// AÃ±adir usuario a BD, transacciÃ³n.
 			Transaction tx = ses.beginTransaction();
-			Lineup plantilla = new Lineup();
-			plantilla.setId(todas_plantillas.size()+1);
-			plantilla.setLeague(league.getId());
-			plantilla.setSalary(league.getSaldo());
-			plantilla.setUser(user.getId());
-			plantilla.setTeamLineup(null);
-			plantilla.setPoints(0);
-			ses.save(plantilla);
+			Lineup lineup = new Lineup();
+			lineup.setId(lineupsAll.size()+1);
+			lineup.setLeague(league.getId());
+			lineup.setBalance(league.getBalance()); //salary or balance
+			lineup.setUser(user.getId());
+			lineup.setTeamLineup(null);
+			lineup.setPoints(0);
+			ses.save(lineup);
 			tx.commit();
-			session.setAttribute("liga",league);
+			session.setAttribute("league",league);
 			response.sendRedirect("LeagueHomeServlet?id="+league.getId());
 		} else {
-			out.println("Ya se ha alcanzado el número máximo de usuarios");
-			out.println("No se puede añadir dicho usuario");
+			out.println("Ya se ha alcanzado el nï¿½mero mï¿½ximo de usuarios");
+			out.println("No se puede aï¿½adir dicho usuario");
 			response.sendRedirect("UserHomeServlet?id="+user.getId());
 		}		
 	}

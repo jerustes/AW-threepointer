@@ -40,24 +40,24 @@ public class LeagueHome extends HttpServlet {
 		Session ses = sessionFactory.openSession();
 		int id = Integer.parseInt(request.getParameter("id"));
 		User user = (User) session.getAttribute("user");
-		League league = (League) session.getAttribute("liga");
+		League league = (League) session.getAttribute("league");
 		String q1 = "from plantilla where liga = :id";
 		Query query1 = ses.createQuery(q1);
 		query1.setParameter("id",league.getId());
 		List<Lineup> lineupsLeague = (List<Lineup>) query1.list();
-		session.setAttribute("plantillas_liga", lineupsLeague);
+		session.setAttribute("lineupsLeague", lineupsLeague);
 		
 		String q2 = "from estado";
 		Query query2 = ses.createQuery(q2);
 		Status status = (Status) query2.list().get(0);
-		session.setAttribute("estado", status);
+		session.setAttribute("status", status);
 		
 		String q3 = "from plantilla where usuario = :user and liga = :liga";
 		Query query3 = ses.createQuery(q3);
 		query3.setParameter("user",user.getId());
-		query3.setParameter("liga",league.getId());
+		query3.setParameter("league",league.getId());
 		Lineup lineup = (Lineup) query3.list().get(0);
-		session.setAttribute("plantilla_usuario", lineup);
+		session.setAttribute("lineupUser", lineup);
 		
 		if (user == null) {
 			out.println("Usuario o contraseña incorrectas");

@@ -46,12 +46,12 @@ public class ViewLeague extends HttpServlet {
 			response.sendRedirect("login.jsp");
 		}
 		int id = Integer.parseInt(request.getParameter("id"));
-		String hql = "from liga where id = :id";
-		Query query = ses.createQuery(hql);
-		query.setParameter("id",id);
-		List<League> leagues = (List<League>) query.list();
-		League league = leagues.get(0);
-		session.setAttribute("liga",league);
+		String q1 = "from liga where id = :id";
+		Query query1 = ses.createQuery(q1);
+		query1.setParameter("id",id);
+		List<League> leagueList = (List<League>) query1.list();
+		League league = leagueList.get(0);
+		session.setAttribute("league",league);
 		response.sendRedirect("LeagueHomeServlet?id="+id);
 	}
 }

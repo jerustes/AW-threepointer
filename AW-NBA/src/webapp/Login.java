@@ -41,8 +41,8 @@ public class Login extends HttpServlet {
 		String email = (String) request.getParameter("email");
 		String pass = (String) request.getParameter("password");
 		try {
-			String hql = "from usuario u where u.email = :mail and u.password = :pwd ";
-			Query query = ses.createQuery(hql);
+			String q1 = "from usuario u where u.email = :mail and u.password = :pwd ";
+			Query query = ses.createQuery(q1);
 			query.setParameter("mail", email);
 			query.setParameter("pwd", pass);
 			List<User> users = query.list();
@@ -64,7 +64,7 @@ public class Login extends HttpServlet {
 			e.printStackTrace();
 		}
 		if (session.getAttribute("user") == null) {
-			out.println("Usuario o contraseña incorrectas");
+			out.println("Usuario o contraseï¿½a incorrectas");
 			response.sendRedirect("login.jsp");
 		}
 	}

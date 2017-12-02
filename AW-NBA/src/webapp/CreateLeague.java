@@ -48,24 +48,24 @@ public class CreateLeague extends HttpServlet {
 			response.sendRedirect("login.jsp");
 		}
 		Transaction tx = ses.beginTransaction();
-		String hql = "from liga";
-		Query query = ses.createQuery(hql);
-		List<League> leagues = (List<League>) query.list();
+		String q1 = "from liga";
+		Query query1 = ses.createQuery(q1);
+		List<League> leaguesList = (List<League>) query1.list();
 		String name = request.getParameter("name");
-		int nmax = Integer.parseInt(request.getParameter("max_usuarios"));
-		int saldo = Integer.parseInt(request.getParameter("saldo_inicial"));
-		if (saldo > 200000 || saldo < 50000 || name == null || nmax > 20 || nmax < 2) {
+		int nmax = Integer.parseInt(request.getParameter("maxUsers"));
+		int balance = Integer.parseInt(request.getParameter("initBalance"));
+		if (balance > 200000 || balance < 50000 || name == null || nmax > 20 || nmax < 2) {
 			out.println("Parámetros incorrectos, inténtelo de nuevo.");
 			response.sendRedirect("UserHomeServlet?id="+user.getId());
 		} else {
 			League league = new League();
-			league.setId(leagues.size()+1);
+			league.setId(leaguesList.size()+1);
 			league.setCreator(user.getId());
 			league.setName(name);
 			league.setNMax(nmax);
-			league.setSaldo(saldo);
+			league.setBalance(balance);
 			league.setState(State.Inscripcion);
-			leagues.add(league);
+			leaguesList.add(league);
 			ses.saveOrUpdate(league);
 			tx.commit();
 			session.setAttribute("liga",league);
