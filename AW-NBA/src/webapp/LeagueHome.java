@@ -41,23 +41,23 @@ public class LeagueHome extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 		User user = (User) session.getAttribute("user");
 		League league = (League) session.getAttribute("liga");
-		String q = "from plantilla where liga = :id";
-		Query consulta = ses.createQuery(q);
-		consulta.setParameter("id",league.getId());
-		List<Lineup> plantillas = (List<Lineup>) consulta.list();
-		session.setAttribute("plantillas_liga", plantillas);
+		String q1 = "from plantilla where liga = :id";
+		Query query1 = ses.createQuery(q1);
+		query1.setParameter("id",league.getId());
+		List<Lineup> lineupsLeague = (List<Lineup>) query1.list();
+		session.setAttribute("plantillas_liga", lineupsLeague);
 		
-		String hql = "from estado";
-		Query query = ses.createQuery(hql);
-		Status estado = (Status) query.list().get(0);
-		session.setAttribute("estado",estado);
+		String q2 = "from estado";
+		Query query2 = ses.createQuery(q2);
+		Status status = (Status) query2.list().get(0);
+		session.setAttribute("estado", status);
 		
-		String c = "from plantilla where usuario = :user and liga = :liga";
-		Query peticion = ses.createQuery(q);
-		peticion.setParameter("user",user.getId());
-		peticion.setParameter("liga",league.getId());
-		Lineup plantilla = (Lineup) peticion.list().get(0);
-		session.setAttribute("plantilla_usuario", plantilla);
+		String q3 = "from plantilla where usuario = :user and liga = :liga";
+		Query query3 = ses.createQuery(q3);
+		query3.setParameter("user",user.getId());
+		query3.setParameter("liga",league.getId());
+		Lineup lineup = (Lineup) query3.list().get(0);
+		session.setAttribute("plantilla_usuario", lineup);
 		
 		if (user == null) {
 			out.println("Usuario o contraseña incorrectas");
