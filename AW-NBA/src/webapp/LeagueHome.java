@@ -18,6 +18,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
 import webapp.Entities.League;
+import webapp.Entities.Lineup;
 import webapp.Entities.Status;
 import webapp.Entities.User;
 import webapp.Entities.Week;
@@ -40,6 +41,18 @@ public class LeagueHome extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 		User user = (User) session.getAttribute("user");
 		League league = (League) session.getAttribute("liga");
+		String q = "from plantilla where liga = :id";
+		Query consulta = ses.createQuery(q);
+		consulta.setParameter("id",id);
+		List<Lineup> plantillas = (List<Lineup>) consulta.list();
+		session.setAttribute("plantillas_liga", plantillas);
+		
+		String hql = "from estado";
+		Query query = ses.createQuery(hql);
+		Status estado = (Status) query.list().get(0);
+		session.setAttribute("estado",estado);
+		
+		
 		if (user == null) {
 			out.println("Usuario o contraseña incorrectas");
 			response.sendRedirect("login.jsp");
