@@ -21,8 +21,8 @@ import webapp.Entities.League;
 import webapp.Entities.Lineup;
 import webapp.Entities.User;
 
-@WebServlet("/JoinLeague")
-public class JoinLeague extends HttpServlet {
+@WebServlet("/ViewLeague")
+public class ViewLeague extends HttpServlet {
 
 	/**
 	 * 
@@ -46,12 +46,12 @@ public class JoinLeague extends HttpServlet {
 			response.sendRedirect("login.jsp");
 		}
 		int id = Integer.parseInt(request.getParameter("id"));
-	  String hql = "from liga where id = :id";
+		String hql = "from liga where id = :id";
 		Query query = ses.createQuery(hql);
 		query.setParameter("id",id);
 		List<League> leagues = (List<League>) query.list();
 		League league = leagues.get(0);
 		session.setAttribute("liga",league);
-    response.sendRedirect("LeagueHomeServlet?id="+id);
+		response.sendRedirect("LeagueHomeServlet?id="+id);
 	}
 }

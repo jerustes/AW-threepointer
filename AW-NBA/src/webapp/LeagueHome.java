@@ -18,7 +18,9 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
 import webapp.Entities.League;
+import webapp.Entities.Status;
 import webapp.Entities.User;
+import webapp.Entities.Week;
 
 @WebServlet("/LeagueHomeServlet")
 public class LeagueHome extends HttpServlet {
@@ -35,22 +37,22 @@ public class LeagueHome extends HttpServlet {
 		configuration.addAnnotatedClass(Status.class);
 		SessionFactory sessionFactory = configuration.buildSessionFactory();
 		Session ses = sessionFactory.openSession();
-    int id = Integer.parseInt(request.getParameter("id"));
+		int id = Integer.parseInt(request.getParameter("id"));
 		User user = (User) session.getAttribute("user");
-    League league = (League) session.getAttribute("liga");
+		League league = (League) session.getAttribute("liga");
 		if (user == null) {
 			out.println("Usuario o contraseña incorrectas");
 			response.sendRedirect("login.jsp");
 		} else if (league == null) {
-      out.println("No existe liga con dicho id");
-      response.sendRedirect("UserHomeServlet?id="+user.getId());
+			out.println("No existe liga con dicho id");
+			response.sendRedirect("UserHomeServlet?id="+user.getId());
 		} else if (id != league.getId()) {
-      out.println("Usuario no inscrito en dicha liga.");
-      response.sendRedirect("LeagueHomeServlet?id="+plantilla.getLeague());
-    } else {
-      out.println("Mostrar liga con id "+id);
-      RequestDispatcher rd = request.getRequestDispatcher("LeagueHome.jsp");
-		  rd.forward(request, response);
-    }	
+			out.println("Usuario no inscrito en dicha liga.");
+			response.sendRedirect("LeagueHomeServlet?id="+league.getId());
+		} else {
+			out.println("Mostrar liga con id "+id);
+			RequestDispatcher rd = request.getRequestDispatcher("LeagueHome.jsp");
+			rd.forward(request, response);
+		}	
 	}
 }
