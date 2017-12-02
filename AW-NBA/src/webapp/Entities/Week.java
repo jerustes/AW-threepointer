@@ -1,9 +1,11 @@
 package webapp.Entities;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @SuppressWarnings("serial")
 @Entity(name="jornada")
@@ -13,9 +15,9 @@ public class Week implements Serializable {
 	@Column(name = "id")
 	private int id;
 	@Column(name = "fecha_inicio")
-	private SimpleDateFormat startDate = new SimpleDateFormat("EEE, MMM d, ''yy");
+	private SimpleDateFormat startDate = new SimpleDateFormat("yyyy-MM-dd");
 	@Column(name = "fecha_fin")
-	private SimpleDateFormat endDate = new SimpleDateFormat("EEE, MMM d, ''yy");
+	private SimpleDateFormat endDate = new SimpleDateFormat("yyyy-MM-dd");
 	
 	public int getId() {
 		return id;

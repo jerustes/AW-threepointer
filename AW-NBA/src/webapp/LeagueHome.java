@@ -34,13 +34,14 @@ public class LeagueHome extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		Configuration configuration = new Configuration();
 		configuration.configure(this.getClass().getResource("/hibernate.cfg.xml"));
-		configuration.addAnnotatedClass(Week.class);
+		configuration.addAnnotatedClass(Lineup.class);
 		configuration.addAnnotatedClass(Status.class);
 		SessionFactory sessionFactory = configuration.buildSessionFactory();
 		Session ses = sessionFactory.openSession();
 		int id = Integer.parseInt(request.getParameter("id"));
 		User user = (User) session.getAttribute("user");
 		League league = (League) session.getAttribute("league");
+		
 		String q1 = "from plantilla where liga = :id";
 		Query query1 = ses.createQuery(q1);
 		query1.setParameter("id",league.getId());
@@ -52,7 +53,7 @@ public class LeagueHome extends HttpServlet {
 		Status status = (Status) query2.list().get(0);
 		session.setAttribute("status", status);
 		
-		String q3 = "from plantilla where usuario = :user and liga = :liga";
+		String q3 = "from plantilla where usuario = :user and liga = :league";
 		Query query3 = ses.createQuery(q3);
 		query3.setParameter("user",user.getId());
 		query3.setParameter("league",league.getId());

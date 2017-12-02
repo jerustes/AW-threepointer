@@ -51,7 +51,7 @@ public class AdminHome extends HttpServlet {
 		}
 		String q1 = "from jornada";
 		Query query1 = ses.createQuery(q1);
-		List<Week> weeksList = query1.list();
+		List<Week> weeksList = (List<Week>) query1.list();
 		session.setAttribute("weeksList", weeksList);
 
 		String q2 = "from estado";
