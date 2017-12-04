@@ -21,15 +21,20 @@ import webapp.Entities.League;
 import webapp.Entities.Lineup;
 import webapp.Entities.Status;
 import webapp.Entities.User;
-import webapp.Entities.Week;
 
 @WebServlet("/LeagueHomeServlet")
 public class LeagueHome extends HttpServlet {
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4697563238079148919L;
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.setContentType("text/html;charset=UTF-8");
+		response.setContentType("text/html");
+		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		PrintWriter out = response.getWriter();
 		Configuration configuration = new Configuration();
@@ -42,7 +47,7 @@ public class LeagueHome extends HttpServlet {
 		User user = (User) session.getAttribute("user");
 		League league = (League) session.getAttribute("league");
 		
-		String q1 = "from plantilla where liga = :id";
+		String q1 = "from plantilla where liga = :id order by puntos desc";
 		Query query1 = ses.createQuery(q1);
 		query1.setParameter("id",league.getId());
 		List<Lineup> lineupsLeague = (List<Lineup>) query1.list();
@@ -60,13 +65,14 @@ public class LeagueHome extends HttpServlet {
 		Lineup lineup = (Lineup) query3.list().get(0);
 		session.setAttribute("lineupUser", lineup);
 		
-		if (user == null) {
-			out.println("Usuario o contraseña incorrectas");
-			response.sendRedirect("login.jsp");
-		} else if (league == null) {
-			out.println("No existe liga con dicho id");
-			response.sendRedirect("UserHomeServlet?id="+user.getId());
-		} else if (id != league.getId()) {
+//		if (user == null) {
+//			out.println("Usuario o contraseña incorrectas");
+//			response.sendRedirect("login.jsp");
+//		} else if (league == null) {
+//			out.println("No existe liga con dicho id");
+//			response.sendRedirect("UserHomeServlet?id="+user.getId());
+//		} else 
+		if (id != league.getId()) {
 			out.println("Usuario no inscrito en dicha liga.");
 			response.sendRedirect("LeagueHomeServlet?id="+league.getId());
 		} else {

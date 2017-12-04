@@ -30,7 +30,8 @@ public class Login extends HttpServlet {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.setContentType("text/html;charset=UTF-8");
+		response.setContentType("text/html");
+		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		Configuration configuration = new Configuration();
 		configuration.configure(this.getClass().getResource("/hibernate.cfg.xml"));
