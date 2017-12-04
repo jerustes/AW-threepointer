@@ -91,17 +91,17 @@
 	<% if(status.getPhase()==1){ %>
 
 	<form action="MarketHome" method="POST">
-		<input type="submit" value="Fase">
+		<input type="submit" value="Vista Mercado">
 	</form>
 	<% } else if (status.getPhase()==3){ %>
 	<form action="SummaryHome" method="POST">
-		<input type="submit" value="Fase">
+		<input type="submit" value="Vista Resumen">
 	</form>
 	<% } %>
 	<% if(currentUser == creator){ %>
 
 	<form action="AdvanceLeagueStatus" method="POST">
-		<input type="submit" value="Cambiar estado de la liga">
+		<input type="submit" value="Cambiar estado de liga">
 	</form>
 	<% } %>
 </body>

@@ -41,6 +41,7 @@ public class LeagueHome extends HttpServlet {
 		configuration.configure(this.getClass().getResource("/hibernate.cfg.xml"));
 		configuration.addAnnotatedClass(Lineup.class);
 		configuration.addAnnotatedClass(Status.class);
+		configuration.addAnnotatedClass(User.class);
 		SessionFactory sessionFactory = configuration.buildSessionFactory();
 		Session ses = sessionFactory.openSession();
 		int id = Integer.parseInt(request.getParameter("id"));
@@ -58,6 +59,7 @@ public class LeagueHome extends HttpServlet {
 		Status status = (Status) query2.list().get(0);
 		session.setAttribute("status", status);
 		
+		//NULL POINTER EXCEPTION!!
 		String q3 = "from plantilla where usuario = :user and liga = :league";
 		Query query3 = ses.createQuery(q3);
 		query3.setParameter("user",user.getId());
@@ -65,10 +67,9 @@ public class LeagueHome extends HttpServlet {
 		Lineup lineup = (Lineup) query3.list().get(0);
 		session.setAttribute("lineupUser", lineup);
 		
-		int idaux = league.getCreator();
-		String q4 = "from usuario where id = :creator";
+		String q4 = "from usuario where id = :id";
 		Query query4 = ses.createQuery(q2);
-		query4.setParameter("creator", idaux);
+		query4.setParameter("id", league.getCreator());
 		User creator = (User) query4.list().get(0);
 		session.setAttribute("creator", creator);
 		
