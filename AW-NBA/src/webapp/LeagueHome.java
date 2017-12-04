@@ -68,7 +68,7 @@ public class LeagueHome extends HttpServlet {
 		session.setAttribute("lineupUser", lineup);
 		
 		String q4 = "from usuario where id = :id";
-		Query query4 = ses.createQuery(q2);
+		Query query4 = ses.createQuery(q4);
 		query4.setParameter("id", league.getCreator());
 		User creator = (User) query4.list().get(0);
 		session.setAttribute("creator", creator);
