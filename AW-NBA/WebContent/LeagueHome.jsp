@@ -13,12 +13,12 @@
 	<%@ page import="java.util.List"%>
 	<h1>Vista de la Liga</h1>
 	<%
-		League league = (League) session.getAttribute()nos falta este atributo;
-		Lineup lineupUser = (Lineup) session.getAttribute("lineupUser");
+/*UNSURE*/		League league = (League) session.getAttribute("league");
+		Lineup linepUser = (Lineup) session.getAttribute("lineupUser");
 		List<Lineup> lineupsLeague = (List<Lineup>) session.getAttribute("lineupsLeague");
 		//Estado de la liga: league.getState();
 		
-		User creator = league.getCeator();
+		User creator = league.getCreator();
 		User currentUser = lineupUser.getUser();
 	%>
 	<h3>Información de la liga seleccionada</h3>
@@ -58,8 +58,8 @@
 			<tr>
 				<td><%=currentUser.getName()%></td>
 				<td><%=lineupUser.getBalance() %></td>
-				<td><%= posición en la liga %></td>
-				<!-- ni puta idea chacho -->
+				<td><%= /*posición en la liga*/ %></td>
+				<!-- @issues -->
 			</tr>
 		</tbody>
 	</table>
@@ -79,8 +79,8 @@
 				for (Lineup lineup : lineupsLeague) {
 			%>
 			<tr>
-				<td><%=   %></td>
-				<td><%=lineup. /* getName() or getUser().getName() */%></td>
+				<td><!--<%=   %>--></td>
+				<td><%=lineup /* getName() or getUser().getName() */%></td>
 				<td><%=lineup.getBalance()%></td>
 				<td><%=lineup.getPoints()%></td>
 			</tr>

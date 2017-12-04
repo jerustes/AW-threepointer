@@ -42,7 +42,7 @@ public class League implements Serializable {
 		this.name = name;
 	}
 
-	public int getCeator() {
+	public int getCreator() {
 		return creator;
 	}
 
