@@ -11,16 +11,35 @@
 	<!-- Status mainly -->
 
 	<%@ page import="java.util.List"%>
-	<h1>Vista de la Liga</h1>
+	<h2>Vista de la Liga</h2>
 	<%
-/*UNSURE*/		League league = (League) session.getAttribute("league");
-		Lineup linepUser = (Lineup) session.getAttribute("lineupUser");
+		League league = (League) session.getAttribute("league");
+		Lineup lineupUser = (Lineup) session.getAttribute("lineupUser");
 		List<Lineup> lineupsLeague = (List<Lineup>) session.getAttribute("lineupsLeague");
-		//Estado de la liga: league.getState();
-		
-		User creator = league.getCreator();
-		User currentUser = lineupUser.getUser();
+		User currentUser = (User) session.getAttribute("user");
+		User creator = (User) session.getAttribute("creator");	
+		Status status = (Status) session.getAttribute("status");
 	%>
+	
+	<h3>Mi plantilla</h3>
+	<table>
+		<!-- Info about user's lineup in the selected league -->
+		<thead>
+			<tr>
+				<th>Nombre Usuario</th>
+				<th>Saldo</th>
+				<th>Jugadores</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><%=currentUser.getName()%></td>
+				<td><%=lineupUser.getBalance() %></td>
+				<td><%=lineupUser.getTeamLineup() %></td>
+			</tr>
+		</tbody>
+	</table>
+	
 	<h3>Información de la liga seleccionada</h3>
 
 	<table>
@@ -30,47 +49,29 @@
 				<th>ID liga</th>
 				<th>Liga</th>
 				<th>Estado</th>
-				<!-- 
-					<th>máx Participantes</th>
-					<th>Saldo inicial</th>
-				-->
+				<th>máx Participantes</th>
+				<th>Saldo inicial</th>
+				<th>Jornada</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td><%=league.getId()%></td>
-				<td><%=league.getName()%></td>
-				<td><%=league.getState()%></td>
+				<td><%= league.getId() %></td>
+				<td><%= league.getName() %></td>
+				<td><%= league.getState() %></td>
+				<td><%= league.getNMax() %></td>
+				<td><%= league.getBalance() %></td>
+				<td><%= status.getRound() %></td>
 			</tr>
 		</tbody>
 	</table>
-
-	<table>
-		<!-- Info about user's lineup in the selected league -->
-		<thead>
-			<tr>
-				<th>Tu plantilla</th>
-				<th>Saldo</th>
-				<th>Clasificación</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td><%=currentUser.getName()%></td>
-				<td><%=lineupUser.getBalance() %></td>
-				<td><%= /*posición en la liga*/ %></td>
-				<!-- @issues -->
-			</tr>
-		</tbody>
-	</table>
-
+	
+	<h3>Clasificación de la liga seleccionada.</h3>
 	<table>
 		<!-- Table containing the lineups in this league and its info -->
 		<thead>
 			<tr>
-				<th>Clasificación</th>
-				<th>Plantilla</th>
-				<th>Saldo</th>
+				<th>Id Plantilla</th>
 				<th>Puntos</th>
 			</tr>
 		</thead>
@@ -79,9 +80,7 @@
 				for (Lineup lineup : lineupsLeague) {
 			%>
 			<tr>
-				<td><!--<%=   %>--></td>
-				<td><%=lineup /* getName() or getUser().getName() */%></td>
-				<td><%=lineup.getBalance()%></td>
+				<td><%=lineup.getId()%></td>
 				<td><%=lineup.getPoints()%></td>
 			</tr>
 			<%
@@ -89,11 +88,20 @@
 			%>
 		</tbody>
 	</table>
+	<% if(status.getPhase()==1){ %>
 
+	<form action="MarketHome" method="POST">
+		<input type="submit" value="Fase">
+	</form>
+	<% } else if (status.getPhase()==3){ %>
+	<form action="SummaryHome" method="POST">
+		<input type="submit" value="Fase">
+	</form>
+	<% } %>
 	<% if(currentUser == creator){ %>
 
-	<form action="AdvanceStatus" method="POST">
-		<input type="submit" value="Avanzar de fase">
+	<form action="AdvanceLeagueStatus" method="POST">
+		<input type="submit" value="Cambiar estado de la liga">
 	</form>
 	<% } %>
 </body>

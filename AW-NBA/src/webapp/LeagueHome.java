@@ -65,6 +65,13 @@ public class LeagueHome extends HttpServlet {
 		Lineup lineup = (Lineup) query3.list().get(0);
 		session.setAttribute("lineupUser", lineup);
 		
+		int idaux = league.getCreator();
+		String q4 = "from usuario where id = :creator";
+		Query query4 = ses.createQuery(q2);
+		query4.setParameter("creator", idaux);
+		User creator = (User) query4.list().get(0);
+		session.setAttribute("creator", creator);
+		
 //		if (user == null) {
 //			out.println("Usuario o contraseña incorrectas");
 //			response.sendRedirect("login.jsp");

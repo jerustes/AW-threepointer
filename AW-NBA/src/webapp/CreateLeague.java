@@ -69,7 +69,7 @@ public class CreateLeague extends HttpServlet {
 			leaguesList.add(league);
 			ses.saveOrUpdate(league);
 			tx.commit();
-			session.setAttribute("liga",league);
+			session.setAttribute("league",league);
 			response.sendRedirect("LeagueHomeServlet?id="+league.getId());
 		}
 	}
