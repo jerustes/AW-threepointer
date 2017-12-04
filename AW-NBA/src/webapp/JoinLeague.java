@@ -57,7 +57,7 @@ public class JoinLeague extends HttpServlet {
 		// NULL POINTER EXCEPTION AQUI
 		String q2 = "from plantilla where liga = :liga";
 		Query query2 = ses.createQuery(q2);
-		query2.setParameter("leagueId",id);
+		query2.setParameter("liga",id);
 		List<Lineup> lineupsList = (List<Lineup>) query2.list();
 		
 		String q3 = "from plantilla";
@@ -80,8 +80,8 @@ public class JoinLeague extends HttpServlet {
 			session.setAttribute("league",league);
 			response.sendRedirect("LeagueHomeServlet?id="+league.getId());
 		} else {
-			out.println("Ya se ha alcanzado el nï¿½mero mï¿½ximo de usuarios");
-			out.println("No se puede aï¿½adir dicho usuario");
+			out.println("Ya se ha alcanzado el número máximo de usuarios");
+			out.println("No se puede añadir dicho usuario");
 			response.sendRedirect("UserHomeServlet?id="+user.getId());
 		}		
 	}
