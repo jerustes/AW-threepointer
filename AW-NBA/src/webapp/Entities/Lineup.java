@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @SuppressWarnings("serial")
@@ -13,11 +15,13 @@ import javax.persistence.Table;
 @Table
 public class Lineup implements Serializable {
 	@Id
-	@Column(name = "id")
+	@Column(name = "lineup_id")
 	private int id;
-	@Column(name = "liga")
+	@ManyToOne(targetEntity = League.class)
+	@JoinColumn(name="liga")
 	private int league;
-	@Column(name = "usuario")
+	@ManyToOne(targetEntity = User.class)
+	@JoinColumn(name="usuario")
 	private int user;
 	@Column(name = "saldo")
 	private long balance;	//125000 max; Salario de la plantilla de una liga determinada

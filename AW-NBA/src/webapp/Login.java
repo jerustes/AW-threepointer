@@ -36,6 +36,7 @@ public class Login extends HttpServlet {
 		Configuration configuration = new Configuration();
 		configuration.configure(this.getClass().getResource("/hibernate.cfg.xml"));
 		configuration.addAnnotatedClass(User.class);
+		configuration.addAnnotatedClass(Lineup.class);
 		SessionFactory sessionFactory = configuration.buildSessionFactory();
 		Session ses = sessionFactory.openSession();
 		PrintWriter out = response.getWriter();

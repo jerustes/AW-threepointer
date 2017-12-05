@@ -48,7 +48,7 @@ public class LeagueHome extends HttpServlet {
 		User user = (User) session.getAttribute("user");
 		League league = (League) session.getAttribute("league");
 		
-		String q1 = "from plantilla where liga = :id order by puntos desc";
+		String q1 = "from plantilla where league = :id order by points desc";
 		Query query1 = ses.createQuery(q1);
 		query1.setParameter("id",league.getId());
 		List<Lineup> lineupsLeague = (List<Lineup>) query1.list();
@@ -59,19 +59,24 @@ public class LeagueHome extends HttpServlet {
 		Status status = (Status) query2.list().get(0);
 		session.setAttribute("status", status);
 		
-		//NULL POINTER EXCEPTION!!
-		String q3 = "from plantilla where usuario = :user and liga = :league";
+		String q3 = "from plantilla where user = :user and league = :league";
 		Query query3 = ses.createQuery(q3);
 		query3.setParameter("user",user.getId());
 		query3.setParameter("league",league.getId());
 		Lineup lineup = (Lineup) query3.list().get(0);
 		session.setAttribute("lineupUser", lineup);
 		
-		String q4 = "from usuario where id = :id";
-		Query query4 = ses.createQuery(q2);
-		query4.setParameter("id", league.getCreator());
+		String q4 = "from usuario where id = :creator";
+		Query query4 = ses.createQuery(q4);
+		query4.setParameter("creator", league.getCreator());
 		User creator = (User) query4.list().get(0);
 		session.setAttribute("creator", creator);
+		
+		String q5 = "select u.name from usuario u join plantilla p where u.id = user and league = :id";
+		Query query5 = ses.createQuery(q5);
+		query5.setParameter("id", league.getId());
+		List<User> namesUsers = (List<User>) query5.list();
+		session.setAttribute("namesUsers", namesUsers);
 		
 //		if (user == null) {
 //			out.println("Usuario o contraseña incorrectas");

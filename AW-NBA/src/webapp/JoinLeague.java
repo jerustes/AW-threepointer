@@ -54,15 +54,15 @@ public class JoinLeague extends HttpServlet {
 		League league = leaguesList.get(0);
 		int users = league.getNMax();
 		
-		// NULL POINTER EXCEPTION AQUI
-		String q2 = "from plantilla where liga = :liga";
-		Query query2 = ses.createQuery(q2);
-		query2.setParameter("liga",id);
-		List<Lineup> lineupsList = (List<Lineup>) query2.list();
 		
 		String q3 = "from plantilla";
 		Query query3 = ses.createQuery(q3);
 		List<Lineup> lineupsAll = (List<Lineup>) query3.list();
+		
+		String q2 = "from plantilla where league = :liga";
+		Query query2 = ses.createQuery(q2);
+		query2.setParameter("liga",league.getId());
+		List<Lineup> lineupsList = (List<Lineup>) query2.list();
 		
 		if (lineupsList.size() < users) {
 			out.println("Se puede a�adir dicho usuario a la liga");

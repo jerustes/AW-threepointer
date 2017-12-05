@@ -1,7 +1,17 @@
 package webapp.Entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 
 @SuppressWarnings("serial")
 @Entity(name="usuario")
@@ -9,7 +19,7 @@ import javax.persistence.*;
 public class User implements Serializable {
 	public enum Role { admin, jugador }
 	@Id
-	@Column(name = "id")
+	@Column(name = "user_id")
 	private int id;
 	@Column(name = "nombre")
 	private String name;
@@ -20,7 +30,22 @@ public class User implements Serializable {
 	private String email;
 	@Column(name = "contrasena")
 	private String password; //String rly?
-
+	@OneToMany(mappedBy = "user")
+    private Collection<Lineup> userLineup = new ArrayList<Lineup>();
+	@OneToMany(mappedBy = "creator")
+    private Collection<League> creatorLeague = new ArrayList<League>();
+	public void setUserLineup(Collection<Lineup> userLineup) {
+		this.userLineup = userLineup;
+	}
+	public Collection<Lineup> getUserLineup() {
+		return userLineup;
+	}
+	public void setCreatorLeague(Collection<League> creatorLeague) {
+		this.creatorLeague = creatorLeague;
+	}
+	public Collection<League> getCreatorLeague() {
+		return creatorLeague;
+	}
 	public String getName() {
 		return name;
 	}

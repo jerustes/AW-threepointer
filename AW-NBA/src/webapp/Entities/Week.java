@@ -1,10 +1,14 @@
 package webapp.Entities;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @SuppressWarnings("serial")
@@ -12,12 +16,22 @@ import javax.persistence.Table;
 @Table
 public class Week implements Serializable {
 	@Id
-	@Column(name = "id")
+	@Column(name = "week_id")
 	private int id;
 	@Column(name = "fecha_inicio")
-	private SimpleDateFormat startDate = new SimpleDateFormat("yyyy-MM-dd");
+	private Date startDate = new Date();
 	@Column(name = "fecha_fin")
-	private SimpleDateFormat endDate = new SimpleDateFormat("yyyy-MM-dd");
+	private Date endDate = new Date();
+	
+	@OneToMany(mappedBy = "round")
+    private Collection<Status> userStatus = new ArrayList<Status>();
+	
+	public Collection<Status> getUserStatus() {
+		return userStatus;
+	}
+	public void setUserStatus(Collection<Status> userStatus) {
+		this.userStatus = userStatus;
+	}
 	
 	public int getId() {
 		return id;
@@ -25,17 +39,21 @@ public class Week implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public SimpleDateFormat getStartDate() {
-		return startDate;
+	public String getStartDate() {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		return formatter.format(startDate);
 	}
-	public void setStartDate(SimpleDateFormat startDate) {
-		this.startDate = startDate;
+	public void setStartDate(String startDate) {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		startDate = formatter.format(this.startDate);
 	}
-	public SimpleDateFormat getEndDate() {
-		return endDate;
+	public String getEndDate() {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		return formatter.format(endDate);
 	}
-	public void setEndDate(SimpleDateFormat endDate) {
-		this.endDate = endDate;
+	public void setEndDate(String endDate) {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		endDate = formatter.format(this.endDate);
 	}
 	
 	@Override

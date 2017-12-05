@@ -12,6 +12,12 @@
      <property name="connection.pool_size">5</property>
      <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
      <property name="show_sql">true</property>
+     <mapping class="webapp.Entities.League"/>
+     <mapping class="webapp.Entities.Lineup"/>
+     <mapping class="webapp.Entities.Player"/>
+     <mapping class="webapp.Entities.Status"/>
+     <mapping class="webapp.Entities.User"/>
+     <mapping class="webapp.Entities.Week"/>
   </session-factory>
 </hibernate-configuration>
 

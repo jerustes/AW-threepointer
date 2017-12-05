@@ -11,7 +11,7 @@
 	<%@ page import="java.util.List"%>
 	<h2>Vista del Administrador</h2>
 	<%
-		List<Week> weeks = (List<Week>) session.getAttribute("weekList");
+		List<Week> weeks = (List<Week>) session.getAttribute("weeksList");
 	%>
 	<h3>
 		Lista de jornadas (tamaño del calendario:

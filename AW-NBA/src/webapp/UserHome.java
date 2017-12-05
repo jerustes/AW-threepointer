@@ -50,7 +50,7 @@ public class UserHome extends HttpServlet {
 			response.sendRedirect("AdminHomeServlet");
 		}
 		int id = Integer.parseInt(request.getParameter("id"));
-		String q1 = "from plantilla where usuario = :id";
+		String q1 = "from plantilla where user = :id";
 		Query query1 = ses.createQuery(q1);
 		query1.setParameter("id",id);
 		List<Lineup> lineupList = query1.list();
@@ -68,7 +68,7 @@ public class UserHome extends HttpServlet {
 		}
 		session.setAttribute("leaguesUser", leagueList);
 		
-		String c = "from plantilla where usuario = :id";
+		String c = "from plantilla where user = :id";
 		Query query3 = ses.createQuery(c);
 		query3.setParameter("id",id);
 		List<Lineup> lineupList2 = query3.list();

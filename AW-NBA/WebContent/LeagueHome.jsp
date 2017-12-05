@@ -33,9 +33,9 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td><%=currentUser.getName()%></td>
-				<td><%=lineupUser.getBalance() %></td>
-				<td><%=lineupUser.getTeamLineup() %></td>
+				<td><%= currentUser.getName() %></td>
+				<td><%= lineupUser.getBalance() %></td>
+				<td><%= lineupUser.getTeamLineup() %></td>
 			</tr>
 		</tbody>
 	</table>
