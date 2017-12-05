@@ -36,34 +36,29 @@ public class Login extends HttpServlet {
 		Configuration configuration = new Configuration();
 		configuration.configure(this.getClass().getResource("/hibernate.cfg.xml"));
 		configuration.addAnnotatedClass(User.class);
-		configuration.addAnnotatedClass(Lineup.class);
 		SessionFactory sessionFactory = configuration.buildSessionFactory();
 		Session ses = sessionFactory.openSession();
 		PrintWriter out = response.getWriter();
 		String email = (String) request.getParameter("email");
 		String pass = (String) request.getParameter("password");
-		try {
-			String q1 = "from usuario u where u.email = :mail and u.password = :pwd ";
-			Query query = ses.createQuery(q1);
-			query.setParameter("mail", email);
-			query.setParameter("pwd", pass);
-			List<User> users = query.list();
-			User user = users.get(0);
-			Role rol = user.getRole();
-			if (rol == Role.jugador) {
-				session.setAttribute("user", user);
-				out.println("Usuario con rol de jugador entrando en la vista principal.");
-				response.sendRedirect("UserHomeServlet?id="+user.getId());
-			} else if (rol == Role.admin) {
-				session.setAttribute("user", user);
-				out.println("Usuario con rol de admin entrando en la vista de administrador.");
-				response.sendRedirect("AdminHomeServlet");
-			} else {
-				out.println("Error de la Base de Datos");
-				response.sendError(100);
-			}
-		} catch (NullPointerException e) {
-			e.printStackTrace();
+		String q1 = "from usuario where email = :mail and password = :pwd ";
+		Query query = ses.createQuery(q1);
+		query.setParameter("mail", email);
+		query.setParameter("pwd", pass);
+		List<User> listUsers = (List<User>) query.list();
+		User user = listUsers.get(0);
+		Role rol = user.getRole();
+		if (rol == Role.jugador) {
+			session.setAttribute("user", user);
+			out.println("Usuario con rol de jugador entrando en la vista principal.");
+			response.sendRedirect("UserHomeServlet?id="+user.getId());
+		} else if (rol == Role.admin) {
+			session.setAttribute("user", user);
+			out.println("Usuario con rol de admin entrando en la vista de administrador.");
+			response.sendRedirect("AdminHomeServlet");
+		} else {
+			out.println("Error de la Base de Datos");
+			response.sendError(100);
 		}
 		if (session.getAttribute("user") == null) {
 			out.println("Usuario o contrase�a incorrectas");

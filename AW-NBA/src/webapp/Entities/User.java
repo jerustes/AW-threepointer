@@ -19,7 +19,7 @@ import javax.persistence.Table;
 public class User implements Serializable {
 	public enum Role { admin, jugador }
 	@Id
-	@Column(name = "user_id")
+	@Column(name = "id")
 	private int id;
 	@Column(name = "nombre")
 	private String name;
@@ -30,22 +30,22 @@ public class User implements Serializable {
 	private String email;
 	@Column(name = "contrasena")
 	private String password; //String rly?
-	@OneToMany(mappedBy = "user")
-    private Collection<Lineup> userLineup = new ArrayList<Lineup>();
-	@OneToMany(mappedBy = "creator")
-    private Collection<League> creatorLeague = new ArrayList<League>();
-	public void setUserLineup(Collection<Lineup> userLineup) {
-		this.userLineup = userLineup;
-	}
-	public Collection<Lineup> getUserLineup() {
-		return userLineup;
-	}
-	public void setCreatorLeague(Collection<League> creatorLeague) {
-		this.creatorLeague = creatorLeague;
-	}
-	public Collection<League> getCreatorLeague() {
-		return creatorLeague;
-	}
+//	@OneToMany(mappedBy = "user")
+//    private Collection<Lineup> userLineup = new ArrayList<Lineup>();
+//	@OneToMany(mappedBy = "creator")
+//    private Collection<League> creatorLeague = new ArrayList<League>();
+//	public void setUserLineup(Collection<Lineup> userLineup) {
+//		this.userLineup = userLineup;
+//	}
+//	public Collection<Lineup> getUserLineup() {
+//		return userLineup;
+//	}
+//	public void setCreatorLeague(Collection<League> creatorLeague) {
+//		this.creatorLeague = creatorLeague;
+//	}
+//	public Collection<League> getCreatorLeague() {
+//		return creatorLeague;
+//	}
 	public String getName() {
 		return name;
 	}

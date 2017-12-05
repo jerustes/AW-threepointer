@@ -59,12 +59,16 @@ public class LeagueHome extends HttpServlet {
 		Status status = (Status) query2.list().get(0);
 		session.setAttribute("status", status);
 		
-		String q3 = "from plantilla where user = :user and league = :league";
-		Query query3 = ses.createQuery(q3);
-		query3.setParameter("user",user.getId());
-		query3.setParameter("league",league.getId());
-		Lineup lineup = (Lineup) query3.list().get(0);
-		session.setAttribute("lineupUser", lineup);
+		try {
+			String q3 = "from plantilla where user = :user and league = :league";
+			Query query3 = ses.createQuery(q3);
+			query3.setParameter("user",user.getId());
+			query3.setParameter("league",league.getId());
+			Lineup lineup = (Lineup) query3.list().get(0);
+			session.setAttribute("lineupUser", lineup);
+		} catch (IndexOutOfBoundsException e) {
+			e.printStackTrace();
+		}
 		
 		String q4 = "from usuario where id = :creator";
 		Query query4 = ses.createQuery(q4);
@@ -72,11 +76,10 @@ public class LeagueHome extends HttpServlet {
 		User creator = (User) query4.list().get(0);
 		session.setAttribute("creator", creator);
 		
-		String q5 = "select u.name from usuario u join plantilla p where u.id = user and league = :id";
+		String q5 = "from usuario";
 		Query query5 = ses.createQuery(q5);
-		query5.setParameter("id", league.getId());
-		List<User> namesUsers = (List<User>) query5.list();
-		session.setAttribute("namesUsers", namesUsers);
+		List<User> listUsers = (List<User>) query5.list();
+		session.setAttribute("listUsers", listUsers);
 		
 //		if (user == null) {
 //			out.println("Usuario o contraseña incorrectas");

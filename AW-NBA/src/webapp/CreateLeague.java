@@ -52,6 +52,12 @@ public class CreateLeague extends HttpServlet {
 		String q1 = "from liga";
 		Query query1 = ses.createQuery(q1);
 		List<League> leaguesList = (List<League>) query1.list();
+		
+		
+		String q2 = "from plantilla";
+		Query query2 = ses.createQuery(q2);
+		List<Lineup> lineupsList = (List<Lineup>) query2.list();
+		
 		String name = request.getParameter("name");
 		int nmax = Integer.parseInt(request.getParameter("maxUsers"));
 		int balance = Integer.parseInt(request.getParameter("initBalance"));
@@ -68,6 +74,15 @@ public class CreateLeague extends HttpServlet {
 			league.setState(State.Inscripcion);
 			leaguesList.add(league);
 			ses.saveOrUpdate(league);
+			Lineup lineup = new Lineup();
+			lineup.setId(lineupsList.size()+1);
+			lineup.setLeague(league.getId());
+			lineup.setBalance(league.getBalance()); //salary or balance
+			lineup.setUser(user.getId());
+			lineup.setTeamLineup(null);
+			lineup.setPoints(0);
+			lineupsList.add(lineup);
+			ses.saveOrUpdate(lineup);
 			tx.commit();
 			session.setAttribute("league",league);
 			response.sendRedirect("LeagueHomeServlet?id="+league.getId());

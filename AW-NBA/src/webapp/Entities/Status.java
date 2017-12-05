@@ -8,10 +8,10 @@ import javax.persistence.*;
 @Table
 public class Status implements Serializable {
 	@Id
-	@Column (name = "status_id")
+	@Column (name = "id")
 	private int id;
-	@ManyToOne(targetEntity = Week.class)
-	@JoinColumn(name="jornada")
+	//@ManyToOne(targetEntity = Week.class)
+	@Column(name="jornada")
 	private int round;		//Jornada
 	@Column(name = "fase")
 	private int phase;

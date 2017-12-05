@@ -75,7 +75,7 @@ public class JoinLeague extends HttpServlet {
 			lineup.setUser(user.getId());
 			lineup.setTeamLineup(null);
 			lineup.setPoints(0);
-			ses.save(lineup);
+			ses.saveOrUpdate(lineup);
 			tx.commit();
 			session.setAttribute("league",league);
 			response.sendRedirect("LeagueHomeServlet?id="+league.getId());

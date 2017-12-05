@@ -16,22 +16,22 @@ import javax.persistence.Table;
 @Table
 public class Week implements Serializable {
 	@Id
-	@Column(name = "week_id")
+	@Column(name = "id")
 	private int id;
 	@Column(name = "fecha_inicio")
 	private Date startDate = new Date();
 	@Column(name = "fecha_fin")
 	private Date endDate = new Date();
 	
-	@OneToMany(mappedBy = "round")
-    private Collection<Status> userStatus = new ArrayList<Status>();
-	
-	public Collection<Status> getUserStatus() {
-		return userStatus;
-	}
-	public void setUserStatus(Collection<Status> userStatus) {
-		this.userStatus = userStatus;
-	}
+//	@OneToMany(mappedBy = "round")
+//    private Collection<Status> userStatus = new ArrayList<Status>();
+//	
+//	public Collection<Status> getUserStatus() {
+//		return userStatus;
+//	}
+//	public void setUserStatus(Collection<Status> userStatus) {
+//		this.userStatus = userStatus;
+//	}
 	
 	public int getId() {
 		return id;

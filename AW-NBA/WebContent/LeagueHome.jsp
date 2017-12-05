@@ -19,6 +19,7 @@
 		User currentUser = (User) session.getAttribute("user");
 		User creator = (User) session.getAttribute("creator");	
 		Status status = (Status) session.getAttribute("status");
+		List<User> listUsers = (List<User>) session.getAttribute("listUsers");
 	%>
 	
 	<h3>Mi plantilla</h3>
@@ -33,9 +34,9 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td><%= currentUser.getName() %></td>
+				<td><a href=UserHomeServlet?id=<%=currentUser.getId()%>><%= currentUser.getName() %></a></td>
 				<td><%= lineupUser.getBalance() %></td>
-				<td><%= lineupUser.getTeamLineup() %></td>
+				<%-- <td><%= lineupUser.getTeamLineup() %></td> --%>
 			</tr>
 		</tbody>
 	</table>
@@ -78,12 +79,18 @@
 		<tbody>
 			<%
 				for (Lineup lineup : lineupsLeague) {
+					userloop:
+					for (User user : listUsers) {
+						if (lineup.getUser() == user.getId()) {
 			%>
 			<tr>
-				<td><%=lineup.getId()%></td>
+				<td><%=user.getName() %></td>
 				<td><%=lineup.getPoints()%></td>
 			</tr>
 			<%
+							break userloop;
+						}
+					}
 				}
 			%>
 		</tbody>

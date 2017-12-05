@@ -15,12 +15,12 @@ public class League implements Serializable {
 	}
 
 	@Id
-	@Column(name = "league_id")
+	@Column(name = "id")
 	private int id;
 	@Column(name = "nombre")
 	private String name;
-	@ManyToOne(targetEntity = User.class)
-	@JoinColumn(name="usuario")
+	//@ManyToOne(targetEntity = User.class)
+	@Column(name="creador")
 	private int creator;
 	@Column(name = "no_usuarios")
 	private int nMax; // Max number of players
@@ -29,15 +29,15 @@ public class League implements Serializable {
 	@Column(name = "estado")
 	@Enumerated(EnumType.STRING)
 	private State state;
-	@OneToMany(mappedBy = "league")
-	private Collection<League> userLeague = new ArrayList<League>();
-	
-	public Collection<League> getUserLeague() {
-		return userLeague;
-	}
-	public void setUserLeague(Collection<League> userLeague) {
-		this.userLeague = userLeague;
-	}
+//	@OneToMany(mappedBy = "league")
+//	private Collection<League> userLeague = new ArrayList<League>();
+//	
+//	public Collection<League> getUserLeague() {
+//		return userLeague;
+//	}
+//	public void setUserLeague(Collection<League> userLeague) {
+//		this.userLeague = userLeague;
+//	}
 	public State getState() {
 		return state;
 	}

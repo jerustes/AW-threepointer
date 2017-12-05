@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Player implements Serializable {
 	private enum Position { B, E, A, AP, P }
 	@Id
-	@Column(name = "player_id")
+	@Column(name = "id")
 	private int id;
 	@Column(name = "valor")
 	private int value;

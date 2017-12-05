@@ -15,13 +15,13 @@ import javax.persistence.Table;
 @Table
 public class Lineup implements Serializable {
 	@Id
-	@Column(name = "lineup_id")
+	@Column(name = "id")
 	private int id;
-	@ManyToOne(targetEntity = League.class)
-	@JoinColumn(name="liga")
+	//@ManyToOne(targetEntity = League.class)
+	@Column(name="liga")
 	private int league;
-	@ManyToOne(targetEntity = User.class)
-	@JoinColumn(name="usuario")
+	//@ManyToOne(targetEntity = User.class)
+	@Column(name="usuario")
 	private int user;
 	@Column(name = "saldo")
 	private long balance;	//125000 max; Salario de la plantilla de una liga determinada
