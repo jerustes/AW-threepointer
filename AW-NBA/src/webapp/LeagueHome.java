@@ -104,14 +104,10 @@ public class LeagueHome extends HttpServlet {
 		}
 		lineupAux.setTeamLineup(teamLineup);
 		session.setAttribute("lineupUser", lineupAux);
-//		if (user == null) {
-//			out.println("Usuario o contraseña incorrectas");
-//			response.sendRedirect("login.jsp");
-//		} else if (league == null) {
-//			out.println("No existe liga con dicho id");
-//			response.sendRedirect("UserHomeServlet?id="+user.getId());
-//		} else 
-		if (id != league.getId()) {
+		if (user == null) {
+			out.println("Usuario o contraseña incorrectas");
+			response.sendRedirect("login.jsp");
+		} else if (id != league.getId()) {
 			out.println("Usuario no inscrito en dicha liga.");
 			response.sendRedirect("LeagueHomeServlet?id="+league.getId());
 		} else {

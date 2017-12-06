@@ -23,24 +23,48 @@
 	%>
 	
 	<h3>Mi plantilla</h3>
+	
+	<h4>Información de plantilla</h4>
 	<table>
 		<!-- Info about user's lineup in the selected league -->
 		<thead>
 			<tr>
 				<th>Nombre Usuario</th>
 				<th>Saldo</th>
-				<th>Jugadores</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<td><a href=UserHomeServlet?id=<%=currentUser.getId()%>><%= currentUser.getName() %></a></td>
 				<td><%= lineupUser.getBalance() %></td>
-				<td><%= lineupUser.getTeamLineup() %></td>
 			</tr>
 		</tbody>
 	</table>
 	
+	<h4>Jugadores</h4>
+	<table>
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Equipo</th>
+				<th>Posición</th>
+				<th>Precio</th>
+				<th>Puntos Globales</th>
+			</tr>
+		</thead>
+		<tbody>
+		<% for (int i=0; i<lineupUser.getTeamLineup().size(); i++) { %>
+			<tr>
+			<% Player bballer = lineupUser.getTeamLineup().get(i); %>
+				<td><%= bballer.getName() %></td>
+				<td><%= bballer.getTeam() %></td>
+				<td><%= bballer.getPosition() %></td>
+				<td><%= bballer.getValue() %></td>
+				<td><%= bballer.getPointsGlobal() %></td>
+			</tr>
+		<% } %>
+		</tbody>
+	</table>
 	<h3>Información de la liga seleccionada</h3>
 
 	<table>
