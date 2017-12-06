@@ -29,7 +29,7 @@ public class User implements Serializable {
 	@Column(name = "mail")
 	private String email;
 	@Column(name = "contrasena")
-	private String password; //String rly?
+	private String password; 
 //	@OneToMany(mappedBy = "user")
 //    private Collection<Lineup> userLineup = new ArrayList<Lineup>();
 //	@OneToMany(mappedBy = "creator")
