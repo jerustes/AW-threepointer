@@ -16,6 +16,7 @@ public class Player implements Serializable {
 	@Column(name = "nombre")
 	private String name;
 	@Column(name = "posicion")
+	@Enumerated(EnumType.STRING)
 	private Position position;
 	@Column(name = "equipo")
 	private String team;
@@ -23,7 +24,6 @@ public class Player implements Serializable {
 	private int pointsWeek;	//PER
 	@Column(name = "puntos_global")
 	private int pointsGlobal;
-	@Enumerated(EnumType.STRING)
 	public Position getPosition() {
 		return position;
 	}

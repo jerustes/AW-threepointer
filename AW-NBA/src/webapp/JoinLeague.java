@@ -18,6 +18,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
 import webapp.Entities.League;
+import webapp.Entities.League.State;
 import webapp.Entities.Lineup;
 import webapp.Entities.User;
 
@@ -64,7 +65,7 @@ public class JoinLeague extends HttpServlet {
 		query2.setParameter("liga",league.getId());
 		List<Lineup> lineupsList = (List<Lineup>) query2.list();
 		
-		if (lineupsList.size() < users) {
+		if (lineupsList.size() < users && league.getState() == State.Inscripcion) {
 			out.println("Se puede a�adir dicho usuario a la liga");
 			// Añadir usuario a BD, transacción.
 			Transaction tx = ses.beginTransaction();

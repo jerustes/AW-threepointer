@@ -19,7 +19,9 @@ import org.hibernate.query.Query;
 
 import webapp.Entities.League;
 import webapp.Entities.Lineup;
+import webapp.Entities.Player;
 import webapp.Entities.Status;
+import webapp.Entities.Team;
 import webapp.Entities.User;
 
 @WebServlet("/LeagueHomeServlet")
@@ -42,6 +44,8 @@ public class LeagueHome extends HttpServlet {
 		configuration.addAnnotatedClass(Lineup.class);
 		configuration.addAnnotatedClass(Status.class);
 		configuration.addAnnotatedClass(User.class);
+		configuration.addAnnotatedClass(Team.class);
+		configuration.addAnnotatedClass(Player.class);
 		SessionFactory sessionFactory = configuration.buildSessionFactory();
 		Session ses = sessionFactory.openSession();
 		int id = Integer.parseInt(request.getParameter("id"));
@@ -81,6 +85,25 @@ public class LeagueHome extends HttpServlet {
 		List<User> listUsers = (List<User>) query5.list();
 		session.setAttribute("listUsers", listUsers);
 		
+		Lineup lineupAux = (Lineup) session.getAttribute("lineupUser");
+		String q6 = "from plantilladeportista where lineup = :lineup";
+		Query query6 = ses.createQuery(q6);
+		query6.setParameter("lineup", lineupAux.getId());
+		List<Team> listTeam = (List<Team>) query6.list();
+		List<Player> teamLineup = null;
+		for (Team team : listTeam) {
+			String q7 = "from deportista where id = :player";
+			Query query7 = ses.createQuery(q7);
+			query7.setParameter("player", team.getPlayer());
+			if (teamLineup == null) {
+				teamLineup = (List<Player>) query7.list();
+			} else {
+				Player player = (Player) query7.list().get(0);
+				teamLineup.add(player);
+			}
+		}
+		lineupAux.setTeamLineup(teamLineup);
+		session.setAttribute("lineupUser", lineupAux);
 //		if (user == null) {
 //			out.println("Usuario o contraseña incorrectas");
 //			response.sendRedirect("login.jsp");

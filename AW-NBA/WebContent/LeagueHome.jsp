@@ -36,7 +36,7 @@
 			<tr>
 				<td><a href=UserHomeServlet?id=<%=currentUser.getId()%>><%= currentUser.getName() %></a></td>
 				<td><%= lineupUser.getBalance() %></td>
-				<%-- <td><%= lineupUser.getTeamLineup() %></td> --%>
+				<td><%= lineupUser.getTeamLineup() %></td>
 			</tr>
 		</tbody>
 	</table>
@@ -49,6 +49,7 @@
 			<tr>
 				<th>ID liga</th>
 				<th>Liga</th>
+				<th>Creador</th>
 				<th>Estado</th>
 				<th>máx Participantes</th>
 				<th>Saldo inicial</th>
@@ -59,6 +60,7 @@
 			<tr>
 				<td><%= league.getId() %></td>
 				<td><%= league.getName() %></td>
+				<td><%= league.getCreator() %></td>
 				<td><%= league.getState() %></td>
 				<td><%= league.getNMax() %></td>
 				<td><%= league.getBalance() %></td>
@@ -105,7 +107,7 @@
 		<input type="submit" value="Vista Resumen">
 	</form>
 	<% } %>
-	<% if(currentUser == creator){ %>
+	<% if(currentUser.getId() == creator.getId()){ %>
 
 	<form action="AdvanceLeagueStatus" method="POST">
 		<input type="submit" value="Cambiar estado de liga">

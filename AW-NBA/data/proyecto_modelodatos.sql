@@ -53,11 +53,13 @@ CREATE TABLE plantilla (
     PRIMARY KEY(id)
 );
 CREATE TABLE plantillaDeportista (
+	id INT NOT NULL auto_increment,
 	plantilla INT NOT NULL,
     deportista INT NOT NULL,
     CONSTRAINT FOREIGN KEY (plantilla)
 		REFERENCES Plantilla(id),
 	CONSTRAINT FOREIGN KEY (deportista)
-		REFERENCES Deportista(id)
+		REFERENCES Deportista(id),
+	PRIMARY KEY(id)
 );
 

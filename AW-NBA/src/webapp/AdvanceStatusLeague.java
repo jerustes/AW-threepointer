@@ -22,16 +22,19 @@ import webapp.Entities.League;
 import webapp.Entities.League.State;
 import webapp.Entities.Status;
 import webapp.Entities.User;
+import webapp.Entities.User.Role;
 import webapp.Entities.Week;
 
-@WebServlet("/AdvanceStatus")
-public class AdvanceStatus extends HttpServlet {
+@WebServlet("/AdvanceLeagueStatus")
+public class AdvanceStatusLeague extends HttpServlet {
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -2642528257958171662L;
+	private static final long serialVersionUID = -6341589376387126732L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html");
 		request.setCharacterEncoding("UTF-8");
@@ -39,42 +42,27 @@ public class AdvanceStatus extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		Configuration configuration = new Configuration();
 		configuration.configure(this.getClass().getResource("/hibernate.cfg.xml"));
-		configuration.addAnnotatedClass(Week.class);
-		configuration.addAnnotatedClass(Status.class);
 		configuration.addAnnotatedClass(League.class);
 		SessionFactory sessionFactory = configuration.buildSessionFactory();
 		Session ses = sessionFactory.openSession();
-
-		if (session.getAttribute("user") == null) {
-			out.println("Usuario o contraseña incorrectas");
+		User user = (User) session.getAttribute("user");
+		
+		if (user == null) {
+			out.println("Usuario o contraseï¿½a incorrectas");
 			response.sendRedirect("login.jsp");
 		}
-		String q1 = "from liga where state = :state";
-		Query query = ses.createQuery(q1);
-		query.setParameter("state",State.Preparada);
-		List<League> preparedLeagues = (List<League>) query.list();
-		Status status = (Status) session.getAttribute("status");
+		
+		League league = (League) session.getAttribute("league");
 		Transaction tx = ses.beginTransaction();
-		int phase = status.getPhase();
-		int week = status.getRound();
-		if (phase == 1) {
-			status.setPhase(2);
-		} else if (phase == 2) {
-			status.setPhase(3);
-		} else if (phase == 3 && week < 26) {
-			status.setRound(week + 1);
-			for (League league: preparedLeagues) {
-				league.setState(State.Activa);
-			}
-			status.setPhase(1);
-		} else if (phase == 3 && week == 26) {
-			out.println("La liga ha concluido.");
-			status.setRound(0);
-			status.setPhase(0);
+		if (league.getState() == State.Inscripcion) {
+			league.setState(State.Preparada);
+		} else if (league.getState() == State.Activa) {
+			league.setState(State.Finalizada);
 		}
-		ses.saveOrUpdate(status);
+		ses.saveOrUpdate(league);
 		tx.commit();
-		RequestDispatcher rd = request.getRequestDispatcher("AdminHome.jsp");
+
+		RequestDispatcher rd = request.getRequestDispatcher("LeagueHome.jsp");
 		rd.forward(request, response);
 	}
 }
