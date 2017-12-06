@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
@@ -24,8 +25,9 @@ import webapp.Entities.Status;
 import webapp.Entities.Team;
 import webapp.Entities.User;
 import webapp.Entities.Week;
+import webapp.Entities.League.State;
 
-@WebServlet("/SummaryHome")
+@WebServlet("/SummaryHomeServlet")
 public class SummaryHome extends HttpServlet {
 
 	/**
@@ -52,6 +54,13 @@ public class SummaryHome extends HttpServlet {
 		User user = (User) session.getAttribute("user");
 		League league = (League) session.getAttribute("league");
 		Lineup lineup = (Lineup) session.getAttribute("lineupUser");
+		
+		int puntuacion = 0;
+		for (int i=0; i<lineup.getTeamLineup().size(); i++) { 
+			Player bballer = lineup.getTeamLineup().get(i);
+			puntuacion = puntuacion + bballer.getPointsWeek();
+		}
+		session.setAttribute("puntuacion", puntuacion);
 		
 		String q1 = "from deportista where pointsWeek > 0";
 		Query query1 = ses.createQuery(q1);

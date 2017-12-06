@@ -24,6 +24,12 @@ public class Player implements Serializable {
 	private int pointsWeek;	//PER
 	@Column(name = "puntos_global")
 	private int pointsGlobal;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public Position getPosition() {
 		return position;
 	}

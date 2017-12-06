@@ -123,11 +123,11 @@
 	</table>
 	<% if(status.getPhase()==1){ %>
 
-	<form action="MarketHome" method="POST">
+	<form action="MarketHomeServlet" method="POST">
 		<input type="submit" value="Vista Mercado">
 	</form>
 	<% } else if (status.getPhase()==3){ %>
-	<form action="SummaryHome" method="POST">
+	<form action="SummaryHomeServlet" method="POST">
 		<input type="submit" value="Vista Resumen">
 	</form>
 	<% } %>

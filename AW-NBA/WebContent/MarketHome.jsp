@@ -4,20 +4,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Vista Resumen</title>
+<title>Vista Mercado</title>
 </head>
 <body>
 	<%@ page import="webapp.Entities.*"%>
 	<!-- Status mainly -->
 
 	<%@ page import="java.util.List"%>
-	<h2>Vista de Resumen de la Jornada</h2>
+	<h2>Vista del Mercado</h2>
 	<%
-		List<Player> listPlayers = (List<Player>) session.getAttribute("ListPlayerswithPoints");
 		Lineup lineupUser = (Lineup) session.getAttribute("lineupUser");
 		User currentUser = (User) session.getAttribute("user");	
-		Status status = (Status) session.getAttribute("status");
-		int puntuacion = (int) session.getAttribute("puntuacion");
+		List<Player> marketPlayers = (List<Player>) session.getAttribute("marketPlayers");
 	%>
 	
 	<h3>Mi plantilla</h3>
@@ -29,16 +27,12 @@
 			<tr>
 				<th>Nombre Usuario</th>
 				<th>Saldo</th>
-				<th>Puntuación semanal</th>
-				<th>Puntuación</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<td><a href=UserHomeServlet?id=<%=currentUser.getId()%>><%= currentUser.getName() %></a></td>
 				<td><%= lineupUser.getBalance() %></td>
-				<td><%= puntuacion %></td>
-				<td><%= lineupUser.getPoints() %></td>
 			</tr>
 		</tbody>
 	</table>
@@ -50,7 +44,8 @@
 				<th>Nombre</th>
 				<th>Equipo</th>
 				<th>Posición</th>
-				<th>Puntos Jornada</th>
+				<th>Puntos</th>
+				<th>Vender Jugador</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -60,37 +55,41 @@
 				<td><%= bballer.getName() %></td>
 				<td><%= bballer.getTeam() %></td>
 				<td><%= bballer.getPosition() %></td>
-				<td><%= bballer.getPointsWeek() %></td>
+				<td><%= bballer.getPointsGlobal() %></td>
+				<td><a href=SellPlayer?id=<%= bballer.getId() %>>
+				Vender a <%= bballer.getName() %></a></td>
 			</tr>
 		<% } %>
 		</tbody>
 	</table>
 	
-	<h3>Otros deportistas</h3>
-	
-	<h4>Deportistas que han puntuado en esta jornada</h4>
+	<h3>Jugadores en el mercado</h3>
 	<table>
-		<% if (listPlayers.size()>0) { %>
+		<% if (marketPlayers.size()>0) { %>
 			<thead>
 				<tr>
 					<th>Nombre</th>
 					<th>Equipo</th>
 					<th>Posición</th>
-					<th>Puntos Jornada</th>
+					<th>Puntos</th>
+					<th>Comprar Jugador</th>
 				</tr>
 			</thead>
 		<% } %>
 		<tbody>
-		<% for (int i=0; i < listPlayers.size(); i++) { %>
+		<% for (int i=0; i < marketPlayers.size(); i++) { %>
 			<tr>
-				<td><%= listPlayers.get(i).getName() %></td>
-				<td><%= listPlayers.get(i).getTeam() %></td>
-				<td><%= listPlayers.get(i).getPosition() %></td>
-				<td><%= listPlayers.get(i).getPointsWeek() %></td>
+				<td><%= marketPlayers.get(i).getName() %></td>
+				<td><%= marketPlayers.get(i).getTeam() %></td>
+				<td><%= marketPlayers.get(i).getPosition() %></td>
+				<td><%= marketPlayers.get(i).getPointsGlobal() %></td>
+				<td><a href=BuyPlayer?id=<%= marketPlayers.get(i).getId() %>>
+				Comprar a <%= marketPlayers.get(i).getName() %></a></td>
 			</tr>
 		<% } %>
 		</tbody>
 	</table>
+	
 	
 </body>
 </html>

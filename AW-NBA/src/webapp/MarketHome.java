@@ -17,11 +17,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
-import webapp.Entities.League;
-import webapp.Entities.Status;
-import webapp.Entities.User;
-import webapp.Entities.User.Role;
-import webapp.Entities.Week;
+import webapp.Entities.Lineup;
+import webapp.Entities.Player;
+import webapp.Entities.Team;
 
 @WebServlet("/MarketHomeServlet")
 public class MarketHome extends HttpServlet {
@@ -32,7 +30,7 @@ public class MarketHome extends HttpServlet {
 	private static final long serialVersionUID = -8417478344457698175L;
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html");
 		request.setCharacterEncoding("UTF-8");
@@ -40,39 +38,27 @@ public class MarketHome extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		Configuration configuration = new Configuration();
 		configuration.configure(this.getClass().getResource("/hibernate.cfg.xml"));
-		configuration.addAnnotatedClass(Week.class);
-		configuration.addAnnotatedClass(Status.class);
+		configuration.addAnnotatedClass(Lineup.class);
+		configuration.addAnnotatedClass(Player.class);		
+		configuration.addAnnotatedClass(Team.class);
 		SessionFactory sessionFactory = configuration.buildSessionFactory();
 		Session ses = sessionFactory.openSession();
-		
-		/*
-		 * Market associated to user & league
-		 * 	only access coming from a league once logged in
-		 * */
-		
-		User user = (User) session.getAttribute("user");
-		if (user == null) {
-			out.println("Usuario o contrase�a incorrectas");
-			response.sendRedirect("login.jsp");
-		}
-		League league = (League) session.getAttribute("league");
-		
-		
-		
-		// TODO: revisar h-querys
-		String q1 = "from plantilla-deportista where id-lineup :id";
+		Lineup lineup = (Lineup) session.getAttribute("lineupUser");
+		String q1 = "from plantilladeportista where lineup = :lineup";
 		Query query1 = ses.createQuery(q1);
-		query1.setParameter("id",league.getId());
-		//List<Team> weeksList = (List<Week>) query1.list();
-		//session.setAttribute("weeksList", weeksList);
-
-		String q2 = " ";
+		query1.setParameter("lineup", lineup.getId());
+		List<Team> listTeam = (List<Team>) query1.list();
+		
+		String q2 = "from deportista where " ;
+		for (Team team : listTeam) {
+			q2 += "id != "+team.getPlayer()+" and ";
+		}
+		q2 += "1=1 order by value desc";
 		Query query2 = ses.createQuery(q2);
-		//List<Status> statusList = (List<Status>) query2.list();
-		//Status status = statusList.get(0);
-		//session.setAttribute("status", status);
+		List<Player> marketPlayers = query2.list();
+		session.setAttribute("marketPlayers", marketPlayers);
 
-		RequestDispatcher rd = request.getRequestDispatcher("AdminHome.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("MarketHome.jsp");
 		rd.forward(request, response);
 	}
 
