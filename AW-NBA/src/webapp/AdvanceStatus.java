@@ -46,13 +46,13 @@ public class AdvanceStatus extends HttpServlet {
 		Session ses = sessionFactory.openSession();
 
 		if (session.getAttribute("user") == null) {
-			out.println("Usuario o contraseña incorrectas");
+			out.println("Usuario o contraseï¿½a incorrectas");
 			response.sendRedirect("login.jsp");
 		}
 		String q1 = "from liga where state = :state";
-		Query query = ses.createQuery(q1);
-		query.setParameter("state",State.Preparada);
-		List<League> preparedLeagues = (List<League>) query.list();
+		Query query1 = ses.createQuery(q1);
+		query1.setParameter("state",State.Preparada);
+		List<League> preparedLeagues = (List<League>) query1.list();
 		Status status = (Status) session.getAttribute("status");
 		Transaction tx = ses.beginTransaction();
 		int phase = status.getPhase();

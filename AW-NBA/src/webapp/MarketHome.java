@@ -44,6 +44,11 @@ public class MarketHome extends HttpServlet {
 		SessionFactory sessionFactory = configuration.buildSessionFactory();
 		Session ses = sessionFactory.openSession();
 		Lineup lineup = (Lineup) session.getAttribute("lineupUser");
+		/*
+		* Market associated to user & league
+		* 	only access coming from a league once logged in
+		* */
+		
 		String q1 = "from plantilladeportista where lineup = :lineup";
 		Query query1 = ses.createQuery(q1);
 		query1.setParameter("lineup", lineup.getId());
@@ -57,20 +62,10 @@ public class MarketHome extends HttpServlet {
 		Query query2 = ses.createQuery(q2);
 		List<Player> marketPlayers = query2.list();
 		session.setAttribute("marketPlayers", marketPlayers);
+		//Players not belonging to current Lineup, hence, that can be bought
 
 		RequestDispatcher rd = request.getRequestDispatcher("MarketHome.jsp");
 		rd.forward(request, response);
 	}
 
 }
-
-/*
- * Vista de compra-venta de deportistas de una liga (para jugadores con sesión
- * iniciada e inscritos en la liga): muestra el saldo y plantilla actual del
- * jugador, así como la lista de todos los deportistas libres, todos ellos,
- * tanto los deportistas de su plantilla como los libres, con su valor inicial y
- * su valor actual. Si se encuentra en la primera fase de la jornada activa,
- * permite al usuario vender a deportistas de su plantilla. Si además el usuario
- * no tiene su plantilla completa, se le permite comprar deportistas libres del
- * mercado.
- */
