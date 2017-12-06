@@ -39,8 +39,9 @@ public class Login extends HttpServlet {
 		SessionFactory sessionFactory = configuration.buildSessionFactory();
 		Session ses = sessionFactory.openSession();
 		PrintWriter out = response.getWriter();
-		String email = (String) request.getParameter("email");
-		String pass = (String) request.getParameter("password");
+		String email = (String) request.getParameter("inputEmail");
+		String pass = (String) request.getParameter("inputPassword");
+		out.println(pass+" "+email);
 		String q1 = "from usuario where email = :mail and password = :pwd ";
 		Query query = ses.createQuery(q1);
 		query.setParameter("mail", email);
