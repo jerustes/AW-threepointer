@@ -18,24 +18,19 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
-import webapp.Entities.League;
 import webapp.Entities.Lineup;
 import webapp.Entities.Player;
 import webapp.Entities.Team;
 import webapp.Entities.User;
 
-@WebServlet("/SellPlayer")
-public class SellPlayer extends HttpServlet {
-
-
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3503473401494936601L;
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+/**
+ * Servlet implementation class BuyPlayer
+ */
+@WebServlet("/BuyPlayer")
+public class BuyPlayer extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
@@ -50,38 +45,45 @@ public class SellPlayer extends HttpServlet {
 		
 		User user = (User) session.getAttribute("user");
 		Lineup lineup = (Lineup) session.getAttribute("lineupUser");
+		int id = Integer.parseInt(request.getParameter("id"));
 		
 		if (user == null) {
 			out.println("Usuario o contraseÃ±a incorrectas");
 			response.sendRedirect("login.jsp");
 		}
-		int id = Integer.parseInt(request.getParameter("id"));
 		
-		String q1 = "from plantilladeportista where lineup = :lineup and player = :player";
+		String q1 = "from deportista where id = :player";
 		Query query1 = ses.createQuery(q1);
 		query1.setParameter("player", id);
-		query1.setParameter("lineup", lineup.getId());
-		Team team = (Team) query1.list().get(0);
-		
-		String q2 = "from deportista where id = :player";
-		Query query2 = ses.createQuery(q2);
-		query2.setParameter("player", id);
-		Player player = (Player) query2.list().get(0);
-		long balance = lineup.getBalance() + (long) (player.getValue());
-		lineup.setBalance(balance);
-		
+		Player player = (Player) query1.list().get(0);
 		List<Player> teamLineup = lineup.getTeamLineup();
-		teamLineup.remove(player);
-		lineup.setTeamLineup(teamLineup);
+		long balance = lineup.getBalance();
+		if (balance > player.getValue() && teamLineup.size() < 5) {
+			teamLineup.add(player);
+			lineup.setBalance(balance - player.getValue());
+			out.println("Se puede comprar dicho jugador.");
+			String q2 = "from plantilladeportista";
+			Query query2 = ses.createQuery(q2);
+			List<Team> listTeams = (List<Team>) query2.list();
+			Team team = new Team();
+			team.setId(listTeams.size()+1);
+			team.setPlayer(id);
+			team.setLineup(lineup.getId());
+			listTeams.add(team);
+			ses.saveOrUpdate(listTeams);
+			tx.commit();
+		} else if (balance < player.getValue()) {
+			out.println("No hay suficiente saldo para comprar dicho jugador");
+		} else if (teamLineup.size() >= 5) {
+			out.println("El equipo ya cuenta con el número máximo de deportistas");
+		}
 		
-		ses.saveOrUpdate(lineup);
-		ses.delete("from plantilladeportista where lineup = "+lineup.getId()+" and player = "+id, team);
-		
-		tx.commit();
 		ses.close();
 		out.close();
 		
 		RequestDispatcher rd = request.getRequestDispatcher("MarketHome.jsp");
 		rd.forward(request, response);
+		
 	}
+
 }

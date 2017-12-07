@@ -65,5 +65,8 @@ public class Login extends HttpServlet {
 			out.println("Usuario o contrase�a incorrectas");
 			response.sendRedirect("login.jsp");
 		}
+		
+		ses.close();
+		out.close();
 	}
 }

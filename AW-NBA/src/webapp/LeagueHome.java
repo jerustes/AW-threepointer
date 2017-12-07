@@ -114,6 +114,9 @@ public class LeagueHome extends HttpServlet {
 			out.println("Mostrar liga con id "+id);
 			RequestDispatcher rd = request.getRequestDispatcher("LeagueHome.jsp");
 			rd.forward(request, response);
-		}	
+		}
+		
+		ses.close();
+		out.close();
 	}
 }

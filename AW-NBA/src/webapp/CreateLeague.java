@@ -87,5 +87,8 @@ public class CreateLeague extends HttpServlet {
 			session.setAttribute("league",league);
 			response.sendRedirect("LeagueHomeServlet?id="+league.getId());
 		}
+		
+		ses.close();
+		out.close();
 	}
 }

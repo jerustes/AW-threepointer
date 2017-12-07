@@ -76,5 +76,8 @@ public class AdvanceStatus extends HttpServlet {
 		tx.commit();
 		RequestDispatcher rd = request.getRequestDispatcher("AdminHome.jsp");
 		rd.forward(request, response);
+		
+		ses.close();
+		out.close();
 	}
 }

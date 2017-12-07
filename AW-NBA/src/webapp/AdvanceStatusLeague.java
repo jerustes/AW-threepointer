@@ -64,5 +64,8 @@ public class AdvanceStatusLeague extends HttpServlet {
 
 		RequestDispatcher rd = request.getRequestDispatcher("LeagueHome.jsp");
 		rd.forward(request, response);
+		
+		ses.close();
+		out.close();
 	}
 }

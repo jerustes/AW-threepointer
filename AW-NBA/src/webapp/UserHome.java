@@ -83,5 +83,8 @@ public class UserHome extends HttpServlet {
 		
 		RequestDispatcher rd = request.getRequestDispatcher("UserHome.jsp");
 		rd.forward(request, response);
+		
+		ses.close();
+		out.close();
     }
 }

@@ -66,6 +66,9 @@ public class MarketHome extends HttpServlet {
 
 		RequestDispatcher rd = request.getRequestDispatcher("MarketHome.jsp");
 		rd.forward(request, response);
+		
+		ses.close();
+		out.close();
 	}
 
 }

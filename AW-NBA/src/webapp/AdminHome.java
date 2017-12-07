@@ -63,5 +63,8 @@ public class AdminHome extends HttpServlet {
 
 		RequestDispatcher rd = request.getRequestDispatcher("AdminHome.jsp");
 		rd.forward(request, response);
+		
+		ses.close();
+		out.close();
 	}
 }

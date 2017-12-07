@@ -53,5 +53,8 @@ public class ViewLeague extends HttpServlet {
 		League league = leagueList.get(0);
 		session.setAttribute("league",league);
 		response.sendRedirect("LeagueHomeServlet?id="+id);
+		
+		ses.close();
+		out.close();
 	}
 }

@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app id="AW_NBA" version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
-  http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-	<display-name>WebApp NBA</display-name>
-	<resource-ref>
-    	<description>Pool conexiones MySQL</description>
-    	<res-ref-name>jdbc/hibernate1</res-ref-name>
-    	<res-type>javax.sql.DataSource</res-type>
-    	<res-auth>Container</res-auth>
-	</resource-ref>
-	<welcome-file-list>
-		<welcome-file>login.jsp</welcome-file>
-	</welcome-file-list>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="AW_NBA" version="3.0">
+  <display-name>WebApp NBA</display-name>
+  <resource-ref>
+    <description>Pool conexiones MySQL</description>
+    <res-ref-name>jdbc/hibernate1</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+  </resource-ref>
+  <welcome-file-list>
+    <welcome-file>login.jsp</welcome-file>
+  </welcome-file-list>
 </web-app>

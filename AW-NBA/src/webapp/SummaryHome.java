@@ -77,6 +77,9 @@ public class SummaryHome extends HttpServlet {
 			out.println("Mostrar resumen");
 			RequestDispatcher rd = request.getRequestDispatcher("SummaryHome.jsp");
 			rd.forward(request, response);
-		}	
+		}
+		
+		ses.close();
+		out.close();
 	}
 }
