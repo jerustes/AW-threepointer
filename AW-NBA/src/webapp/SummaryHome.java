@@ -72,7 +72,7 @@ public class SummaryHome extends HttpServlet {
 			response.sendRedirect("login.jsp");
 		} else if (lineup.getLeague() != league.getId()) {
 			out.println("Usuario no inscrito en dicha liga.");
-			response.sendRedirect("LeagueHomeServlet?id="+league.getId());
+			response.sendRedirect("error.jsp");
 		} else {
 			out.println("Mostrar resumen");
 			RequestDispatcher rd = request.getRequestDispatcher("SummaryHome.jsp");

@@ -83,7 +83,7 @@ public class JoinLeague extends HttpServlet {
 		} else {
 			out.println("Ya se ha alcanzado el número máximo de usuarios");
 			out.println("No se puede añadir dicho usuario");
-			response.sendRedirect("UserHomeServlet?id="+user.getId());
+			response.sendRedirect("error.jsp");
 		}	
 		
 		ses.close();

@@ -8,9 +8,9 @@
          url="jdbc:mysql://localhost:3306/hibernate1"
          username="hibernate1"
          password="hibernate1"
-         maxActive="100"
-         maxIdle="30"
-         maxWait="10000"
+         maxActive="1000000"
+         maxIdle="300000"
+         maxWait="1000000"
          validationQuery="SELECT 1 FROM dual"
     />
 </Context>

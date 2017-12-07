@@ -63,7 +63,7 @@ public class CreateLeague extends HttpServlet {
 		int balance = Integer.parseInt(request.getParameter("initBalance"));
 		if (balance > 200000 || balance < 50000 || name == null || nmax > 20 || nmax < 2) {
 			out.println("Parámetros incorrectos, inténtelo de nuevo.");
-			response.sendRedirect("UserHomeServlet?id="+user.getId());
+			response.sendRedirect("error.jsp");
 		} else {
 			League league = new League();
 			league.setId(leaguesList.size()+1);

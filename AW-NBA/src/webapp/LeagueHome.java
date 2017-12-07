@@ -84,32 +84,36 @@ public class LeagueHome extends HttpServlet {
 		Query query5 = ses.createQuery(q5);
 		List<User> listUsers = (List<User>) query5.list();
 		session.setAttribute("listUsers", listUsers);
+		try {
+			Lineup lineupAux = (Lineup) session.getAttribute("lineupUser");
+			String q6 = "from plantilladeportista where lineup = :lineup";
+			Query query6 = ses.createQuery(q6);
+			query6.setParameter("lineup", lineupAux.getId());
+			List<Team> listTeam = (List<Team>) query6.list();
 		
-		Lineup lineupAux = (Lineup) session.getAttribute("lineupUser");
-		String q6 = "from plantilladeportista where lineup = :lineup";
-		Query query6 = ses.createQuery(q6);
-		query6.setParameter("lineup", lineupAux.getId());
-		List<Team> listTeam = (List<Team>) query6.list();
-		List<Player> teamLineup = null;
-		for (Team team : listTeam) {
-			String q7 = "from deportista where id = :player";
-			Query query7 = ses.createQuery(q7);
-			query7.setParameter("player", team.getPlayer());
-			if (teamLineup == null) {
-				teamLineup = (List<Player>) query7.list();
-			} else {
-				Player player = (Player) query7.list().get(0);
-				teamLineup.add(player);
-			}
+			List<Player> teamLineup = null;
+			for (Team team : listTeam) {
+				String q7 = "from deportista where id = :player";
+				Query query7 = ses.createQuery(q7);
+				query7.setParameter("player", team.getPlayer());
+				if (teamLineup == null) {
+					teamLineup = (List<Player>) query7.list();
+				} else {
+					Player player = (Player) query7.list().get(0);
+					teamLineup.add(player);
+				}
+			}	
+			lineupAux.setTeamLineup(teamLineup);
+			session.setAttribute("lineupUser", lineupAux);
+		} catch (Exception e) {
+			e.getMessage();
 		}
-		lineupAux.setTeamLineup(teamLineup);
-		session.setAttribute("lineupUser", lineupAux);
 		if (user == null) {
 			out.println("Usuario o contraseña incorrectas");
 			response.sendRedirect("login.jsp");
 		} else if (id != league.getId()) {
 			out.println("Usuario no inscrito en dicha liga.");
-			response.sendRedirect("LeagueHomeServlet?id="+league.getId());
+			response.sendRedirect("error.jsp");
 		} else {
 			out.println("Mostrar liga con id "+id);
 			RequestDispatcher rd = request.getRequestDispatcher("LeagueHome.jsp");

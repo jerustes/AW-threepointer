@@ -46,8 +46,8 @@ public class UserHome extends HttpServlet {
 			out.println("Usuario o contrase�a incorrectas");
 			response.sendRedirect("login.jsp");
 		} else if (user.getRole() == Role.admin) {
-			out.println("Rol de administrador, redireccionando.");
-			response.sendRedirect("AdminHomeServlet");
+			out.println("Rol de administrador, error.");
+			response.sendRedirect("error.jsp");
 		}
 		int id = Integer.parseInt(request.getParameter("id"));
 		String q1 = "from plantilla where user = :id";

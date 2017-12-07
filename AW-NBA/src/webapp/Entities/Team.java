@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @SuppressWarnings("serial")
 @Entity(name = "plantilladeportista")
-@Table
+@Table(name = "plantilladeportista")
 public class Team implements Serializable {
 	@Id
 	@Column (name = "id")
@@ -43,6 +43,6 @@ public class Team implements Serializable {
 	}
 
 	public String toString() {
-		return "[" + lineup + "]" + " (" + player + ")";
+		return "[" + id + "]" + lineup + " (" + player + ")";
 	}
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -59,7 +60,7 @@ public class Login extends HttpServlet {
 			response.sendRedirect("AdminHomeServlet");
 		} else {
 			out.println("Error de la Base de Datos");
-			response.sendError(100);
+			response.sendRedirect("error.jsp");
 		}
 		if (session.getAttribute("user") == null) {
 			out.println("Usuario o contrase�a incorrectas");

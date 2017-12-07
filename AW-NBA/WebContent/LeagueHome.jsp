@@ -42,6 +42,7 @@
 	</table>
 	
 	<h4>Jugadores</h4>
+	<% if (lineupUser.getTeamLineup() != null) { %>
 	<table>
 		<thead>
 			<tr>
@@ -53,18 +54,22 @@
 			</tr>
 		</thead>
 		<tbody>
-		<% for (int i=0; i<lineupUser.getTeamLineup().size(); i++) { %>
-			<tr>
-			<% Player bballer = lineupUser.getTeamLineup().get(i); %>
-				<td><%= bballer.getName() %></td>
-				<td><%= bballer.getTeam() %></td>
-				<td><%= bballer.getPosition() %></td>
-				<td><%= bballer.getValue() %></td>
-				<td><%= bballer.getPointsGlobal() %></td>
-			</tr>
-		<% } %>
+		<% 	for (int i=0; i<lineupUser.getTeamLineup().size(); i++) { %>
+				<tr>
+				<% Player bballer = lineupUser.getTeamLineup().get(i); %>
+					<td><%= bballer.getName() %></td>
+					<td><%= bballer.getTeam() %></td>
+					<td><%= bballer.getPosition() %></td>
+					<td><%= bballer.getValue() %></td>
+					<td><%= bballer.getPointsGlobal() %></td>
+				</tr>
+		<% 	}	%>
 		</tbody>
 	</table>
+	<% } else { %>
+	<p>No hay jugadores en plantilla</p>
+	<% } %>
+	
 	<h3>Información de la liga seleccionada</h3>
 
 	<table>

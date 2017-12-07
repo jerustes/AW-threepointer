@@ -52,7 +52,7 @@ CREATE TABLE plantilla (
 		REFERENCES Usuario(id),
     PRIMARY KEY(id)
 );
-CREATE TABLE plantillaDeportista (
+CREATE TABLE plantilladeportista (
 	id INT NOT NULL auto_increment,
 	plantilla INT NOT NULL,
     deportista INT NOT NULL,

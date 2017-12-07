@@ -2,6 +2,7 @@ package webapp;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -52,30 +53,52 @@ public class BuyPlayer extends HttpServlet {
 			response.sendRedirect("login.jsp");
 		}
 		
-		String q1 = "from deportista where id = :player";
+		String q1 = "from deportista where id = :id";
 		Query query1 = ses.createQuery(q1);
-		query1.setParameter("player", id);
+		query1.setParameter("id", id);
 		Player player = (Player) query1.list().get(0);
-		List<Player> teamLineup = lineup.getTeamLineup();
 		long balance = lineup.getBalance();
-		if (balance > player.getValue() && teamLineup.size() < 5) {
-			teamLineup.add(player);
+		List<Player> teamLineup = lineup.getTeamLineup();
+		
+		String q2 = "from plantilladeportista";
+		Query query2 = ses.createQuery(q2);
+		List<Team> listTeams = (List<Team>) query2.list();
+		
+		try {
+			if (balance > player.getValue() && teamLineup.size() < 5) {
+				teamLineup.add(player);
+				lineup.setBalance(balance - player.getValue());
+				out.println("Se puede comprar dicho jugador.");
+				Team team = new Team();
+				team.setId(listTeams.size()+1);
+				team.setPlayer(id);
+				team.setLineup(lineup.getId());
+				listTeams.add(team);
+				ses.saveOrUpdate(team);
+				ses.saveOrUpdate(lineup);
+				tx.commit();
+			} else if (balance < player.getValue()) {
+				out.println("No hay suficiente saldo para comprar dicho jugador");
+			} else if (teamLineup.size() >= 5) {
+				out.println("El equipo ya cuenta con el número máximo de deportistas");
+			}
+		} catch (Exception e) {
+			// If the teamLineup is null, create new listPlayers.
+			List<Player> teamPlayers = new ArrayList<Player>();
+			teamPlayers.add(player);
+			lineup.setTeamLineup(teamPlayers);
 			lineup.setBalance(balance - player.getValue());
-			out.println("Se puede comprar dicho jugador.");
-			String q2 = "from plantilladeportista";
-			Query query2 = ses.createQuery(q2);
-			List<Team> listTeams = (List<Team>) query2.list();
 			Team team = new Team();
 			team.setId(listTeams.size()+1);
 			team.setPlayer(id);
 			team.setLineup(lineup.getId());
 			listTeams.add(team);
-			ses.saveOrUpdate(listTeams);
+			ses.saveOrUpdate(team);
+			ses.saveOrUpdate(lineup);
 			tx.commit();
-		} else if (balance < player.getValue()) {
-			out.println("No hay suficiente saldo para comprar dicho jugador");
-		} else if (teamLineup.size() >= 5) {
-			out.println("El equipo ya cuenta con el número máximo de deportistas");
+			ses.close();
+			RequestDispatcher rd = request.getRequestDispatcher("MarketHome.jsp");
+			rd.forward(request, response);
 		}
 		
 		ses.close();

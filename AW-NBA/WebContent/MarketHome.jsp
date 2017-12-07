@@ -38,6 +38,7 @@
 	</table>
 	
 	<h4>Jugadores de la Plantilla</h4>
+	<% if (lineupUser.getTeamLineup() != null) { %>
 	<table>
 		<thead>
 			<tr>
@@ -62,6 +63,9 @@
 		<% } %>
 		</tbody>
 	</table>
+	<% } else { %>
+	<p>No hay jugadores en plantilla</p>
+	<% } %>
 	
 	<h3>Jugadores en el mercado</h3>
 	<table>
