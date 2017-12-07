@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+  
+<%@ page import="webapp.Entities.*"%>
+<%@ page import="java.util.List"%>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -16,12 +19,9 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 	<!-- Custom styles for this template -->
-    <link href="css/signin.css" rel="stylesheet">
+    <link href="css/adminhome.css" rel="stylesheet">
   </head>
   <body>
-  
-	<%@ page import="webapp.Entities.*"%>
-	<%@ page import="java.util.List"%>
 
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
@@ -30,24 +30,33 @@
 					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
 					aria-controls="navbar">
 					<!-- When collapsed, menu icon & button with three lines -->
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
+					<span class="sr-only">Toggle menu</span> 
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Vista de Administrador</a>
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Vista de Administrador</a>
+				</div>
 			</div>
-			<div id="navbar" class="navbar-collapse collapse">
-				<!-- TODO: adaptar esto siguiente a que puedas navegar a otras opciones desde la vista de admin
+			<!-- TODO: adaptar esto siguiente a que puedas navegar a otras opciones desde la vista de admin
         como al resto de vistas -->
-				<!-- form class="navbar-form navbar-right">
-            <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
-          </form -->
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">admin</a></li>
+					<li><a href="#">Vista 1</a></li>
+					<li><a href="#">Vista 2</a></li>
+					<li><a href="#">Vista 3</a></li>
+					<li><a href="#">About</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#"><span class="glyphicon glyphicon-user"></span>
+							/home </a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span>
+							Salir</a></li>
+					<li><a href="#" class="btn btn-danger" role="button"><span
+							class="glyphicon glyphicon-off"></span></a></li>
+				</ul>
 			</div>
 			<!--/.navbar-collapse -->
 		</div>
@@ -56,7 +65,7 @@
 	<!-- Main jumbotron for primary info -->
 	<div class="jumbotron">
 		<div class="container">
-			<h1>Hola, admin!</h1>
+			<h1>/admin</h1>
 			<p>Vista de administrador desde donde puedes gestionar la Lista
 				de jornadas, Jornada y fase actual y avanzar estado</p>
 		</div>
