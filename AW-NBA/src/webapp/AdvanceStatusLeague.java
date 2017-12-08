@@ -46,13 +46,17 @@ public class AdvanceStatusLeague extends HttpServlet {
 		SessionFactory sessionFactory = configuration.buildSessionFactory();
 		Session ses = sessionFactory.openSession();
 		User user = (User) session.getAttribute("user");
+		League league = (League) session.getAttribute("league");
 		
-		if (user == null) {
+		if (user.getRole() != Role.jugador) {
 			out.println("Usuario o contraseï¿½a incorrectas");
 			response.sendRedirect("login.jsp");
+		} else if (user.getId() != league.getCreator()) {
+			out.println("Error, redireccionando a página de error.");
+			response.sendRedirect("error.jsp");
 		}
 		
-		League league = (League) session.getAttribute("league");
+		
 		Transaction tx = ses.beginTransaction();
 		if (league.getState() == State.Inscripcion) {
 			league.setState(State.Preparada);

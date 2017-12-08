@@ -19,6 +19,7 @@ import org.hibernate.query.Query;
 
 import webapp.Entities.League;
 import webapp.Entities.League.State;
+import webapp.Entities.User.Role;
 import webapp.Entities.Lineup;
 import webapp.Entities.User;
 
@@ -44,7 +45,7 @@ public class CreateLeague extends HttpServlet {
 		SessionFactory sessionFactory = configuration.buildSessionFactory();
 		Session ses = sessionFactory.openSession();
 		User user = (User) session.getAttribute("user");
-		if (user == null) {
+		if (user.getRole() != Role.jugador) {
 			out.println("Usuario o contraseña incorrectas");
 			response.sendRedirect("login.jsp");
 		}

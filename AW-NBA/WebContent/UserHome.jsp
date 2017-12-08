@@ -111,7 +111,7 @@
 			<div class="col-md-8">
 				<h2>Ligas Disponibles</h2>
 				<%
-					List<League> leaguesAvail = (List<League>) session.getAttribute("leaguesAvail");
+					List<League> leaguesAvail = (List<League>) session.getAttribute("leaguesSubs");
 				%>
 				<table>
 					<thead>

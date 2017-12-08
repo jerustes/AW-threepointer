@@ -36,7 +36,7 @@ public class Logout extends HttpServlet {
 		User user = (User) session.getAttribute("user");
 		
 		//in case of error
-		if (session.getAttribute("user") == null) {
+		if (user == null) {
 			out.println("No se detecta usuario, regístrese por favor");
 			response.sendRedirect("login.jsp");
 		}

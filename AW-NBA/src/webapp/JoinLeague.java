@@ -19,6 +19,7 @@ import org.hibernate.query.Query;
 
 import webapp.Entities.League;
 import webapp.Entities.League.State;
+import webapp.Entities.User.Role;
 import webapp.Entities.Lineup;
 import webapp.Entities.User;
 
@@ -42,19 +43,21 @@ public class JoinLeague extends HttpServlet {
 		configuration.addAnnotatedClass(Lineup.class);
 		SessionFactory sessionFactory = configuration.buildSessionFactory();
 		Session ses = sessionFactory.openSession();
+		
 		User user = (User) session.getAttribute("user");
-		if (user == null) {
+		int id = Integer.parseInt(request.getParameter("id"));
+		
+		if (user.getRole() != Role.jugador) {
 			out.println("Usuario o contraseña incorrectas");
 			response.sendRedirect("login.jsp");
 		}
-		int id = Integer.parseInt(request.getParameter("id"));
+		
 		String q1 = "from liga where id = :id";
 		Query query1 = ses.createQuery(q1);
 		query1.setParameter("id",id);
 		List<League> leaguesList = (List<League>) query1.list();
 		League league = leaguesList.get(0);
 		int users = league.getNMax();
-		
 		
 		String q3 = "from plantilla";
 		Query query3 = ses.createQuery(q3);

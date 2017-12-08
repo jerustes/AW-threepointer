@@ -17,9 +17,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
+import webapp.Entities.League;
 import webapp.Entities.Lineup;
 import webapp.Entities.Player;
 import webapp.Entities.Team;
+import webapp.Entities.User;
+import webapp.Entities.League.State;
+import webapp.Entities.User.Role;
 
 @WebServlet("/MarketHomeServlet")
 public class MarketHome extends HttpServlet {
@@ -43,7 +47,20 @@ public class MarketHome extends HttpServlet {
 		configuration.addAnnotatedClass(Team.class);
 		SessionFactory sessionFactory = configuration.buildSessionFactory();
 		Session ses = sessionFactory.openSession();
+		User user = (User) session.getAttribute("user");
+		League league = (League) session.getAttribute("league");
 		Lineup lineup = (Lineup) session.getAttribute("lineupUser");
+		
+		if (user.getRole() != Role.jugador) {
+			out.println("Usuario o contrase√±a incorrectas");
+			response.sendRedirect("login.jsp");
+		} else if (lineup.getLeague() != league.getId()) {
+			out.println("Error, redireccionando a p·gina de error.");
+			response.sendRedirect("error.jsp");
+		} else if (league.getState() != State.Activa) {
+			out.println("Liga no activa.");
+			response.sendRedirect("error.jsp");
+		}
 		/*
 		* Market associated to user & league
 		* 	only access coming from a league once logged in

@@ -23,6 +23,7 @@ import webapp.Entities.Player;
 import webapp.Entities.Status;
 import webapp.Entities.Team;
 import webapp.Entities.User;
+import webapp.Entities.User.Role;
 
 @WebServlet("/LeagueHomeServlet")
 public class LeagueHome extends HttpServlet {
@@ -51,6 +52,14 @@ public class LeagueHome extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 		User user = (User) session.getAttribute("user");
 		League league = (League) session.getAttribute("league");
+		
+		if (user.getRole() != Role.jugador) {
+			out.println("Usuario o contraseña incorrectas");
+			response.sendRedirect("login.jsp");
+		} else if (id != league.getId()) {
+			out.println("Usuario no inscrito en dicha liga.");
+			response.sendRedirect("error.jsp");
+		}
 		
 		String q1 = "from plantilla where league = :id order by points desc";
 		Query query1 = ses.createQuery(q1);
@@ -108,17 +117,10 @@ public class LeagueHome extends HttpServlet {
 		} catch (Exception e) {
 			e.getMessage();
 		}
-		if (user == null) {
-			out.println("Usuario o contraseña incorrectas");
-			response.sendRedirect("login.jsp");
-		} else if (id != league.getId()) {
-			out.println("Usuario no inscrito en dicha liga.");
-			response.sendRedirect("error.jsp");
-		} else {
-			out.println("Mostrar liga con id "+id);
-			RequestDispatcher rd = request.getRequestDispatcher("LeagueHome.jsp");
-			rd.forward(request, response);
-		}
+		
+		out.println("Mostrar liga con id "+id);
+		RequestDispatcher rd = request.getRequestDispatcher("LeagueHome.jsp");
+		rd.forward(request, response);
 		
 		ses.close();
 		out.close();

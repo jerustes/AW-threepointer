@@ -23,6 +23,7 @@ import webapp.Entities.Lineup;
 import webapp.Entities.Player;
 import webapp.Entities.Team;
 import webapp.Entities.User;
+import webapp.Entities.User.Role;
 
 @WebServlet("/SellPlayer")
 public class SellPlayer extends HttpServlet {
@@ -49,13 +50,17 @@ public class SellPlayer extends HttpServlet {
 		Transaction tx = ses.beginTransaction();
 		
 		User user = (User) session.getAttribute("user");
+		League league = (League) session.getAttribute("league");
 		Lineup lineup = (Lineup) session.getAttribute("lineupUser");
+		int id = Integer.parseInt(request.getParameter("id"));
 		
-		if (user == null) {
+		if (user.getRole() != Role.jugador) {
 			out.println("Usuario o contraseña incorrectas");
 			response.sendRedirect("login.jsp");
+		} else if (lineup.getLeague() != league.getId()) {
+			out.println("Usuario no inscrito en dicha liga.");
+			response.sendRedirect("error.jsp");
 		}
-		int id = Integer.parseInt(request.getParameter("id"));
 		
 		String q1 = "from plantilladeportista where lineup = :lineup and player = :player";
 		Query query1 = ses.createQuery(q1);

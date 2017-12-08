@@ -8,6 +8,7 @@
 </head>
 <body>
 	<%@ page import="webapp.Entities.*"%>
+	<%@ page import="webapp.Entities.League.State"%>
 	<!-- Status mainly -->
 
 	<%@ page import="java.util.List"%>
@@ -126,12 +127,12 @@
 			%>
 		</tbody>
 	</table>
-	<% if(status.getPhase()==1){ %>
+	<% if(status.getPhase()==1 && league.getState() == State.Activa){ %>
 
 	<form action="MarketHomeServlet" method="POST">
 		<input type="submit" value="Vista Mercado">
 	</form>
-	<% } else if (status.getPhase()==3){ %>
+	<% } else if (status.getPhase() == 3 && league.getState() == State.Activa){ %>
 	<form action="SummaryHomeServlet" method="POST">
 		<input type="submit" value="Vista Resumen">
 	</form>

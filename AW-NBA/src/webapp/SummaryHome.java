@@ -26,6 +26,7 @@ import webapp.Entities.Team;
 import webapp.Entities.User;
 import webapp.Entities.Week;
 import webapp.Entities.League.State;
+import webapp.Entities.User.Role;
 
 @WebServlet("/SummaryHomeServlet")
 public class SummaryHome extends HttpServlet {
@@ -55,6 +56,17 @@ public class SummaryHome extends HttpServlet {
 		League league = (League) session.getAttribute("league");
 		Lineup lineup = (Lineup) session.getAttribute("lineupUser");
 		
+		if (user.getRole() != Role.jugador) {
+			out.println("Usuario o contraseña incorrectas");
+			response.sendRedirect("login.jsp");
+		} else if (lineup.getLeague() != league.getId()) {
+			out.println("Error, redireccionando a p�gina de error.");
+			response.sendRedirect("error.jsp");
+		} else if (league.getState() != State.Activa) {
+			out.println("Liga no activa.");
+			response.sendRedirect("error.jsp");
+		}
+		
 		int puntuacion = 0;
 		for (int i=0; i<lineup.getTeamLineup().size(); i++) { 
 			Player bballer = lineup.getTeamLineup().get(i);
@@ -67,17 +79,9 @@ public class SummaryHome extends HttpServlet {
 		List<Week> listPlayers = (List<Week>) query1.list();
 		session.setAttribute("ListPlayerswithPoints", listPlayers);
 
-		if (user == null) {
-			out.println("Usuario o contraseña incorrectas");
-			response.sendRedirect("login.jsp");
-		} else if (lineup.getLeague() != league.getId()) {
-			out.println("Usuario no inscrito en dicha liga.");
-			response.sendRedirect("error.jsp");
-		} else {
-			out.println("Mostrar resumen");
-			RequestDispatcher rd = request.getRequestDispatcher("SummaryHome.jsp");
-			rd.forward(request, response);
-		}
+		out.println("Mostrar resumen");
+		RequestDispatcher rd = request.getRequestDispatcher("SummaryHome.jsp");
+		rd.forward(request, response);
 		
 		ses.close();
 		out.close();

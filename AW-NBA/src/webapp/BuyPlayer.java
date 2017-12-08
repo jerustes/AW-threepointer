@@ -19,10 +19,12 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
+import webapp.Entities.League;
 import webapp.Entities.Lineup;
 import webapp.Entities.Player;
 import webapp.Entities.Team;
 import webapp.Entities.User;
+import webapp.Entities.User.Role;
 
 /**
  * Servlet implementation class BuyPlayer
@@ -45,12 +47,16 @@ public class BuyPlayer extends HttpServlet {
 		Transaction tx = ses.beginTransaction();
 		
 		User user = (User) session.getAttribute("user");
+		League league = (League) session.getAttribute("league");
 		Lineup lineup = (Lineup) session.getAttribute("lineupUser");
 		int id = Integer.parseInt(request.getParameter("id"));
 		
-		if (user == null) {
+		if (user.getRole() != Role.jugador) {
 			out.println("Usuario o contraseÃ±a incorrectas");
 			response.sendRedirect("login.jsp");
+		} else if (lineup.getLeague() != league.getId()) {
+			out.println("Error, redireccionar a página de error.");
+			response.sendRedirect("error.jsp");
 		}
 		
 		String q1 = "from deportista where id = :id";
@@ -67,7 +73,7 @@ public class BuyPlayer extends HttpServlet {
 		try {
 			if (balance > player.getValue() && teamLineup.size() < 5) {
 				teamLineup.add(player);
-				lineup.setBalance(balance - player.getValue());
+				lineup.setBalance(balance - (long) player.getValue());
 				out.println("Se puede comprar dicho jugador.");
 				Team team = new Team();
 				team.setId(listTeams.size()+1);
@@ -82,12 +88,12 @@ public class BuyPlayer extends HttpServlet {
 			} else if (teamLineup.size() >= 5) {
 				out.println("El equipo ya cuenta con el número máximo de deportistas");
 			}
-		} catch (Exception e) {
+		} catch (NullPointerException e) {
 			// If the teamLineup is null, create new listPlayers.
 			List<Player> teamPlayers = new ArrayList<Player>();
 			teamPlayers.add(player);
 			lineup.setTeamLineup(teamPlayers);
-			lineup.setBalance(balance - player.getValue());
+			lineup.setBalance(balance - (long) player.getValue());
 			Team team = new Team();
 			team.setId(listTeams.size()+1);
 			team.setPlayer(id);

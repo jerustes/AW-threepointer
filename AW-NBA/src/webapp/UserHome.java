@@ -17,6 +17,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 import webapp.Entities.League;
+import webapp.Entities.League.State;
 import webapp.Entities.Lineup;
 import webapp.Entities.User;
 import webapp.Entities.User.Role;
@@ -41,7 +42,10 @@ public class UserHome extends HttpServlet {
 		configuration.addAnnotatedClass(Lineup.class);
 		SessionFactory sessionFactory = configuration.buildSessionFactory();
 		Session ses = sessionFactory.openSession();
+		
 		User user = (User) session.getAttribute("user");
+		int id = Integer.parseInt(request.getParameter("id"));
+		
 		if (user == null) {
 			out.println("Usuario o contrase�a incorrectas");
 			response.sendRedirect("login.jsp");
@@ -49,11 +53,12 @@ public class UserHome extends HttpServlet {
 			out.println("Rol de administrador, error.");
 			response.sendRedirect("error.jsp");
 		}
-		int id = Integer.parseInt(request.getParameter("id"));
+		
 		String q1 = "from plantilla where user = :id";
 		Query query1 = ses.createQuery(q1);
 		query1.setParameter("id",id);
 		List<Lineup> lineupList = query1.list();
+		
 		List<League> leagueList = null;
 		for (Lineup lineup: lineupList) {
 			String q2 = "from liga where id = :id";
@@ -68,18 +73,20 @@ public class UserHome extends HttpServlet {
 		}
 		session.setAttribute("leaguesUser", leagueList);
 		
-		String c = "from plantilla where user = :id";
-		Query query3 = ses.createQuery(c);
+		String q3 = "from plantilla where user = :id";
+		Query query3 = ses.createQuery(q3);
 		query3.setParameter("id",id);
 		List<Lineup> lineupList2 = query3.list();
-		String q3 = "from liga where ";
+		
+		String q4 = "from liga where ";
 		for (Lineup lineup : lineupList2) {
-			q3 += "id != "+ lineup.getLeague()+" and ";
+			q4 += "id != "+ lineup.getLeague()+" and ";
 		}
-		q3 += "1=1";
-		Query query4 = ses.createQuery(q3);
+		q4 += "state = :state";
+		Query query4 = ses.createQuery(q4);
+		query4.setParameter("state",State.Inscripcion);
 		List<League> leagueList2 = query4.list();
-		session.setAttribute("leaguesAvail", leagueList2);
+		session.setAttribute("leaguesSubs", leagueList2);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("UserHome.jsp");
 		rd.forward(request, response);

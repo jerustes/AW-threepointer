@@ -25,6 +25,7 @@ import webapp.Entities.League.State;
 import webapp.Entities.Status;
 import webapp.Entities.Team;
 import webapp.Entities.User;
+import webapp.Entities.User.Role;
 import webapp.Entities.Week;
 
 @WebServlet("/AdvanceStatus")
@@ -45,13 +46,21 @@ public class AdvanceStatus extends HttpServlet {
 		configuration.addAnnotatedClass(Week.class);
 		configuration.addAnnotatedClass(Status.class);
 		configuration.addAnnotatedClass(League.class);
+		configuration.addAnnotatedClass(Player.class);
+		configuration.addAnnotatedClass(Lineup.class);
+		configuration.addAnnotatedClass(Team.class);
 		SessionFactory sessionFactory = configuration.buildSessionFactory();
 		Session ses = sessionFactory.openSession();
+		User user = (User) session.getAttribute("user");
 
-		if (session.getAttribute("user") == null) {
-			out.println("Usuario o contraseï¿½a incorrectas");
+		if (user == null) {
+			out.println("Usuario o contraseña incorrectas.");
 			response.sendRedirect("login.jsp");
+		} else if (user.getRole() == Role.jugador) {
+			out.println("Error, redireccionando a página de error.");
+			response.sendRedirect("error.jsp");
 		}
+		
 		String q1 = "from liga where state = :state";
 		Query query1 = ses.createQuery(q1);
 		query1.setParameter("state",State.Preparada);
@@ -61,12 +70,17 @@ public class AdvanceStatus extends HttpServlet {
 		int phase = status.getPhase();
 		int week = status.getRound();
 		
-		
-		if (phase == 1) {
+		if (week == 0 && phase == 0) {
+			status.setPhase(1);
+			status.setRound(1);
+		} else if (phase == 1) {
 			status.setPhase(2);
 		} else if (phase == 2) {
 			
 			status.setPhase(3);
+			
+			// Actualización puntos de la plantilla.
+			// No actualiza.
 			String q3 = "from plantilladeportista";
 			Query query3 = ses.createQuery(q3);
 			List<Team> allTeams = (List<Team>) query1.list();
@@ -81,15 +95,31 @@ public class AdvanceStatus extends HttpServlet {
 				query5.setParameter("player", team.getPlayer());
 				Player player = (Player) query5.list().get(0);
 				int pointsLineup = lineup.getPoints();
-				lineup.setPoints(pointsLineup + player.getPointsWeek());
+				int weekPoints = player.getPointsWeek();
+				lineup.setPoints(pointsLineup + weekPoints);
 				ses.saveOrUpdate(lineup);
 			}
+			
+			//Actualización puntos de los jugadores y del precio.
 			String q2 = "from deportista";
 			Query query2 = ses.createQuery(q2);
 			List<Player> allPlayers = (List<Player>) query2.list();
 			for (Player player : allPlayers) {
 				int pointsPlayer = player.getPointsGlobal();
-				player.setPointsGlobal(pointsPlayer + player.getPointsWeek());
+				int weekPoints = player.getPointsWeek();
+				
+				// Actualización del precio del jugador.
+				int value = player.getValue();
+				if (value > 50000) {
+					player.setValue((int) (value*(1+0.01*(weekPoints-60))));
+				} else if (value > 40000) {
+					player.setValue((int) (value*(1+0.01*(weekPoints-50))));
+				} else if (value > 30000) {
+					player.setValue((int) (value*(1+0.01*(weekPoints-40))));
+				} else if (value > 25000){
+					player.setValue((int) (value*(1+0.01*(weekPoints-25))));
+				}
+				player.setPointsGlobal(pointsPlayer + weekPoints);
 				ses.saveOrUpdate(player);
 			}
 			
