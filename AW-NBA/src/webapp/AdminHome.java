@@ -14,10 +14,14 @@ import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
+import webapp.Entities.Lineup;
+import webapp.Entities.Player;
 import webapp.Entities.Status;
+import webapp.Entities.Team;
 import webapp.Entities.User;
 import webapp.Entities.User.Role;
 import webapp.Entities.Week;
@@ -40,6 +44,9 @@ public class AdminHome extends HttpServlet {
 		configuration.configure(this.getClass().getResource("/hibernate.cfg.xml"));
 		configuration.addAnnotatedClass(Week.class);
 		configuration.addAnnotatedClass(Status.class);
+		configuration.addAnnotatedClass(Team.class);
+		configuration.addAnnotatedClass(Lineup.class);
+		configuration.addAnnotatedClass(Player.class);
 		SessionFactory sessionFactory = configuration.buildSessionFactory();
 		Session ses = sessionFactory.openSession();
 		User user = (User) session.getAttribute("user");
