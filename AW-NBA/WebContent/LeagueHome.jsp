@@ -45,14 +45,14 @@
 					<span class="icon-bar"></span>
 				</button>
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">Vista de Administrador</a>
+					<a class="navbar-brand" href="#">Vista de Liga</a>
 				</div>
 			</div>
 			<!-- TODO: adaptar esto siguiente a que puedas navegar a otras opciones desde la vista de admin
         como al resto de vistas -->
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">admin</a></li>
+					<li class="active"><a href="#">Ligas</a></li>
 					<li><a href="#">Vista 1</a></li>
 					<li><a href="#">Vista 2</a></li>
 					<li><a href="#">Vista 3</a></li>
@@ -71,8 +71,6 @@
 		</div>
 	</nav>
 	
-	
-	<h2>Vista de la Liga</h2>
 	<%
 		League league = (League) session.getAttribute("league");
 		Lineup lineupUser = (Lineup) session.getAttribute("lineupUser");
@@ -84,110 +82,167 @@
 		List<League> leaguesUser = (List<League>) session.getAttribute("leaguesUser");
 	%>
 	
-	<h3>Mi plantilla</h3>
-	
-	<h4>Información de plantilla</h4>
-	<table>
-		<!-- Info about user's lineup in the selected league -->
-		<thead>
-			<tr>
-				<th>Nombre Usuario</th>
-				<th>Saldo</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td><a href=UserHomeServlet?id=<%=currentUser.getId()%>><%= currentUser.getName() %></a></td>
-				<td><%= lineupUser.getBalance() %></td>
-			</tr>
-		</tbody>
-	</table>
-	
-	<h4>Jugadores</h4>
-	<% if (lineupUser.getTeamLineup() != null) { %>
-	<table>
-		<thead>
-			<tr>
-				<th>Nombre</th>
-				<th>Equipo</th>
-				<th>Posición</th>
-				<th>Precio</th>
-				<th>Puntos Globales</th>
-			</tr>
-		</thead>
-		<tbody>
-		<% 	for (int i=0; i<lineupUser.getTeamLineup().size(); i++) { %>
-				<tr>
-				<% Player bballer = lineupUser.getTeamLineup().get(i); %>
-					<td><%= bballer.getName() %></td>
-					<td><%= bballer.getTeam() %></td>
-					<td><%= bballer.getPosition() %></td>
-					<td><%= bballer.getValue() %></td>
-					<td><%= bballer.getPointsGlobal() %></td>
-				</tr>
-		<% 	}	%>
-		</tbody>
-	</table>
-	<% } else { %>
-	<p>No hay jugadores en plantilla</p>
-	<% } %>
-	
-	<h3>Información de la liga seleccionada</h3>
+	<div class="container-fluid">
+		<div class="row">
+	        <div class="col-sm-3 col-md-2 sidebar">
+				<ul class="nav nav-sidebar">
+					<li class="active"><a href="#"><%=league.getName() %><span
+							class="sr-only">(current)</span></a></li>
+					<li><a href="#">League2</a></li>
+					<li><a href="#">League3</a></li>
+					<li><a href="#">League4</a></li>
+					<!-- TODO: turn static examples into list with actual leagues of the user -->
+				</ul>
+			</div>
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          		<h1 class="page-header"><strong><%=league.getName() %> / resumen</strong></h1>
 
-	<table>
-		<!-- General info about selected league -->
-		<thead>
-			<tr>
-				<th>ID liga</th>
-				<th>Liga</th>
-				<th>Creador</th>
-				<th>Estado</th>
-				<th>máx Participantes</th>
-				<th>Saldo inicial</th>
-				<th>Jornada</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td><%= league.getId() %></td>
-				<td><%= league.getName() %></td>
-				<td><%= league.getCreator() %></td>
-				<td><%= league.getState() %></td>
-				<td><%= league.getNMax() %></td>
-				<td><%= league.getBalance() %></td>
-				<td><%= status.getRound() %></td>
-			</tr>
-		</tbody>
-	</table>
-	
-	<h3>Clasificación de la liga seleccionada.</h3>
-	<table>
-		<!-- Table containing the lineups in this league and its info -->
-		<thead>
-			<tr>
-				<th>Id Plantilla</th>
-				<th>Puntos</th>
-			</tr>
-		</thead>
-		<tbody>
-			<%
-				for (Lineup lineup : lineupsLeague) {
-					userloop:
-					for (User user : listUsers) {
-						if (lineup.getUser() == user.getId()) {
-			%>
-			<tr>
-				<td><%=user.getName() %></td>
-				<td><%=lineup.getPoints()%></td>
-			</tr>
-			<%
-							break userloop;
+				<div class="row placeholders">
+					<div class="col-xs-6 col-sm-3 placeholder">
+						<img
+							src=""
+							width="200" height="200" class="img-responsive"
+							alt="Generic placeholder thumbnail">
+	<!-- src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" -->
+						<h4>Logo o algo</h4>
+						<span class="text-muted">Something else</span>
+					</div>
+					<div class="col-xs-6 col-sm-3 placeholder">
+						<img
+							src=""
+							width="200" height="200" class="img-responsive"
+							alt="Generic placeholder thumbnail">
+	<!-- src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" -->
+						<h4>Logo o algo</h4>
+						<span class="text-muted">Something else</span>
+					</div>
+				</div>
+				
+				<h3 class="sub-header">Mi plantilla / información general</h3>
+				<!-- Info about user's lineup in the selected league -->
+				<div class="table-responsive">
+					<table class="table table-stripped">
+						<thead>
+							<tr>
+								<th>Nombre Usuario</th>
+								<th>Saldo</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><a href=UserHomeServlet?id= <%=currentUser.getId()%>>
+										<%=currentUser.getName()%></a></td>
+								<td><%=lineupUser.getBalance()%></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<h2 class="sub-header">Jugadores</h2>
+				<div class="table-responsive">
+					<%
+						if (lineupUser.getTeamLineup() != null) {
+					%>
+					<table class="table table-stripped">
+						<thead>
+							<tr>
+								<th>Nombre</th>
+								<th>Equipo</th>
+								<th>Posición</th>
+								<th>Precio</th>
+								<th>Puntos Globales</th>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+								for (int i = 0; i < lineupUser.getTeamLineup().size(); i++) {
+							%>
+							<tr>
+								<%
+									Player bballer = lineupUser.getTeamLineup().get(i);
+								%>
+								<td><%=bballer.getName()%></td>
+								<td><%=bballer.getTeam()%></td>
+								<td><%=bballer.getPosition()%></td>
+								<td><%=bballer.getValue()%></td>
+								<td><%=bballer.getPointsGlobal()%></td>
+							</tr>
+							<%
+								}
+							%>
+						</tbody>
+					</table>
+					<%
+						} else {
+					%>
+					<p>No hay jugadores en plantilla</p>
+					<%
 						}
-					}
-				}
-			%>
-		</tbody>
-	</table>
+					%>
+				</div>
+
+				<h2 class="sub-header">Información de la liga seleccionada</h2>
+				<div class="table-responsive">
+					<table class="table table-stripped">
+						<!-- General info about selected league -->
+						<thead>
+							<tr>
+								<th>ID liga</th>
+								<th>Liga</th>
+								<th>Creador</th>
+								<th>Estado</th>
+								<th>máx Participantes</th>
+								<th>Saldo inicial</th>
+								<th>Jornada</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><%=league.getId()%></td>
+								<td><%=league.getName()%></td>
+								<td><%=league.getCreator()%></td>
+								<td><%=league.getState()%></td>
+								<td><%=league.getNMax()%></td>
+								<td><%=league.getBalance()%></td>
+								<td><%= status.getRound() %></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				
+				<h2 class="sub-header">Clasificación de la liga seleccionada.</h2>
+				<div class="table-responsive">
+					<table class="table table-stripped">
+						<!-- Table containing the lineups in this league and its info -->
+						<thead>
+							<tr>
+								<th>Id Plantilla</th>
+								<th>Puntos</th>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+								for (Lineup lineup : lineupsLeague) {
+									userloop: for (User user : listUsers) {
+										if (lineup.getUser() == user.getId()) {
+							%>
+							<tr>
+								<td><%=user.getName()%></td>
+								<td><%=lineup.getPoints()%></td>
+							</tr>
+							<%
+								break userloop;
+										}
+									}
+								}
+							%>
+						</tbody>
+					</table>
+				</div>
+			</div>
+        </div>
+	</div>
+	
 	<% if(status.getPhase()==1 && league.getState() == State.Activa){ %>
 
 	<form action="MarketHomeServlet" method="POST">

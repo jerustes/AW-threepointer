@@ -10,9 +10,14 @@ body {
 /*
  * Global add-ons
  */
+ 
+.page-header {
+	font-family: Consolas, monaco, monospace;
+}
 .sub-header {
 	padding-bottom: 10px;
 	border-bottom: 1px solid #eee;
+	font-family: Consolas, monaco, monospace;
 }
 
 /*
