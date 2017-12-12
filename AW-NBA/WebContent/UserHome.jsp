@@ -137,24 +137,21 @@
 		<div class="row">
 			<div class="col-md-6">
 				<h2>Crear nueva liga</h2>
-				<p>
-				<form action="CreateLeague" method="POST">
+				<p><form action="CreateLeague" method="POST">
 					<div>
 						 <label for="name">Nombre:</label> <input type="text"
-							class="form-control" id="name"> <span
-							class="help-block">Nombre de tu liga</span>
+							class="form-control" id="name" placeholder="Nombre de tu liga">
 					</div>
 					<div>
 						<label for="max-usr">Número máximo de usuarios:</label> <input
-							type="text" class="form-control" id="max-usr"> <span
-							class="help-block">Entre 2 y 20 usuarios</span>
+							type="text" class="form-control" id="max-usr" placeholder="Entre 2 y 20 usuarios">
 					</div>
 					<div>
 						<label for="init-bal">Saldo inicial:</label> <input type="text"
-							class="form-control" id="init-bal"> <span
-							class="help-block">Saldo inicial máximo: 200.000</span>
+							class="form-control" id="init-bal" placeholder="Saldo inicial máximo: 200.000">
 					</div>
 				</form>
+				
 				<p>
 					<a class="btn btn-success btn-lg" href="CreateLeague" role="button"
 						method="POST">¡Crear liga!</a>
