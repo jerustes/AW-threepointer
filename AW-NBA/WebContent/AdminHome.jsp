@@ -78,7 +78,7 @@
 	<div class="container">
 		<!-- row of columns -->
 		<div class="row">
-			<div class="col-md-8">
+			<div class="col-md-6">
 				<h2>Lista de jornadas</h2>
 				<h3>
 					(tamaño del calendario:<%=weeks.size()%>)
@@ -108,7 +108,7 @@
 						&raquo;</a>
 				</p>
 			</div>
-			<div class="col-md-8">
+			<div class="col-md-6">
 				<h2>Jornada y fase actual</h2>
 				<p>
 					<%
