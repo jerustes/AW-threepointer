@@ -7,23 +7,30 @@
 <!-- Vista usuario con sesión inciada -->
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-  	<meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <link rel="icon" href="../../favicon.ico">
-    
-	<title>Vista del Usuario</title>
-	
-	<!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-	<!-- Custom styles for this template -->
-    <link href="css/userhome.css" rel="stylesheet">
-  </head>
-  <body>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport"
+	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<link rel="icon" href="../../favicon.ico">
+
+<title>Vista del Usuario</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	crossorigin="anonymous">
+<!-- Custom styles for this template -->
+<link href="css/userhome.css" rel="stylesheet">
+</head>
+<body>
 
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
@@ -68,8 +75,8 @@
 	<div class="jumbotron">
 		<div class="container">
 			<h1>/user</h1>
-			<p>Vista de usuario desde donde puedes hacer cosas navegar tus ligas y
-			otras ligas disponibles en las que malgastar más de tu tiempo.</p>
+			<p>Vista de usuario desde donde puedes navegar tus ligas y ver
+			otras ligas disponibles en las que perder más de tu tiempo.</p>
 		</div>
 	</div>
 
@@ -137,25 +144,35 @@
 		<div class="row">
 			<div class="col-md-6">
 				<h2>Crear nueva liga</h2>
-				<p><form action="CreateLeague" method="POST">
-					<div>
-						 <label for="name">Nombre:</label> <input type="text"
-							class="form-control" id="name" placeholder="Nombre de tu liga">
+				<p>
+					<div class="form-group">
+						<label class="control-label col-sm-3" for="leaguename">Nombre:</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="leaguename">
+							<span class="help-block">Nombre de tu liga</span>
+						</div>
 					</div>
-					<div>
-						<label for="max-usr">Número máximo de usuarios:</label> <input
-							type="text" class="form-control" id="max-usr" placeholder="Entre 2 y 20 usuarios">
+					<div class="form-group">
+						<label class="control-label col-sm-3" for="max-usr">Máximo número de usuarios</label> 
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="max-usr"> <span
+								class="help-block">Entre 2 y 20 usuarios</span>
+						</div>
 					</div>
-					<div>
-						<label for="init-bal">Saldo inicial:</label> <input type="text"
-							class="form-control" id="init-bal" placeholder="Saldo inicial máximo: 200.000">
+					<div class="form-group">
+						<label class="control-label col-sm-3" for="init-bal">Saldo inicial:</label> 
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="initbal"> <span
+								class="help-block">Saldo inicial máximo: 200.000</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-3 col-sm-10">
+							<a class="btn btn-success btn-lg" href="CreateLeague"
+								role="button" method="POST">Crear liga</a>
+						</div>
 					</div>
 				</form>
-				
-				<p>
-					<a class="btn btn-success btn-lg" href="CreateLeague" role="button"
-						method="POST">¡Crear liga!</a>
-				</p>
 			</div>
 		</div>
 
