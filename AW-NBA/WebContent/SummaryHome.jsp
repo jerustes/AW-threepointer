@@ -50,6 +50,7 @@
 				<th>Nombre</th>
 				<th>Equipo</th>
 				<th>Posición</th>
+				<th>Precio</th>
 				<th>Puntos Jornada</th>
 			</tr>
 		</thead>
@@ -60,6 +61,7 @@
 				<td><%= bballer.getName() %></td>
 				<td><%= bballer.getTeam() %></td>
 				<td><%= bballer.getPosition() %></td>
+				<td><%= bballer.getValue() %></td>
 				<td><%= bballer.getPointsWeek() %></td>
 			</tr>
 		<% } %>
@@ -76,6 +78,7 @@
 					<th>Nombre</th>
 					<th>Equipo</th>
 					<th>Posición</th>
+					<th>Precio</th>
 					<th>Puntos Jornada</th>
 				</tr>
 			</thead>
@@ -86,6 +89,7 @@
 				<td><%= listPlayers.get(i).getName() %></td>
 				<td><%= listPlayers.get(i).getTeam() %></td>
 				<td><%= listPlayers.get(i).getPosition() %></td>
+				<td><%= listPlayers.get(i).getValue() %></td>
 				<td><%= listPlayers.get(i).getPointsWeek() %></td>
 			</tr>
 		<% } %>

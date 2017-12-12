@@ -45,6 +45,7 @@
 				<th>Nombre</th>
 				<th>Equipo</th>
 				<th>Posición</th>
+				<th>Precio</th>
 				<th>Puntos</th>
 				<th>Vender Jugador</th>
 			</tr>
@@ -56,6 +57,7 @@
 				<td><%= bballer.getName() %></td>
 				<td><%= bballer.getTeam() %></td>
 				<td><%= bballer.getPosition() %></td>
+				<td><%= bballer.getValue() %></td>
 				<td><%= bballer.getPointsGlobal() %></td>
 				<td><a href=SellPlayer?id=<%= bballer.getId() %>>
 				Vender a <%= bballer.getName() %></a></td>
@@ -75,6 +77,7 @@
 					<th>Nombre</th>
 					<th>Equipo</th>
 					<th>Posición</th>
+					<th>Precio</th>
 					<th>Puntos</th>
 					<th>Comprar Jugador</th>
 				</tr>
@@ -86,6 +89,7 @@
 				<td><%= marketPlayers.get(i).getName() %></td>
 				<td><%= marketPlayers.get(i).getTeam() %></td>
 				<td><%= marketPlayers.get(i).getPosition() %></td>
+				<td><%= marketPlayers.get(i).getValue() %></td>
 				<td><%= marketPlayers.get(i).getPointsGlobal() %></td>
 				<td><a href=BuyPlayer?id=<%= marketPlayers.get(i).getId() %>>
 				Comprar a <%= marketPlayers.get(i).getName() %></a></td>
