@@ -77,7 +77,7 @@
 	<div class="container">
 		<!-- row of columns -->
 		<div class="row">
-			<div class="col-md-8">
+			<div class="col-md-6">
 				<h2>Ligas Inscritas</h2>
 				<%
 					List<League> leagues = (List<League>) session.getAttribute("leaguesUser");
@@ -108,7 +108,7 @@
 						&raquo;</a>
 				</p>
 			</div>
-			<div class="col-md-8">
+			<div class="col-md-6">
 				<h2>Ligas Disponibles</h2>
 				<%
 					List<League> leaguesAvail = (List<League>) session.getAttribute("leaguesSubs");

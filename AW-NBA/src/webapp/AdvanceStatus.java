@@ -108,7 +108,9 @@ public class AdvanceStatus extends HttpServlet {
 				
 				// Actualización del precio del jugador.
 				int value = player.getValue();
-				if (value > 50000) {
+				if (value > 60000) {
+					player.setValue((int) (value*(1+0.01*(weekPoints-70))));
+				} else if (value > 50000) {
 					player.setValue((int) (value*(1+0.01*(weekPoints-60))));
 				} else if (value > 40000) {
 					player.setValue((int) (value*(1+0.01*(weekPoints-50))));

@@ -74,12 +74,22 @@ public class SellPlayer extends HttpServlet {
 		long balance = lineup.getBalance() + (long) (player.getValue());
 		lineup.setBalance(balance);
 		
-		List<Player> teamLineup = lineup.getTeamLineup();
-		teamLineup.remove(player);
-		lineup.setTeamLineup(teamLineup);
+		String q3 = "delete from plantilladeportista where lineup = :lineup and player = :player";
+		Query query3 = ses.createQuery(q3);
+		query3.setParameter("lineup", lineup.getId());
+		query3.setParameter("player", id);
+		query3.executeUpdate();
 		
-		ses.saveOrUpdate(lineup);
-		ses.delete("from plantilladeportista where lineup = "+lineup.getId()+" and player = "+id, team);
+		List<Player> teamLineup = lineup.getTeamLineup();
+		int i;
+		for (i = 0; i<teamLineup.size(); i++) {
+			if (player.getId() == teamLineup.get(i).getId()) {
+				teamLineup.remove(i);
+				lineup.setTeamLineup(teamLineup);
+				ses.saveOrUpdate(lineup);
+				
+			}
+		}
 		
 		tx.commit();
 		ses.close();

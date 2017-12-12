@@ -3,12 +3,12 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @SuppressWarnings("serial")
 @Entity(name="plantilla")
@@ -26,7 +26,7 @@ public class Lineup implements Serializable {
 	@Column(name = "saldo")
 	private long balance;	//125000 max; Salario de la plantilla de una liga determinada
 						//no del usuario en general
-	@ElementCollection
+	@Transient
 	private List<Player> teamLineup;
 	@Column(name = "puntos")
 	private int points;
