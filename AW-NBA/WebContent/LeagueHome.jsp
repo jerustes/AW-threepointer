@@ -12,7 +12,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport"
 	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<!-- The above 3 meta tags *must* come first in the head; any other 
+		head content must come *after* these tags -->
 <link rel="icon" href="../../favicon.ico">
 
 <title>Vista Liga</title>
@@ -86,6 +87,22 @@
 		<div class="row">
 	        <div class="col-sm-3 col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
+					<%
+						for (League lg : leaguesUser) {
+							if (lg.getId() == league.getId()) {
+								//lg is current league
+					%>
+					<li class="active"><a href="#"><%=league.getName()%><span
+							class="sr-only">(current)</span></a></li>
+					<%
+							} else {
+					%>
+					<li><a href="#"><%=lg.getName()%></a></li>
+					<%
+							}
+						}
+					%>
+
 					<li class="active"><a href="#"><%=league.getName() %><span
 							class="sr-only">(current)</span></a></li>
 					<li><a href="#">League2</a></li>
