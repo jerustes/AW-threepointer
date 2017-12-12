@@ -37,7 +37,7 @@ public class SummaryHome extends HttpServlet {
 	private static final long serialVersionUID = -344043865093852110L;
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html");
 		request.setCharacterEncoding("UTF-8");

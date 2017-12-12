@@ -84,7 +84,7 @@
 			<div class="col-md-6">
 				<h2>Ligas Inscritas</h2>
 
-				<table>
+				<table class="table table-stripped">
 					<thead>
 						<tr>
 							<th>Leagues</th>
@@ -105,15 +105,11 @@
 						<% } %>
 					</tbody>
 				</table>
-				<p>
-					<a class="btn btn-default" href="#" role="button">Detalles
-						&raquo;</a>
-				</p>
 			</div>
 			<div class="col-md-6">
 				<h2>Ligas Disponibles</h2>
 				
-				<table>
+				<table class="table table-stripped">
 					<thead>
 						<tr>
 							<th>Leagues</th>
@@ -135,35 +131,27 @@
 						<% } %>
 					</tbody>
 				</table>
-				<p>
-					<a class="btn btn-default" href="#" role="button">Detalles
-						&raquo;</a>
-				</p>
 			</div>
 			
 		</div>
 		<div class="row">
-			<div class="col-md-2">
+			<div class="col-md-6">
 				<h2>Crear nueva liga</h2>
-				<p>
-				<form action="CreateLeague" method="POST">
+				<p><form action="CreateLeague" method="POST">
 					<div>
-						<label>Nombre: <input type="text" name="name"></label> <label
-							for="name">Nombre:</label> <input type="text"
-							class="form-control" id="name" placeholder="Nombre de tu liga...">
+						 <label for="name">Nombre:</label> <input type="text"
+							class="form-control" id="name" placeholder="Nombre de tu liga">
 					</div>
 					<div>
 						<label for="max-usr">Número máximo de usuarios:</label> <input
-							type="text" class="form-control" id="max-usr"> <span
-							class="help-block">Digamos, como máximo, 20?</span>
+							type="text" class="form-control" id="max-usr" placeholder="Entre 2 y 20 usuarios">
 					</div>
 					<div>
 						<label for="init-bal">Saldo inicial:</label> <input type="text"
-							class="form-control" id="init-bal"> <span
-							class="help-block">Digamos, como máximo, 20?</span>
+							class="form-control" id="init-bal" placeholder="Saldo inicial máximo: 200.000">
 					</div>
-					<input type="submit" value="Crear liga">
 				</form>
+				
 				<p>
 					<a class="btn btn-success btn-lg" href="CreateLeague" role="button"
 						method="POST">¡Crear liga!</a>
