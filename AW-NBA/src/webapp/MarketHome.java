@@ -34,7 +34,7 @@ public class MarketHome extends HttpServlet {
 	private static final long serialVersionUID = -8417478344457698175L;
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html");
 		request.setCharacterEncoding("UTF-8");

@@ -76,14 +76,9 @@
 	%>
 
 	<div class="container">
-		<!-- row of columns -->
-		<div class="row">
-			<div class="col-md-6">
+			<div class="table-responsive">
 				<h2>Lista de jornadas</h2>
-				<h3>
-					(tamaño del calendario:<%=weeks.size()%>)
-				</h3>
-				<table>
+				<table class="table table-stripped">
 					<thead>
 						<tr>
 							<th>Id</th>
@@ -103,12 +98,8 @@
 						<%	} %>
 					</tbody>
 				</table>
-				<p>
-					<a class="btn btn-default" href="#" role="button">Detalles
-						&raquo;</a>
-				</p>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-12">
 				<h2>Jornada y fase actual</h2>
 				<p>
 					<%
@@ -118,15 +109,8 @@
 					<%=status.getRound()%>. Fase actual:
 					<%=status.getPhase()%>.
 				</p>
-				<p>
-					<a class="btn btn-default" href="#" role="button">Detalles
-						&raquo;</a>
-				</p>
 			</div>
-			
-		</div>
-		<div class="row">
-			<div class="col-md-2">
+			<div class="col-md-12">
 				<p>
 					<a class="btn btn-default btn-lg" href="AdvanceStatus" role="button" 
 						method="POST">Avanzar fase</a>
@@ -136,7 +120,6 @@
 					</form -->
 		
 				</p>
-			</div>
 		</div>
 
 		<hr>

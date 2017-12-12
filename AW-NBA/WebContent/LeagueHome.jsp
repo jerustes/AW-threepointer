@@ -239,26 +239,29 @@
 						</tbody>
 					</table>
 				</div>
+				<div class="col-md-6">
+					<% if(status.getPhase()==1 && league.getState() == State.Activa){ %>
+					<p><a class="btn btn-success btn-lg" href="MarketHomeServlet" role="button"
+						method="POST">Vista Mercado</a>
+					</p>
+					<% } else if (status.getPhase() == 3 && league.getState() == State.Activa){ %>
+					<p><a class="btn btn-success btn-lg" href="SummaryHomeServlet" role="button"
+						method="POST">Vista Resumen de la Jornada</a>
+					</p>
+					<% } %>
+					<% if(currentUser.getId() == creator.getId()){ %>
+					<p><a class="btn btn-success btn-lg" href="AdvanceLeagueStatus" role="button"
+						method="POST">Cambiar estado de liga</a>
+					</p>
+					<% } %>
+					
+					
+				</div>
 			</div>
         </div>
 	</div>
 	
-	<% if(status.getPhase()==1 && league.getState() == State.Activa){ %>
 
-	<form action="MarketHomeServlet" method="POST">
-		<input type="submit" value="Vista Mercado">
-	</form>
-	<% } else if (status.getPhase() == 3 && league.getState() == State.Activa){ %>
-	<form action="SummaryHomeServlet" method="POST">
-		<input type="submit" value="Vista Resumen">
-	</form>
-	<% } %>
-	<% if(currentUser.getId() == creator.getId()){ %>
-
-	<form action="AdvanceLeagueStatus" method="POST">
-		<input type="submit" value="Cambiar estado de liga">
-	</form>
-	<% } %>
 	
 	    <!-- Bootstrap core JavaScript
     ================================================== -->
