@@ -80,10 +80,8 @@ public class AdvanceStatus extends HttpServlet {
 			status.setPhase(3);
 			
 			// Actualización puntos de la plantilla.
-			// No actualiza.
-			String q3 = "from plantilladeportista";
-			Query query3 = ses.createQuery(q3);
-			List<Team> allTeams = (List<Team>) query1.list();
+			Query query3 = ses.createQuery("from plantilladeportista");
+			List<Team> allTeams = (List<Team>) query3.list();
 			
 			for (Team team : allTeams) {
 				String q4 = "from plantilla where id = :lineup";

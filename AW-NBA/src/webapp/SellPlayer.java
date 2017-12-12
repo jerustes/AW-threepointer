@@ -37,14 +37,13 @@ public class SellPlayer extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.setContentType("text/html");
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		PrintWriter out = response.getWriter();
 		Configuration configuration = new Configuration();
 		configuration.configure(this.getClass().getResource("/hibernate.cfg.xml"));
-		configuration.addAnnotatedClass(Player.class);
 		configuration.addAnnotatedClass(Team.class);
+		configuration.addAnnotatedClass(Player.class);
+		configuration.addAnnotatedClass(Lineup.class);
 		SessionFactory sessionFactory = configuration.buildSessionFactory();
 		Session ses = sessionFactory.openSession();
 		Transaction tx = ses.beginTransaction();
@@ -55,10 +54,10 @@ public class SellPlayer extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 		
 		if (user.getRole() != Role.jugador) {
-			out.println("Usuario o contraseña incorrectas");
+			System.out.println("Usuario o contraseña incorrectas");
 			response.sendRedirect("login.jsp");
 		} else if (lineup.getLeague() != league.getId()) {
-			out.println("Usuario no inscrito en dicha liga.");
+			System.out.println("Usuario no inscrito en dicha liga.");
 			response.sendRedirect("error.jsp");
 		}
 		
@@ -84,7 +83,6 @@ public class SellPlayer extends HttpServlet {
 		
 		tx.commit();
 		ses.close();
-		out.close();
 		
 		RequestDispatcher rd = request.getRequestDispatcher("MarketHome.jsp");
 		rd.forward(request, response);

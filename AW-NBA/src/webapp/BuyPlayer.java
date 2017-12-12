@@ -37,11 +37,11 @@ public class BuyPlayer extends HttpServlet {
 		response.setContentType("text/html");
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		PrintWriter out = response.getWriter();
 		Configuration configuration = new Configuration();
 		configuration.configure(this.getClass().getResource("/hibernate.cfg.xml"));
 		configuration.addAnnotatedClass(Player.class);
 		configuration.addAnnotatedClass(Team.class);
+		configuration.addAnnotatedClass(Lineup.class);
 		SessionFactory sessionFactory = configuration.buildSessionFactory();
 		Session ses = sessionFactory.openSession();
 		Transaction tx = ses.beginTransaction();
@@ -52,10 +52,10 @@ public class BuyPlayer extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 		
 		if (user.getRole() != Role.jugador) {
-			out.println("Usuario o contraseÃ±a incorrectas");
+			System.out.println("Usuario o contraseÃ±a incorrectas");
 			response.sendRedirect("login.jsp");
 		} else if (lineup.getLeague() != league.getId()) {
-			out.println("Error, redireccionar a página de error.");
+			System.out.println("Error, redireccionar a página de error.");
 			response.sendRedirect("error.jsp");
 		}
 		
@@ -74,19 +74,18 @@ public class BuyPlayer extends HttpServlet {
 			if (balance > player.getValue() && teamLineup.size() < 5) {
 				teamLineup.add(player);
 				lineup.setBalance(balance - (long) player.getValue());
-				out.println("Se puede comprar dicho jugador.");
+				ses.saveOrUpdate(lineup);
+				System.out.println("Se puede comprar dicho jugador.");
 				Team team = new Team();
-				team.setId(listTeams.size()+1);
 				team.setPlayer(id);
 				team.setLineup(lineup.getId());
 				listTeams.add(team);
 				ses.saveOrUpdate(team);
-				ses.saveOrUpdate(lineup);
 				tx.commit();
 			} else if (balance < player.getValue()) {
-				out.println("No hay suficiente saldo para comprar dicho jugador");
+				System.out.println("No hay suficiente saldo para comprar dicho jugador");
 			} else if (teamLineup.size() >= 5) {
-				out.println("El equipo ya cuenta con el número máximo de deportistas");
+				System.out.println("El equipo ya cuenta con el número máximo de deportistas");
 			}
 		} catch (NullPointerException e) {
 			// If the teamLineup is null, create new listPlayers.
@@ -108,7 +107,6 @@ public class BuyPlayer extends HttpServlet {
 		}
 		
 		ses.close();
-		out.close();
 		
 		RequestDispatcher rd = request.getRequestDispatcher("MarketHome.jsp");
 		rd.forward(request, response);

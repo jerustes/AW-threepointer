@@ -9,14 +9,14 @@ import javax.persistence.Table;
 
 @SuppressWarnings("serial")
 @Entity(name = "plantilladeportista")
-@Table(name = "plantilladeportista")
+@Table
 public class Team implements Serializable {
 	@Id
 	@Column (name = "id")
 	private int id;
 	@Column(name = "plantilla")
 	private int lineup;
-	@Column(name= "deportista")
+	@Column(name = "deportista")
 	private int player;
 	
 	public int getId() {
