@@ -1,0 +1,9 @@
+cd weapps/miapp
+
+jar cvf $HOME/miapp.war *
+    //c create, v verbose, f dir where it creates file
+    //creates file in the root directory of our account, * recursive (file and all the tree)
+
+Dos cosas necesarias más:
+  WEB-INF/authors.txt --> NIA & nombre x2
+  
