@@ -81,6 +81,7 @@
 		Status status = (Status) session.getAttribute("status");
 		List<User> listUsers = (List<User>) session.getAttribute("listUsers");
 		List<League> leaguesUser = (List<League>) session.getAttribute("leaguesUser");
+		List<League> leaguesAvail = (List<League>) session.getAttribute("leaguesSubs");
 	%>
 	
 	<div class="container-fluid">
@@ -92,22 +93,27 @@
 							if (lg.getId() == league.getId()) {
 								//lg is current league
 					%>
-					<li class="active"><a href="#"><%=league.getName()%><span
+					<li class="active"><a href="ViewLeague?id=<%=league.getId() %>"><%=league.getName()%><span
 							class="sr-only">(current)</span></a></li>
 					<%
 							} else {
 					%>
-					<li><a href="#"><%=lg.getName()%></a></li>
+					<li><a href="ViewLeague?id=<%=lg.getId() %>"><%=lg.getName()%></a></li>
 					<%
 							}
 						}
 					%>
+					<%  
+						for (League lg : leaguesAvail) {
+					%>
+					<li><a href="JoinLeague?id=<%=lg.getId() %>"><%=lg.getName()%></a></li>
+					<% } %>
 
-					<li class="active"><a href="#"><%=league.getName() %><span
-							class="sr-only">(current)</span></a></li>
-					<li><a href="#">League2</a></li>
-					<li><a href="#">League3</a></li>
-					<li><a href="#">League4</a></li>
+<%-- 					<li class="active"><a href="#"><%=league.getName() %><span --%>
+<!-- 							class="sr-only">(current)</span></a></li> -->
+<!-- 					<li><a href="#">League2</a></li> -->
+<!-- 					<li><a href="#">League3</a></li> -->
+<!-- 					<li><a href="#">League4</a></li> -->
 					<!-- TODO: turn static examples into list with actual leagues of the user -->
 				</ul>
 			</div>

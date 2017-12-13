@@ -36,14 +36,14 @@
 					<span class="icon-bar"></span>
 				</button>
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">Vista de Administrador</a>
+					<a class="navbar-brand" href="AdminHomeServlet">Vista de Administrador</a>
 				</div>
 			</div>
 			<!-- TODO: adaptar esto siguiente a que puedas navegar a otras opciones desde la vista de admin
         como al resto de vistas -->
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">admin</a></li>
+					<li class="active"><a href="AdminHomeServlet">admin</a></li>
 					<li><a href="#">Vista 1</a></li>
 					<li><a href="#">Vista 2</a></li>
 					<li><a href="#">Vista 3</a></li>

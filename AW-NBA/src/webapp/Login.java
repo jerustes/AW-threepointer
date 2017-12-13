@@ -39,10 +39,8 @@ public class Login extends HttpServlet {
 		configuration.addAnnotatedClass(User.class);
 		SessionFactory sessionFactory = configuration.buildSessionFactory();
 		Session ses = sessionFactory.openSession();
-		PrintWriter out = response.getWriter();
 		String email = (String) request.getParameter("inputEmail");
 		String pass = (String) request.getParameter("inputPassword");
-		out.println(pass+" "+email);
 		String q1 = "from usuario where email = :mail and password = :pwd ";
 		Query query = ses.createQuery(q1);
 		query.setParameter("mail", email);
@@ -52,22 +50,21 @@ public class Login extends HttpServlet {
 		Role rol = user.getRole();
 		if (rol == Role.jugador) {
 			session.setAttribute("user", user);
-			out.println("Usuario con rol de jugador entrando en la vista principal.");
+			System.out.println("Usuario con rol de jugador entrando en la vista principal.");
 			response.sendRedirect("UserHomeServlet?id="+user.getId());
 		} else if (rol == Role.admin) {
 			session.setAttribute("user", user);
-			out.println("Usuario con rol de admin entrando en la vista de administrador.");
+			System.out.println("Usuario con rol de admin entrando en la vista de administrador.");
 			response.sendRedirect("AdminHomeServlet");
 		} else {
-			out.println("Error de la Base de Datos");
+			System.out.println("Error de la Base de Datos");
 			response.sendRedirect("error.jsp");
 		}
 		if (session.getAttribute("user") == null) {
-			out.println("Usuario o contrase�a incorrectas");
+			System.out.println("Usuario o contrase�a incorrectas");
 			response.sendRedirect("login.jsp");
 		}
 		
 		ses.close();
-		out.close();
 	}
 }

@@ -2,6 +2,8 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page import='webapp.Entities.League'%>
 <%@ page import='webapp.Entities.Lineup'%>
+<%@ page import='webapp.Entities.User'%>
+<%@ page import='webapp.Entities.Status'%>
 <%@ page import='java.util.List'%>
 
 <!-- Vista usuario con sesión inciada -->
@@ -31,6 +33,15 @@
 <link href="css/userhome.css" rel="stylesheet">
 </head>
 <body>
+	<%
+		List<League> leaguesAvail = (List<League>) session.getAttribute("leaguesSubs");
+		List<League> leagues = (List<League>) session.getAttribute("leaguesUser");
+		Status status = (Status) session.getAttribute("status");
+		League league = (League) session.getAttribute("league");
+		User user = (User) session.getAttribute("user");
+		List<User> listUsers = (List<User>) session.getAttribute("listUsers");
+		List<League> leaguesUser = (List<League>) session.getAttribute("leaguesUser");
+	%>
 
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
@@ -52,11 +63,15 @@
         como al resto de vistas -->
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">user</a></li>
-					<li><a href="#">Vista 1</a></li>
-					<li><a href="#">Vista 2</a></li>
-					<li><a href="#">Vista 3</a></li>
-					<li><a href="#">About</a></li>
+					<li class="active"><a href="UserHomeServlet=id?<%=user.getId() %>">User</a></li>
+					<% for (League l : leaguesUser) { %>
+					<li><a href="ViewLeague?id=<%=l.getId() %>">League: <%=l.getName() %></a></li>
+					<% } %>
+					<% if (status.getPhase() == 1) { %>
+					<li><a href="MarketHomeServlet">Market</a></li>
+					<% } else if (status.getPhase() == 3) { %>
+					<li><a href="SummaryHomeServlet">Summary</a></li>
+					<% } %>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#"><span class="glyphicon glyphicon-user"></span>
@@ -80,11 +95,6 @@
 		</div>
 	</div>
 
-	<%
-		List<League> leaguesAvail = (List<League>) session.getAttribute("leaguesSubs");
-		List<League> leagues = (List<League>) session.getAttribute("leaguesUser");
-	%>
-
 	<div class="container">
 		<!-- row of columns -->
 		<div class="row">
@@ -101,13 +111,13 @@
 					</thead>
 					<tbody>
 						<%
-							for (League league : leagues) {
+							for (League leg : leagues) {
 						%>
 						<tr>
-							<td><%=league.getName()%></td>
-							<td><%=league.getState()%></td>
-							<td><a href="ViewLeague?id=<%=league.getId()%>">Ver
-									liga <%=league.getId()%></td>
+							<td><%=leg.getName()%></td>
+							<td><%=leg.getState()%></td>
+							<td><a href="ViewLeague?id=<%=leg.getId()%>">Ver
+									liga <%=leg.getId()%></td>
 						</tr>
 						<% } %>
 					</tbody>
@@ -126,13 +136,13 @@
 					</thead>
 					<tbody>
 						<%
-							for (League league : leaguesAvail) {
+							for (League lg : leaguesAvail) {
 						%>
 						<tr>
-							<td><%=league.getName()%></td>
-							<td><%=league.getState()%></td>
-							<td><a href="JoinLeague?id=<%=league.getId()%>">Unirse
-									a liga <%=league.getId()%></a>
+							<td><%=lg.getName()%></td>
+							<td><%=lg.getState()%></td>
+							<td><a href="JoinLeague?id=<%=lg.getId()%>">Unirse
+									a liga <%=lg.getId()%></a>
 								</form></td>
 						</tr>
 						<% } %>

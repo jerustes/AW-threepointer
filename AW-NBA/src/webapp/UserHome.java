@@ -2,6 +2,7 @@ package webapp;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -35,7 +36,6 @@ public class UserHome extends HttpServlet {
 		response.setContentType("text/html");
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		PrintWriter out = response.getWriter();
 		Configuration configuration = new Configuration();
 		configuration.configure(this.getClass().getResource("/hibernate.cfg.xml"));
 		configuration.addAnnotatedClass(League.class);
@@ -47,10 +47,10 @@ public class UserHome extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 		
 		if (user == null) {
-			out.println("Usuario o contrase�a incorrectas");
+			System.out.println("Usuario o contrase�a incorrectas");
 			response.sendRedirect("login.jsp");
 		} else if (user.getRole() == Role.admin) {
-			out.println("Rol de administrador, error.");
+			System.out.println("Rol de administrador, error.");
 			response.sendRedirect("error.jsp");
 		}
 		
@@ -78,6 +78,8 @@ public class UserHome extends HttpServlet {
 		query3.setParameter("id",id);
 		List<Lineup> lineupList2 = query3.list();
 		
+		
+		//error cuando es null.
 		String q4 = "from liga where ";
 		for (Lineup lineup : lineupList2) {
 			q4 += "id != "+ lineup.getLeague()+" and ";
@@ -86,12 +88,12 @@ public class UserHome extends HttpServlet {
 		Query query4 = ses.createQuery(q4);
 		query4.setParameter("state",State.Inscripcion);
 		List<League> leagueList2 = query4.list();
-		session.setAttribute("leaguesSubs", leagueList2);
+		if (leagueList2 == null) leagueList2 = Collections.emptyList();
+		else session.setAttribute("leaguesSubs", leagueList2);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("UserHome.jsp");
 		rd.forward(request, response);
 		
 		ses.close();
-		out.close();
     }
 }

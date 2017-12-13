@@ -39,7 +39,6 @@ public class LeagueHome extends HttpServlet {
 		response.setContentType("text/html");
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		PrintWriter out = response.getWriter();
 		Configuration configuration = new Configuration();
 		configuration.configure(this.getClass().getResource("/hibernate.cfg.xml"));
 		configuration.addAnnotatedClass(Lineup.class);
@@ -54,10 +53,10 @@ public class LeagueHome extends HttpServlet {
 		League league = (League) session.getAttribute("league");
 		
 		if (user.getRole() != Role.jugador) {
-			out.println("Usuario o contraseña incorrectas");
+			System.out.println("Usuario o contraseña incorrectas");
 			response.sendRedirect("login.jsp");
 		} else if (id != league.getId()) {
-			out.println("Usuario no inscrito en dicha liga.");
+			System.out.println("Usuario no inscrito en dicha liga.");
 			response.sendRedirect("error.jsp");
 		}
 		
@@ -72,16 +71,12 @@ public class LeagueHome extends HttpServlet {
 		Status status = (Status) query2.list().get(0);
 		session.setAttribute("status", status);
 		
-		try {
-			String q3 = "from plantilla where user = :user and league = :league";
-			Query query3 = ses.createQuery(q3);
-			query3.setParameter("user",user.getId());
-			query3.setParameter("league",league.getId());
-			Lineup lineup = (Lineup) query3.list().get(0);
-			session.setAttribute("lineupUser", lineup);
-		} catch (IndexOutOfBoundsException e) {
-			e.printStackTrace();
-		}
+		String q3 = "from plantilla where user = :user and league = :league";
+		Query query3 = ses.createQuery(q3);
+		query3.setParameter("user",user.getId());
+		query3.setParameter("league",league.getId());
+		Lineup lineup = (Lineup) query3.list().get(0);
+		session.setAttribute("lineupUser", lineup);
 		
 		String q4 = "from usuario where id = :creator";
 		Query query4 = ses.createQuery(q4);
@@ -93,36 +88,31 @@ public class LeagueHome extends HttpServlet {
 		Query query5 = ses.createQuery(q5);
 		List<User> listUsers = (List<User>) query5.list();
 		session.setAttribute("listUsers", listUsers);
-		try {
-			Lineup lineupAux = (Lineup) session.getAttribute("lineupUser");
-			String q6 = "from plantilladeportista where lineup = :lineup";
-			Query query6 = ses.createQuery(q6);
-			query6.setParameter("lineup", lineupAux.getId());
-			List<Team> listTeam = (List<Team>) query6.list();
+		Lineup lineupAux = (Lineup) session.getAttribute("lineupUser");
+		String q6 = "from plantilladeportista where lineup = :lineup";
+		Query query6 = ses.createQuery(q6);
+		query6.setParameter("lineup", lineupAux.getId());
+		List<Team> listTeam = (List<Team>) query6.list();
+	
+		List<Player> teamLineup = null;
+		for (Team team : listTeam) {
+			String q7 = "from deportista where id = :player";
+			Query query7 = ses.createQuery(q7);
+			query7.setParameter("player", team.getPlayer());
+			if (teamLineup == null) {
+				teamLineup = (List<Player>) query7.list();
+			} else {
+				Player player = (Player) query7.list().get(0);
+				teamLineup.add(player);
+			}
+		}	
+		lineupAux.setTeamLineup(teamLineup);
+		session.setAttribute("lineupUser", lineupAux);
 		
-			List<Player> teamLineup = null;
-			for (Team team : listTeam) {
-				String q7 = "from deportista where id = :player";
-				Query query7 = ses.createQuery(q7);
-				query7.setParameter("player", team.getPlayer());
-				if (teamLineup == null) {
-					teamLineup = (List<Player>) query7.list();
-				} else {
-					Player player = (Player) query7.list().get(0);
-					teamLineup.add(player);
-				}
-			}	
-			lineupAux.setTeamLineup(teamLineup);
-			session.setAttribute("lineupUser", lineupAux);
-		} catch (Exception e) {
-			e.getMessage();
-		}
-		
-		out.println("Mostrar liga con id "+id);
+		System.out.println("Mostrar liga con id "+id);
 		RequestDispatcher rd = request.getRequestDispatcher("LeagueHome.jsp");
 		rd.forward(request, response);
 		
 		ses.close();
-		out.close();
 	}
 }
