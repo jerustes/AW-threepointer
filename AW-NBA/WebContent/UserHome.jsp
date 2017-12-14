@@ -55,7 +55,7 @@
 					<span class="icon-bar"></span>
 				</button>
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">Vista de Usuario</a>
+					<a class="navbar-brand" href="UserHomeServlet?id=<%=user.getId() %>">Vista de Usuario</a>
 				</div>
 			</div>
 			<!-- TODO: adaptar esto siguiente a que puedas navegar a otras opciones desde la vista de admin

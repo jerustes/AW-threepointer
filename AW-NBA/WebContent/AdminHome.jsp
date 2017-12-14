@@ -22,7 +22,11 @@
     <link href="css/adminhome.css" rel="stylesheet">
   </head>
   <body>
-
+	<% 
+		List<Week> weeks = (List<Week>) session.getAttribute("weeksList");
+		Status status = (Status) session.getAttribute("status");
+		User user = (User) session.getAttribute("user");
+	%>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -43,19 +47,13 @@
         como al resto de vistas -->
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="AdminHomeServlet">admin</a></li>
-					<li><a href="#">Vista 1</a></li>
-					<li><a href="#">Vista 2</a></li>
-					<li><a href="#">Vista 3</a></li>
-					<li><a href="#">About</a></li>
+					<li class="active"><a href="AdminHomeServlet">Admin</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><span class="glyphicon glyphicon-user"></span>
-							/home </a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span>
+					<li><a href="AdminHomeServlet"><span class="glyphicon glyphicon-user"></span>
+							home </a></li>
+					<li><a href="LogoutServlet"><span class="glyphicon glyphicon-log-in"></span>
 							Salir</a></li>
-					<li><a href="#" class="btn btn-danger" role="button"><span
-							class="glyphicon glyphicon-off"></span></a></li>
 				</ul>
 			</div>
 			<!--/.navbar-collapse -->
@@ -65,15 +63,13 @@
 	<!-- Main jumbotron for primary info -->
 	<div class="jumbotron">
 		<div class="container">
-			<h1>/admin</h1>
+			<h1>Vista del Administrador</h1>
 			<p>Vista de administrador desde donde puedes gestionar la Lista
 				de jornadas, Jornada y fase actual y avanzar estado</p>
 		</div>
 	</div>
 
-	<%
-		List<Week> weeks = (List<Week>) session.getAttribute("weeksList");
-	%>
+
 
 	<div class="container">
 			<div class="table-responsive">
@@ -102,9 +98,6 @@
 			<div class="col-md-12">
 				<h2>Jornada y fase actual</h2>
 				<p>
-					<%
-					Status status = (Status) session.getAttribute("status");
-					%>
 					Jornada actual:
 					<%=status.getRound()%>. Fase actual:
 					<%=status.getPhase()%>.

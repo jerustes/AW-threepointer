@@ -32,7 +32,19 @@
 <link href="css/leaguehome.css" rel="stylesheet">
 
 </head>
-<body>	
+<body>
+
+	<%
+		League league = (League) session.getAttribute("league");
+		Lineup lineupUser = (Lineup) session.getAttribute("lineupUser");
+		List<Lineup> lineupsLeague = (List<Lineup>) session.getAttribute("lineupsLeague");
+		User currentUser = (User) session.getAttribute("user");
+		User creator = (User) session.getAttribute("creator");	
+		Status status = (Status) session.getAttribute("status");
+		List<User> listUsers = (List<User>) session.getAttribute("listUsers");
+		List<League> leaguesUser = (List<League>) session.getAttribute("leaguesUser");
+	%>
+		
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -46,42 +58,36 @@
 					<span class="icon-bar"></span>
 				</button>
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">Vista de Liga</a>
+					<a class="navbar-brand" href="ViewLeague?id=<%=league.getId() %>">Vista de Liga</a>
 				</div>
 			</div>
 			<!-- TODO: adaptar esto siguiente a que puedas navegar a otras opciones desde la vista de admin
         como al resto de vistas -->
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Ligas</a></li>
-					<li><a href="#">Vista 1</a></li>
-					<li><a href="#">Vista 2</a></li>
-					<li><a href="#">Vista 3</a></li>
-					<li><a href="#">About</a></li>
+					<li><a href="UserHomeServlet?id=<%=currentUser.getId() %>">User</a></li>
+					<li class="active"><a href="ViewLeague?id=<%=league.getId() %>">League: <%=league.getName() %></a></li>
+					<% for (League l : leaguesUser) { 
+						 	if (l.getId() != league.getId()) { %>
+					<li><a href="ViewLeague?id=<%=l.getId() %>">League: <%=l.getName() %></a></li>
+					<% 		}
+						} %>
+					<% if (status.getPhase() == 1) { %>
+					<li><a href="MarketHomeServlet">Market</a></li>
+					<% } else if (status.getPhase() == 3) { %>
+					<li><a href="SummaryHomeServlet">Summary</a></li>
+					<% } %>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><span class="glyphicon glyphicon-user"></span>
-							/home </a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span>
+					<li><a href="UserHomeServlet?id=<%=currentUser.getId() %>"><span class="glyphicon glyphicon-user"></span>
+							home </a></li>
+					<li><a href="LogoutServlet"><span class="glyphicon glyphicon-log-in"></span>
 							Salir</a></li>
-					<li><a href="#" class="btn btn-danger" role="button"><span
-							class="glyphicon glyphicon-off"></span></a></li>
 				</ul>
 			</div>
 			<!--/.navbar-collapse -->
 		</div>
 	</nav>
-	
-	<%
-		League league = (League) session.getAttribute("league");
-		Lineup lineupUser = (Lineup) session.getAttribute("lineupUser");
-		List<Lineup> lineupsLeague = (List<Lineup>) session.getAttribute("lineupsLeague");
-		User currentUser = (User) session.getAttribute("user");
-		User creator = (User) session.getAttribute("creator");	
-		Status status = (Status) session.getAttribute("status");
-		List<User> listUsers = (List<User>) session.getAttribute("listUsers");
-		List<League> leaguesUser = (List<League>) session.getAttribute("leaguesUser");
-	%>
 	
 	<div class="container-fluid">
 		<div class="row">
@@ -120,8 +126,10 @@
 				</ul>
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          		<h1 class="page-header"><strong><%=league.getName() %> / resumen</strong></h1>
-
+          		<h1 class="page-header"><strong>Vista de la Liga <%=league.getName() %></strong></h1>
+				<h3 class="sub-header">Vista de la liga desde donde puedes ver tu plantilla de dicha liga,
+				el saldo que te queda, la información general de la liga o su clasificación.</h3>
+				
 				<div class="row placeholders">
 					<div class="col-xs-6 col-sm-3 placeholder">
 						<img
