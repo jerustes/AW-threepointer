@@ -34,7 +34,6 @@
 </head>
 <body>
 	<%
-		List<League> leaguesAvail = (List<League>) session.getAttribute("leaguesSubs");
 		List<League> leagues = (List<League>) session.getAttribute("leaguesUser");
 		Status status = (Status) session.getAttribute("status");
 		League league = (League) session.getAttribute("league");
@@ -63,7 +62,7 @@
         como al resto de vistas -->
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="UserHomeServlet=id?<%=user.getId() %>">User</a></li>
+					<li class="active"><a href="UserHomeServlet?id=<%=user.getId() %>">User</a></li>
 					<% for (League l : leaguesUser) { %>
 					<li><a href="ViewLeague?id=<%=l.getId() %>">League: <%=l.getName() %></a></li>
 					<% } %>
@@ -74,12 +73,10 @@
 					<% } %>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><span class="glyphicon glyphicon-user"></span>
-							/home </a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span>
+					<li><a href="UserHomeServlet?id=<%=user.getId() %>"><span class="glyphicon glyphicon-user"></span>
+							home </a></li>
+					<li><a href="LogoutServlet"><span class="glyphicon glyphicon-log-in"></span>
 							Salir</a></li>
-					<li><a href="#" class="btn btn-danger" role="button"><span
-							class="glyphicon glyphicon-off"></span></a></li>
 				</ul>
 			</div>
 			<!--/.navbar-collapse -->
@@ -89,7 +86,7 @@
 	<!-- Main jumbotron for primary info -->
 	<div class="jumbotron">
 		<div class="container">
-			<h1>/user</h1>
+			<h1>Vista de Usuario</h1>
 			<p>Vista de usuario desde donde puedes navegar tus ligas y ver
 			otras ligas disponibles en las que perder más de tu tiempo.</p>
 		</div>
@@ -136,7 +133,9 @@
 					</thead>
 					<tbody>
 						<%
-							for (League lg : leaguesAvail) {
+							if (session.getAttribute("leagueSubs") != null) {
+								List<League> leaguesAvail = (List<League>) session.getAttribute("leaguesSubs");
+								for (League lg : leaguesAvail) {
 						%>
 						<tr>
 							<td><%=lg.getName()%></td>
@@ -145,7 +144,8 @@
 									a liga <%=lg.getId()%></a>
 								</form></td>
 						</tr>
-						<% } %>
+						<% 		}
+							}	%>
 					</tbody>
 				</table>
 			</div>

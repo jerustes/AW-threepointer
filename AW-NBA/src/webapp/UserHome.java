@@ -20,6 +20,7 @@ import org.hibernate.query.Query;
 import webapp.Entities.League;
 import webapp.Entities.League.State;
 import webapp.Entities.Lineup;
+import webapp.Entities.Status;
 import webapp.Entities.User;
 import webapp.Entities.User.Role;
 
@@ -40,6 +41,7 @@ public class UserHome extends HttpServlet {
 		configuration.configure(this.getClass().getResource("/hibernate.cfg.xml"));
 		configuration.addAnnotatedClass(League.class);
 		configuration.addAnnotatedClass(Lineup.class);
+		configuration.addAnnotatedClass(Status.class);
 		SessionFactory sessionFactory = configuration.buildSessionFactory();
 		Session ses = sessionFactory.openSession();
 		
@@ -73,23 +75,24 @@ public class UserHome extends HttpServlet {
 		}
 		session.setAttribute("leaguesUser", leagueList);
 		
-		String q3 = "from plantilla where user = :id";
+		String q3 = "from estado";
 		Query query3 = ses.createQuery(q3);
-		query3.setParameter("id",id);
-		List<Lineup> lineupList2 = query3.list();
-		
+		List<Status> statusList = (List<Status>) query3.list();
+		Status status = statusList.get(0);
+		session.setAttribute("status", status);
 		
 		//error cuando es null.
 		String q4 = "from liga where ";
-		for (Lineup lineup : lineupList2) {
+		for (Lineup lineup : lineupList) {
 			q4 += "id != "+ lineup.getLeague()+" and ";
 		}
 		q4 += "state = :state";
 		Query query4 = ses.createQuery(q4);
 		query4.setParameter("state",State.Inscripcion);
 		List<League> leagueList2 = query4.list();
-		if (leagueList2 == null) leagueList2 = Collections.emptyList();
-		else session.setAttribute("leaguesSubs", leagueList2);
+		if (!(leagueList2.isEmpty())) {
+			session.setAttribute("leaguesSubs", leagueList2);
+		}
 		
 		RequestDispatcher rd = request.getRequestDispatcher("UserHome.jsp");
 		rd.forward(request, response);

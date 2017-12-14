@@ -81,7 +81,6 @@
 		Status status = (Status) session.getAttribute("status");
 		List<User> listUsers = (List<User>) session.getAttribute("listUsers");
 		List<League> leaguesUser = (List<League>) session.getAttribute("leaguesUser");
-		List<League> leaguesAvail = (List<League>) session.getAttribute("leaguesSubs");
 	%>
 	
 	<div class="container-fluid">
@@ -104,10 +103,13 @@
 						}
 					%>
 					<%  
-						for (League lg : leaguesAvail) {
+						if (session.getAttribute("leagueSubs") != null) {
+							List<League> leaguesAvail = (List<League>) session.getAttribute("leaguesSubs");			
+							for (League lg : leaguesAvail) {
 					%>
 					<li><a href="JoinLeague?id=<%=lg.getId() %>"><%=lg.getName()%></a></li>
-					<% } %>
+					<% 		} 
+						}	%>
 
 <%-- 					<li class="active"><a href="#"><%=league.getName() %><span --%>
 <!-- 							class="sr-only">(current)</span></a></li> -->

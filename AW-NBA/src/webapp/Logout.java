@@ -21,7 +21,7 @@ public class Logout extends HttpServlet {
 	 */
 	private static final long serialVersionUID = -2492682936461161525L;
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html");
 		request.setCharacterEncoding("UTF-8");
@@ -31,21 +31,19 @@ public class Logout extends HttpServlet {
 //		configuration.addAnnotatedClass(User.class);
 //		SessionFactory sessionFactory = configuration.buildSessionFactory();
 //		Session ses = sessionFactory.openSession();
-		PrintWriter out = response.getWriter();
 		
 		User user = (User) session.getAttribute("user");
 		
 		//in case of error
 		if (user == null) {
-			out.println("No se detecta usuario, regístrese por favor");
+			System.out.println("No se detecta usuario, regístrese por favor");
 			response.sendRedirect("login.jsp");
 		}
 		
 		session.invalidate();
-		out.print("Usuario" + user.getName() + "saliendo de la aplicación..");
-		out.close();
+		System.out.println("Usuario" + user.getName() + "saliendo de la aplicaci�n.");
 
-		RequestDispatcher rd = request.getRequestDispatcher("Login.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
 		rd.forward(request, response);
 	}
 }
