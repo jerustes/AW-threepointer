@@ -71,7 +71,7 @@
 
 
 
-	<div class="container">
+		<div class="container">
 			<div class="table-responsive">
 				<h2>Lista de jornadas</h2>
 				<table class="table table-stripped">

@@ -41,7 +41,7 @@ public class Logout extends HttpServlet {
 		}
 		
 		session.invalidate();
-		System.out.println("Usuario" + user.getName() + "saliendo de la aplicación.");
+		System.out.println("Usuario " + user.getName() + " saliendo de la aplicación.");
 
 		RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
 		rd.forward(request, response);

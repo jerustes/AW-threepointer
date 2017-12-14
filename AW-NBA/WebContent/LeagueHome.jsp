@@ -292,6 +292,12 @@
 				</div>
 			</div>
         </div>
+        
+        <hr>
+
+		<footer>
+			<p>&copy; 2017 threepointer, org.</p>
+		</footer>
 	</div>
 	
 
