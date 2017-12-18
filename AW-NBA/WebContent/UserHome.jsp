@@ -66,11 +66,6 @@
 					<% for (League l : leaguesUser) { %>
 					<li><a href="ViewLeague?id=<%=l.getId() %>">League: <%=l.getName() %></a></li>
 					<% } %>
-					<% if (status.getPhase() == 1) { %>
-					<li><a href="MarketHomeServlet">Market</a></li>
-					<% } else if (status.getPhase() == 3) { %>
-					<li><a href="SummaryHomeServlet">Summary</a></li>
-					<% } %>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="UserHomeServlet?id=<%=user.getId() %>"><span class="glyphicon glyphicon-user"></span>

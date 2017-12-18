@@ -133,21 +133,21 @@
 				<div class="row placeholders">
 					<div class="col-xs-6 col-sm-3 placeholder">
 						<img
-							src=""
+							src="http://www.thesportsdb.com/images/media/league/badge/vvqvrq1454758668.png"
 							width="200" height="200" class="img-responsive"
-							alt="Generic placeholder thumbnail">
+							alt="Generic league thumbnail">
 	<!-- src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" -->
-						<h4>Logo o algo</h4>
-						<span class="text-muted">Something else</span>
+						<h4>Logo de la liga</h4>
+						<span class="text-muted"><%=league.getName() %></span>
 					</div>
 					<div class="col-xs-6 col-sm-3 placeholder">
 						<img
-							src=""
+							src="http://nba.dunkest.com/images/leagues/1.png?v1"
 							width="200" height="200" class="img-responsive"
-							alt="Generic placeholder thumbnail">
+							alt="Generic league thumbnail">
 	<!-- src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" -->
-						<h4>Logo o algo</h4>
-						<span class="text-muted">Something else</span>
+						<h4>Logo de tu equipo</h4>
+						<span class="text-muted"><%=lineupUser.get %></span>
 					</div>
 				</div>
 				
