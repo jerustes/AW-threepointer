@@ -147,7 +147,7 @@
 							alt="Generic league thumbnail">
 	<!-- src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" -->
 						<h4>Logo de tu equipo</h4>
-						<span class="text-muted"><%=lineupUser.get %></span>
+						<span class="text-muted"><%=currentUser.getName() %></span>
 					</div>
 				</div>
 				
