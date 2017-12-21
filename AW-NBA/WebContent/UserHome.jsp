@@ -66,22 +66,31 @@
         como al resto de vistas -->
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="UserHomeServlet?id=<%=user.getId() %>">User</a></li>	
-				
-					<% for (League l : leaguesUser) { %>
-					<li><p><form action="ViewLeague?id=<%=l.getId() %>" method="POST">
-					<div class = "button">
-						<button type="submit" class="btn btn-link btn-sm">League: <%=l.getName() %></button>
-					</div>
-					</form></p>	</li>
-					
-					<% } %>
+					<li class="active"><a
+						href="UserHomeServlet?id=<%=user.getId()%>">User</a></li>
+
+					<%
+						for (League l : leaguesUser) {
+					%>
+					<li><p>
+						<form action="ViewLeague?id=<%=l.getId()%>" method="POST">
+							<div class="button">
+								<button type="submit" class="btn btn-link btn-sm">
+									League:
+									<%=l.getName()%></button>
+							</div>
+						</form>
+					</p></li>
+
+					<%
+						}
+					%>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="UserHomeServlet?id=<%=user.getId() %>"><span class="glyphicon glyphicon-user"></span>
-							home </a></li>
-					<li><a href="LogoutServlet"><span class="glyphicon glyphicon-log-in"></span>
-							Salir</a></li>
+					<li><a href="UserHomeServlet?id=<%=user.getId()%>"><span
+							class="glyphicon glyphicon-user"></span> home </a></li>
+					<li><a href="LogoutServlet"><span
+							class="glyphicon glyphicon-log-in"></span> Salir</a></li>
 				</ul>
 			</div>
 			<!--/.navbar-collapse -->
@@ -91,7 +100,7 @@
 	<!-- Main jumbotron for primary info -->
 	<div class="jumbotron">
 		<div class="container">
-			<h1>Vista de Usuario</h1>
+			<h1>Usuario</h1>
 			<p>Vista de usuario desde donde puedes navegar tus ligas y ver
 			otras ligas disponibles en las que perder más de tu tiempo.</p>
 		</div>
@@ -180,6 +189,46 @@
 				</form></p>
 			</div>
 		</div>
+		
+		
+		<!-- FORMULARIO Crear Liga stylish
+		<div class="row">
+			<div class="col-md-10">
+				<h2>Crear nueva liga</h2>
+				<p><form class="form-horizontal" action="CreateLeague" method="POST">
+
+					<div class="form-group">
+						<label class="control-label col-sm-3" for="leaguename">Nombre:</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" name="name" id="leaguename">
+							<span class="help-block">Nombre de tu liga</span>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-3" for="max-usr">Máximo número de usuarios</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" name ="maxUsers" id="max-usr">
+							<span class="help-block">Entre 2 y 20 usuarios</span>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-3" for="init-bal">Saldo inicial:</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" name ="initBalance" id="initbal">
+							<span class="help-block">Saldo inicial máximo: 200.000</span>
+						</div>
+					</div>
+
+					<div class = "button col-sm-offset-3 col-sm-10" >
+						<button type="submit" class="btn btn-success btn-lg">Crear Liga</button>
+					</div>
+				</form></p>
+			</div>
+		</div>
+		-->
+		
 
 		<hr>
 

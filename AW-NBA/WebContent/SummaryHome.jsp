@@ -3,19 +3,26 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <link rel="icon" href="../../favicon.ico">
-    
-	<title>Vista Resumen</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport"
+	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<link rel="icon" href="../../favicon.ico">
 
-	<!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-	<!-- Custom styles for this template -->
-    <link href="css/summaryhome.css" rel="stylesheet">
+<title>Vista Resumen</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	crossorigin="anonymous">
+<!-- Custom styles for this template -->
+<link href="css/summaryhome.css" rel="stylesheet">
 </head>
 
 <body>
@@ -49,32 +56,41 @@
 						<div class = "navbar-brand">
 							<button type="submit" class="btn btn-link btn-lg">Vista de Resumen</button>
 						</div>
-					</form></p>
+					</form>
 				</div>
 			</div>
 			<!-- TODO: adaptar esto siguiente a que puedas navegar a otras opciones desde la vista de admin
         como al resto de vistas -->
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="UserHomeServlet?id=<%=currentUser.getId() %>">User</a></li>
-					<% for (League l : leaguesUser) { %>
-					<li><p><form action="ViewLeague?id=<%=l.getId() %>" method="POST">
-						<div class = "button">
-							<button type="submit" class="btn btn-link btn-sm">League: <%=l.getName() %></button>
-						</div>
-					</form></p>	</li>
-					<% } %>
-					<li class="active"><p><form action="SummaryHomeServlet" method="POST">
-						<div class = "button">
-							<button type="submit" class="btn btn-link btn-sm">Summary</button>
-						</div>
-					</form></p>	</li>
+					<li><a href="UserHomeServlet?id=<%=currentUser.getId()%>">User</a></li>
+					<%
+						for (League l : leaguesUser) {
+					%>
+					<li><p>
+						<form action="ViewLeague?id=<%=l.getId()%>" method="POST">
+							<div class="button">
+								<button type="submit" class="btn btn-link btn-sm">
+									League:<%=l.getName()%></button>
+							</div>
+						</form>
+					</p></li>
+					<%
+						}
+					%>
+					<li class="active"><p>
+						<form action="SummaryHomeServlet" method="POST">
+							<div class="button">
+								<button type="submit" class="btn btn-link btn-sm">Summary</button>
+							</div>
+						</form>
+					</p></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="UserHomeServlet?id=<%=currentUser.getId() %>"><span class="glyphicon glyphicon-user"></span>
-							home </a></li>
-					<li><a href="LogoutServlet"><span class="glyphicon glyphicon-log-in"></span>
-							Salir</a></li>
+					<li><a href="UserHomeServlet?id=<%=currentUser.getId()%>"><span
+							class="glyphicon glyphicon-user"></span> home </a></li>
+					<li><a href="LogoutServlet"><span
+							class="glyphicon glyphicon-log-in"></span> Salir</a></li>
 				</ul>
 			</div>
 			<!--/.navbar-collapse -->
@@ -84,7 +100,7 @@
 	<!-- Main jumbotron for primary info -->
 	<div class="jumbotron">
 		<div class="container">
-			<h1>Vista de Resumen de la Jornada</h1>
+			<h1>Resumen de la Jornada</h1>
 			<p>Vista de resumen de la jornada donde puedes acceder a tus resultados
 			de la última jornada, tanto de jugadores como de plantilla. Además,
 			puedes ver otros jugadores que han puntuado. Solo disponible durante

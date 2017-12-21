@@ -6,7 +6,7 @@
 		String data=(String)session.getAttribute( "fname" );
 		out.println(data);
 	} else {
-		out.println("Session is not active");
+		out.println("ERROR -- Session is not active");
 	}
 %>
 

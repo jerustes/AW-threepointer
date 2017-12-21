@@ -1,7 +1,9 @@
-body {
+body  {
 	padding-top: 40px;
 	padding-bottom: 40px;
-	background-color: #eee;
+	background-image:
+		url("https://images.designtrends.com/wp-content/uploads/2015/12/22060017/Basketball-Court-Background2.jpg");
+	/*background-color: #eee;*/
 }
 
 .form-signin {
