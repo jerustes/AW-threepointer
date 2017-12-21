@@ -106,7 +106,7 @@
 			<div class="col-md-12">
 				<p><form action="AdvanceStatus" method="POST">
 					<div class = "button">
-						<button type="submit" class="btn btn-default btn-lg">Avanzar fase</button>
+						<button type="submit" class="btn btn-primary btn-lg">Avanzar fase</button>
 					</div>		
 				</form></p>
 			</div>

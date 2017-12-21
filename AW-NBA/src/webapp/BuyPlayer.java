@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -77,6 +78,8 @@ public class BuyPlayer extends HttpServlet {
 				ses.saveOrUpdate(lineup);
 				System.out.println("Se puede comprar dicho jugador.");
 				Team team = new Team();
+				Random rn = new Random();
+				team.setId(rn.nextInt());
 				team.setPlayer(id);
 				team.setLineup(lineup.getId());
 				listTeams.add(team);
@@ -94,7 +97,8 @@ public class BuyPlayer extends HttpServlet {
 			lineup.setTeamLineup(teamPlayers);
 			lineup.setBalance(balance - (long) player.getValue());
 			Team team = new Team();
-			team.setId(listTeams.size()+1);
+			Random rn = new Random();
+			team.setId(rn.nextInt());
 			team.setPlayer(id);
 			team.setLineup(lineup.getId());
 			listTeams.add(team);

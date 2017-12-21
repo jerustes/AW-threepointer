@@ -262,13 +262,13 @@
 				<% if(status.getPhase()==1 && league.getState() == State.Activa){ %>
 				<p><form action="MarketHomeServlet" method="POST">
 					<div class = "button">
-						<button type="submit" class="btn btn-success btn-lg">Vista Mercado</button>
+						<button type="submit" class="btn btn-primary btn-lg">Vista Mercado</button>
 					</div>		
 				</form></p>
 				<% } else if (status.getPhase() == 3 && league.getState() == State.Activa){ %>
 				<p><form action="SummaryHomeServlet" method="POST">
 					<div class = "button">
-						<button type="submit" class="btn btn-success btn-lg">Vista Resumen</button>
+						<button type="submit" class="btn btn-info btn-lg">Vista Resumen</button>
 					</div>		
 				</form></p>
 				<% } %>

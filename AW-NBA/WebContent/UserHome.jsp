@@ -175,7 +175,7 @@
 						<span class="help-block">Saldo inicial máximo: 200.000</span>
 					
 					<div class = "button">
-						<button type="submit" class="btn btn-success btn-lg">Crear Liga</button>
+						<button type="submit" class="btn btn-default btn-lg">Crear Liga</button>
 					</div>
 				</form></p>
 			</div>
