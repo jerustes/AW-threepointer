@@ -6,8 +6,7 @@
 <hibernate-configuration>
   <session-factory name="java:hibernate/SessionFactory">
      <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-     <property name="connection.url">jdbc:mysql://localhost:3306/17_appweb_10d</property>
-     
+     <property name="connection.url">jdbc:mysql://mysql.lab.it.uc3m.es:3306/17_appweb_10d</property>
      <property name="connection.username">17_appweb_10</property>
      <property name="connection.password">02V,b8b1</property>
      <property name="connection.pool_size">5</property>
