@@ -105,9 +105,9 @@
 			</div>
 			<div class="col-md-12">
 				<p><form action="AdvanceStatus" method="POST">
-					<button type="submit" class="btn btn-default btn-lg" value="Avanzar fase">
-					
-					<!-- <input type="" > -->		
+					<div class = "button">
+						<button type="submit" class="btn btn-default btn-lg">Avanzar fase</button>
+					</div>		
 				</form></p>
 			</div>
 

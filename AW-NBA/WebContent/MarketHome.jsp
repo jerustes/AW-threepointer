@@ -42,7 +42,11 @@
 					<span class="icon-bar"></span>
 				</button>
 				<div class="navbar-header">
-					<a class="navbar-brand" href="MarketHomeServlet">Vista de Mercado</a>
+					<form action="MarketHomeServlet" method="POST">
+						<div class = "navbar-brand">
+							<button type="submit" class="btn btn-link btn-lg">Vista de Mercado</button>
+						</div>
+					</form></p>
 				</div>
 			</div>
 			<!-- TODO: adaptar esto siguiente a que puedas navegar a otras opciones desde la vista de admin
@@ -51,9 +55,17 @@
 				<ul class="nav navbar-nav">
 					<li><a href="UserHomeServlet?id=<%=currentUser.getId() %>">User</a></li>
 					<% for (League l : leaguesUser) { %>
-					<li><a href="ViewLeague?id=<%=l.getId() %>">League: <%=l.getName() %></a></li>
+					<li><p><form action="ViewLeague?id=<%=l.getId() %>" method="POST">
+						<div class = "button">
+							<button type="submit" class="btn btn-link btn-sm">League: <%=l.getName() %></button>
+						</div>
+					</form></p>	</li>
 					<% } %>
-					<li class="active"><a href="MarketHomeServlet">Market</a></li>
+					<li class="active"><p><form action="MarketHomeServlet" method="POST">
+						<div class = "button">
+							<button type="submit" class="btn btn-link btn-sm">Market</button>
+						</div>
+					</form></p>	</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="UserHomeServlet?id=<%=currentUser.getId() %>"><span class="glyphicon glyphicon-user"></span>
@@ -126,8 +138,10 @@
 						<td><%= bballer.getPosition() %></td>
 						<td><%= bballer.getValue() %></td>
 						<td><%= bballer.getPointsGlobal() %></td>
-						<td><a href=SellPlayer?id=<%= bballer.getId() %>>
-						Vender a <%= bballer.getName() %></a></td>
+						<td><p><form action="SellPlayer?id=<%= bballer.getId() %>" method="POST">
+							<button type="submit" class="btn btn-danger btn-sm">Vender a <%= bballer.getName() %></button>		
+						</form></p></td>
+						
 					</tr>
 				<% } %>
 				</tbody>
@@ -162,8 +176,9 @@
 						<td><%= marketPlayers.get(i).getPosition() %></td>
 						<td><%= marketPlayers.get(i).getValue() %></td>
 						<td><%= marketPlayers.get(i).getPointsGlobal() %></td>
-						<td><a href=BuyPlayer?id=<%= marketPlayers.get(i).getId() %>>
-						Comprar a <%= marketPlayers.get(i).getName() %></a></td>
+						<td><p><form action="BuyPlayer?id=<%= marketPlayers.get(i).getId() %>" method="POST">
+							<button type="submit" class="btn btn-success btn-sm">Comprar a <%= marketPlayers.get(i).getName() %></button>		
+						</form></p></td>
 					</tr>
 				<% } %>
 				</tbody>

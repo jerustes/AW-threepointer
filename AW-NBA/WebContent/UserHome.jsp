@@ -40,6 +40,10 @@
 		User user = (User) session.getAttribute("user");
 		List<User> listUsers = (List<User>) session.getAttribute("listUsers");
 		List<League> leaguesUser = (List<League>) session.getAttribute("leaguesUser");
+		List<League> leaguesAvail = null;
+		if (session.getAttribute("leaguesSubs") != null) {
+			leaguesAvail = (List<League>) session.getAttribute("leaguesSubs");
+		}
 	%>
 
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -62,9 +66,15 @@
         como al resto de vistas -->
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="UserHomeServlet?id=<%=user.getId() %>">User</a></li>
+					<li class="active"><a href="UserHomeServlet?id=<%=user.getId() %>">User</a></li>	
+				
 					<% for (League l : leaguesUser) { %>
-					<li><a href="ViewLeague?id=<%=l.getId() %>">League: <%=l.getName() %></a></li>
+					<li><p><form action="ViewLeague?id=<%=l.getId() %>" method="POST">
+					<div class = "button">
+						<button type="submit" class="btn btn-link btn-sm">League: <%=l.getName() %></button>
+					</div>
+					</form></p>	</li>
+					
 					<% } %>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
@@ -108,8 +118,10 @@
 						<tr>
 							<td><%=leg.getName()%></td>
 							<td><%=leg.getState()%></td>
-							<td><a href="ViewLeague?id=<%=leg.getId()%>">Ver
-									liga <%=leg.getId()%></td>
+							<td><p><form action="ViewLeague?id=<%=leg.getId()%>" method="POST">			
+										<button type="submit" class="btn btn-info btn-xs">Ver liga
+										<%=leg.getId()%></button>		
+								</form></p></td>
 						</tr>
 						<% } %>
 					</tbody>
@@ -128,16 +140,16 @@
 					</thead>
 					<tbody>
 						<%
-							if (session.getAttribute("leagueSubs") != null) {
-								List<League> leaguesAvail = (List<League>) session.getAttribute("leaguesSubs");
+							if (leaguesAvail != null) {
 								for (League lg : leaguesAvail) {
 						%>
 						<tr>
 							<td><%=lg.getName()%></td>
 							<td><%=lg.getState()%></td>
-							<td><a href="JoinLeague?id=<%=lg.getId()%>">Unirse
-									a liga <%=lg.getId()%></a>
-								</form></td>
+							<td><p><form action="JoinLeague?id=<%=lg.getId()%>" method="POST">			
+										<button type="submit" class="btn btn-primary btn-xs">Unirse
+										a liga <%=lg.getId()%></button>		
+								</form></p></td>
 						</tr>
 						<% 		}
 							}	%>
@@ -147,37 +159,25 @@
 			
 		</div>
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-3">
 				<h2>Crear nueva liga</h2>
-				<p>
-					<div class="form-group">
-						<label class="control-label col-sm-3" for="leaguename">Nombre:</label>
-						<div class="col-sm-6">
-							<input type="text" class="form-control" id="leaguename">
-							<span class="help-block">Nombre de tu liga</span>
-						</div>
+				<p><form action="CreateLeague" method="POST">
+					<label for="leaguename">Nombre:</label>
+						<input type="text" class="form-control" name="name" id="leaguename">
+						<span class="help-block">Nombre de tu liga</span>
+							
+					<label for="max-usr">Máximo número de usuarios</label> 		
+						<input type="text" class="form-control" name ="maxUsers" id="max-usr"> 
+						<span class="help-block">Entre 2 y 20 usuarios</span>
+
+					<label for="init-bal">Saldo inicial:</label> 
+						<input type="text" class="form-control" name ="initBalance" id="initbal"> 
+						<span class="help-block">Saldo inicial máximo: 200.000</span>
+					
+					<div class = "button">
+						<button type="submit" class="btn btn-success btn-lg">Crear Liga</button>
 					</div>
-					<div class="form-group">
-						<label class="control-label col-sm-3" for="max-usr">Máximo número de usuarios</label> 
-						<div class="col-sm-6">
-							<input type="text" class="form-control" id="max-usr"> <span
-								class="help-block">Entre 2 y 20 usuarios</span>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-sm-3" for="init-bal">Saldo inicial:</label> 
-						<div class="col-sm-6">
-							<input type="text" class="form-control" id="initbal"> <span
-								class="help-block">Saldo inicial máximo: 200.000</span>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-sm-offset-3 col-sm-10">
-							<a class="btn btn-success btn-lg" href="CreateLeague"
-								role="button" method="POST">Crear liga</a>
-						</div>
-					</div>
-				</form>
+				</form></p>
 			</div>
 		</div>
 

@@ -42,6 +42,7 @@ public class CreateLeague extends HttpServlet {
 		Configuration configuration = new Configuration();
 		configuration.configure(this.getClass().getResource("/hibernate.cfg.xml"));
 		configuration.addAnnotatedClass(League.class);
+		configuration.addAnnotatedClass(Lineup.class);
 		SessionFactory sessionFactory = configuration.buildSessionFactory();
 		Session ses = sessionFactory.openSession();
 		User user = (User) session.getAttribute("user");

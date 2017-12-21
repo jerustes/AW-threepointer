@@ -45,7 +45,11 @@
 					<span class="icon-bar"></span>
 				</button>
 				<div class="navbar-header">
-					<a class="navbar-brand" href="SummaryHomeServlet">Vista de Resumen</a>
+					<form action="SummaryHomeServlet" method="POST">
+						<div class = "navbar-brand">
+							<button type="submit" class="btn btn-link btn-lg">Vista de Resumen</button>
+						</div>
+					</form></p>
 				</div>
 			</div>
 			<!-- TODO: adaptar esto siguiente a que puedas navegar a otras opciones desde la vista de admin
@@ -54,9 +58,17 @@
 				<ul class="nav navbar-nav">
 					<li><a href="UserHomeServlet?id=<%=currentUser.getId() %>">User</a></li>
 					<% for (League l : leaguesUser) { %>
-					<li><a href="ViewLeague?id=<%=l.getId() %>">League: <%=l.getName() %></a></li>
+					<li><p><form action="ViewLeague?id=<%=l.getId() %>" method="POST">
+						<div class = "button">
+							<button type="submit" class="btn btn-link btn-sm">League: <%=l.getName() %></button>
+						</div>
+					</form></p>	</li>
 					<% } %>
-					<li class="active"><a href="SummaryHomeServlet">Summary</a></li>
+					<li class="active"><p><form action="SummaryHomeServlet" method="POST">
+						<div class = "button">
+							<button type="submit" class="btn btn-link btn-sm">Summary</button>
+						</div>
+					</form></p>	</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="UserHomeServlet?id=<%=currentUser.getId() %>"><span class="glyphicon glyphicon-user"></span>
