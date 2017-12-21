@@ -80,18 +80,37 @@ public class AdvanceStatus extends HttpServlet {
 			status.setPhase(3);
 			
 			// Actualización puntos de la plantilla.
-			Query query3 = ses.createQuery("from plantilladeportista");
-			List<Team> allTeams = (List<Team>) query3.list();
+			String q2 = "from liga where state = :state";
+			Query query2 = ses.createQuery(q2);
+			query2.setParameter("state", State.Activa);
+			List<League> activeLeagues = (List<League>) query2.list();
+			
+			String q3 = "from plantilla where ";
+			for (League lg : activeLeagues) {
+				q3 += "league = "+lg.getId()+" or ";
+			}
+			q3 += "1=0";
+			Query query3 = ses.createQuery(q3);
+			List<Lineup> activeLineups = (List<Lineup>) query3.list();
+			
+			String q4 = "from plantilladeportista where ";
+			for (Lineup lp : activeLineups) {
+				q4 += "lineup = "+lp.getId()+" or ";
+			}
+			q4 += "1=0";
+			Query query4 = ses.createQuery(q4);
+			List<Team> allTeams = (List<Team>) query4.list();
 			
 			for (Team team : allTeams) {
-				String q4 = "from plantilla where id = :lineup";
-				Query query4 = ses.createQuery(q4);
-				query4.setParameter("lineup", team.getLineup());
-				Lineup lineup = (Lineup) query4.list().get(0);
-				String q5 = "from deportista where id = :player";
+				String q5 = "from plantilla where id = :lineup";
 				Query query5 = ses.createQuery(q5);
-				query5.setParameter("player", team.getPlayer());
-				Player player = (Player) query5.list().get(0);
+				query5.setParameter("lineup", team.getLineup());
+				Lineup lineup = (Lineup) query5.list().get(0);
+				
+				String q6 = "from deportista where id = :player";
+				Query query6 = ses.createQuery(q6);
+				query6.setParameter("player", team.getPlayer());
+				Player player = (Player) query6.list().get(0);
 				int pointsLineup = lineup.getPoints();
 				int weekPoints = player.getPointsWeek();
 				lineup.setPoints(pointsLineup + weekPoints);
@@ -99,9 +118,9 @@ public class AdvanceStatus extends HttpServlet {
 			}
 			
 			//Actualización puntos de los jugadores y del precio.
-			String q2 = "from deportista";
-			Query query2 = ses.createQuery(q2);
-			List<Player> allPlayers = (List<Player>) query2.list();
+			String q7 = "from deportista";
+			Query query7 = ses.createQuery(q7);
+			List<Player> allPlayers = (List<Player>) query7.list();
 			for (Player player : allPlayers) {
 				int pointsPlayer = player.getPointsGlobal();
 				int weekPoints = player.getPointsWeek();

@@ -64,14 +64,59 @@ public class BuyPlayer extends HttpServlet {
 		Query query1 = ses.createQuery(q1);
 		query1.setParameter("id", id);
 		Player player = (Player) query1.list().get(0);
-		long balance = lineup.getBalance();
-		List<Player> teamLineup = lineup.getTeamLineup();
+		
 		
 		String q2 = "from plantilladeportista";
 		Query query2 = ses.createQuery(q2);
 		List<Team> listTeams = (List<Team>) query2.list();
 		
-		try {
+		long balance = lineup.getBalance();
+		List<Player> teamLineup = lineup.getTeamLineup();
+		
+		if (teamLineup == null) {
+			List<Player> teamPlayers = new ArrayList<Player>();
+			teamPlayers.add(player);
+			lineup.setTeamLineup(teamPlayers);
+			lineup.setBalance(balance - (long) player.getValue());
+			System.out.println("La plantilla está vacía.");
+			System.out.println("Se puede comprar dicho jugador.");
+			Team team = new Team();
+			Random rn = new Random();
+			team.setId(rn.nextInt());
+			team.setPlayer(id);
+			team.setLineup(lineup.getId());
+			listTeams.add(team);
+			ses.saveOrUpdate(team);
+			ses.saveOrUpdate(lineup);
+		} else if (balance > player.getValue() && teamLineup.size() < 5) {
+			teamLineup.add(player);
+			lineup.setBalance(balance - (long) player.getValue());
+			ses.saveOrUpdate(lineup);
+			System.out.println("Se puede comprar dicho jugador.");
+			Team team = new Team();
+			Random rn = new Random();
+			team.setId(rn.nextInt());
+			team.setPlayer(id);
+			team.setLineup(lineup.getId());
+			listTeams.add(team);
+			ses.saveOrUpdate(team);
+		} else if (balance < player.getValue()) {
+			System.out.println("No hay suficiente saldo para comprar dicho jugador");
+		} else if (teamLineup.size() >= 5) {
+			System.out.println("El equipo ya cuenta con el número máximo de deportistas");
+		}
+		
+		tx.commit();
+		ses.close();
+		
+		RequestDispatcher rd = request.getRequestDispatcher("MarketHome.jsp");
+		rd.forward(request, response);
+		
+	}
+
+}
+		
+		/*try {
 			if (balance > player.getValue() && teamLineup.size() < 5) {
 				teamLineup.add(player);
 				lineup.setBalance(balance - (long) player.getValue());
@@ -108,13 +153,6 @@ public class BuyPlayer extends HttpServlet {
 			ses.close();
 			RequestDispatcher rd = request.getRequestDispatcher("MarketHome.jsp");
 			rd.forward(request, response);
-		}
+		}*/
 		
-		ses.close();
-		
-		RequestDispatcher rd = request.getRequestDispatcher("MarketHome.jsp");
-		rd.forward(request, response);
-		
-	}
 
-}
