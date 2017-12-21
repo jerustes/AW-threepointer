@@ -104,16 +104,12 @@
 				</p>
 			</div>
 			<div class="col-md-12">
-				<p>
-					<a class="btn btn-default btn-lg" href="AdvanceStatus" role="button" 
-						method="POST">Avanzar fase</a>
+				<p><form action="AdvanceStatus" method="POST">
+					<button type="submit" class="btn btn-default btn-lg" value="Avanzar fase">
 					
-					<!--  form action="AdvanceStatus" method="POST">
-					<input type="submit" value="Avanzar de fase" >
-					</form -->
-		
-				</p>
-		</div>
+					<!-- <input type="" > -->		
+				</form></p>
+			</div>
 
 		<hr>
 
