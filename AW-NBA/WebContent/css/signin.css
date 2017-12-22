@@ -14,10 +14,12 @@ body  {
 
 .form-signin .form-signin-heading, .form-signin .checkbox {
 	margin-bottom: 10px;
+	color: white;
 }
 
 .form-signin .checkbox {
 	font-weight: normal;
+	color: white;
 }
 
 .form-signin .form-control {
