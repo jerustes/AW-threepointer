@@ -56,7 +56,7 @@ public class BuyPlayer extends HttpServlet {
 			System.out.println("Usuario o contraseÃ±a incorrectas");
 			response.sendRedirect("login.jsp");
 		} else if (lineup.getLeague() != league.getId()) {
-			System.out.println("Error, redireccionar a página de error.");
+			System.out.println("Error, redireccionar a pï¿½gina de error.");
 			response.sendRedirect("error.jsp");
 		}
 		
@@ -71,14 +71,16 @@ public class BuyPlayer extends HttpServlet {
 		List<Team> listTeams = (List<Team>) query2.list();
 		
 		long balance = lineup.getBalance();
+		boolean canBuy = true;
 		List<Player> teamLineup = lineup.getTeamLineup();
 		
 		if (teamLineup == null) {
+			//Empty lineup: create new array of players and fill
 			List<Player> teamPlayers = new ArrayList<Player>();
 			teamPlayers.add(player);
 			lineup.setTeamLineup(teamPlayers);
 			lineup.setBalance(balance - (long) player.getValue());
-			System.out.println("La plantilla está vacía.");
+			System.out.println("La plantilla estï¿½ vacï¿½a.");
 			System.out.println("Se puede comprar dicho jugador.");
 			Team team = new Team();
 			Random rn = new Random();
@@ -88,36 +90,24 @@ public class BuyPlayer extends HttpServlet {
 			listTeams.add(team);
 			ses.saveOrUpdate(team);
 			ses.saveOrUpdate(lineup);
-		} else if (balance > player.getValue() && teamLineup.size() < 5) {
-			teamLineup.add(player);
-			lineup.setBalance(balance - (long) player.getValue());
-			ses.saveOrUpdate(lineup);
-			System.out.println("Se puede comprar dicho jugador.");
-			Team team = new Team();
-			Random rn = new Random();
-			team.setId(rn.nextInt());
-			team.setPlayer(id);
-			team.setLineup(lineup.getId());
-			listTeams.add(team);
-			ses.saveOrUpdate(team);
 		} else if (balance < player.getValue()) {
+			//no money
+			canBuy = false;
 			System.out.println("No hay suficiente saldo para comprar dicho jugador");
 		} else if (teamLineup.size() >= 5) {
-			System.out.println("El equipo ya cuenta con el número máximo de deportistas");
-		}
-		
-		tx.commit();
-		ses.close();
-		
-		RequestDispatcher rd = request.getRequestDispatcher("MarketHome.jsp");
-		rd.forward(request, response);
-		
-	}
-
-}
-		
-		/*try {
-			if (balance > player.getValue() && teamLineup.size() < 5) {
+			//no space
+			canBuy = false;
+			System.out.println("El equipo ya cuenta con el nï¿½mero mï¿½ximo de deportistas");
+		} else if (balance > player.getValue() && teamLineup.size() < 5) {
+			//CAN BUY
+				//loop checking you can't buy same player twice
+			for (Player p : teamLineup) {
+				if (p.getId() == player.getId()) {
+					//Cannot buy player, you already have that player
+					canBuy = false;
+				}
+			}
+			if(canBuy) {
 				teamLineup.add(player);
 				lineup.setBalance(balance - (long) player.getValue());
 				ses.saveOrUpdate(lineup);
@@ -129,30 +119,15 @@ public class BuyPlayer extends HttpServlet {
 				team.setLineup(lineup.getId());
 				listTeams.add(team);
 				ses.saveOrUpdate(team);
-				tx.commit();
-			} else if (balance < player.getValue()) {
-				System.out.println("No hay suficiente saldo para comprar dicho jugador");
-			} else if (teamLineup.size() >= 5) {
-				System.out.println("El equipo ya cuenta con el número máximo de deportistas");
 			}
-		} catch (NullPointerException e) {
-			// If the teamLineup is null, create new listPlayers.
-			List<Player> teamPlayers = new ArrayList<Player>();
-			teamPlayers.add(player);
-			lineup.setTeamLineup(teamPlayers);
-			lineup.setBalance(balance - (long) player.getValue());
-			Team team = new Team();
-			Random rn = new Random();
-			team.setId(rn.nextInt());
-			team.setPlayer(id);
-			team.setLineup(lineup.getId());
-			listTeams.add(team);
-			ses.saveOrUpdate(team);
-			ses.saveOrUpdate(lineup);
-			tx.commit();
-			ses.close();
-			RequestDispatcher rd = request.getRequestDispatcher("MarketHome.jsp");
-			rd.forward(request, response);
-		}*/
+		} 
 		
+		tx.commit();
+		ses.close();
+		
+		RequestDispatcher rd = request.getRequestDispatcher("MarketHome.jsp");
+		rd.forward(request, response);
+		
+	}
 
+}
